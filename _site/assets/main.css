@@ -13,7 +13,7 @@ dl, dd, ol, ul, figure {
 body {
   font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #111;
-  background-color: #fdfdfd;
+  background-color: #f0f0f5;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
   -moz-font-feature-settings: "kern" 1;
@@ -66,10 +66,10 @@ h1, h2, h3, h4, h5, h6 {
  * Links
  */
 a {
-  color: #2a7ae2;
+  color: #3d3d5c;
   text-decoration: none; }
   a:visited {
-    color: #1756a9; }
+    color: #1f1f2e; }
   a:hover {
     color: #111;
     text-decoration: underline; }
@@ -187,7 +187,7 @@ pre {
       position: absolute;
       top: 9px;
       right: 15px;
-      background-color: #fdfdfd;
+      background-color: #f0f0f5;
       border: 1px solid #e8e8e8;
       border-radius: 5px;
       text-align: right; }
@@ -277,7 +277,8 @@ pre {
  * Page content
  */
 .page-content {
-  padding: 30px 0; }
+  padding: 30px 0;
+  background: #fdfdfd; }
 
 .page-heading {
   font-size: 20px; }
