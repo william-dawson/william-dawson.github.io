@@ -3,6 +3,7 @@ layout: post
 title:  "Sparse Matrix Conjugate Gradient"
 date:   2017-09-01 11:00:00 +0900
 categories: blog method
+draft: true
 ---
 
 In the previous blog post, I introduced Hotelling's method for computing
