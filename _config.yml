@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: William Dawson Github
+title: william-dawson.github.io
 email: william.dawson@riken.jp
 description: An overview of my projects on github, and updates on my current work.
 baseurl: "" # the subpath of your site, e.g. /blog
