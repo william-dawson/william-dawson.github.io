@@ -59,3 +59,26 @@ dot product of each row (element-wise multiplication). And for the full trace,
 we just sum up those dot products. This means not only can we avoid performing
 the matrix multiplication, but we can even do this perfectly in parallel, and
 avoid any communication besides the final all-reduce of a single value.
+
+{% highlight python %}
+# Libraries
+from sys import argv
+from numpy import multiply, trace
+from numpy import sum as np_sum
+from numpy.random import rand
+
+# Make Matrices
+matrix_dimension = int(argv[1])
+MatrixA = rand(matrix_dimension, matrix_dimension)
+MatrixA = MatrixA + MatrixA.T
+MatrixB = rand(matrix_dimension, matrix_dimension)
+MatrixB = MatrixB + MatrixB.T
+
+# Compute Traces
+check_value = trace(MatrixA.dot(MatrixB))
+new_value = np_sum(multiply(MatrixA, MatrixB))
+
+# Check Answer
+print(check_value)
+print(new_value)
+{% endhighlight %}
