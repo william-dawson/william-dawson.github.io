@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 My name is William Dawson and I am currently a postdoctoral researcher
-at the RIKEN [Advanced Institute for Computational Science](http://www.aics.riken.jp/jp/). My main research interest are
+at the RIKEN [Advanced Institute for Computational Science](http://www.aics.riken.jp/jp/). My main research interest is
 electronic structure calculations. My current focus is on large scale
 quantum chemistry calculations.
 
