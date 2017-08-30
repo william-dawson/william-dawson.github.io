@@ -75,9 +75,8 @@ Now lets expand to the matrix case. It's easiest to think of the matrix
 case as being the vector case, but you're trying to solve for multiple
 right hand sides. Matrix-vector multiplication is now
 matrix-matrix multiplication, because that's how you multiply a matrix by
-a set of vectors. For the dot products, we can take the trace of the matrix
-product, because the diagonal of A*A contains the dot products of each column
-of A.
+a set of vectors. For the dot products, we just pairwise multiply the
+matrices and sum up their elements.
 
 {% highlight python %}
 # Libraries
@@ -94,16 +93,16 @@ sparsity = float(argv[2])
 A = rand(dimension, dimension, density=sparsity, format="csr")
 A = A + A.T + identity(dimension)
 X = identity(dimension)
-B = rand(dimension, dimension, density=sparsity, format="csr")
-B = B + B.T
+B = identity(dimension)
 
 # Iterate
 R = B - A.dot(X)
 P = R.copy()
-for i in range(0,100):
+for i in range(0,1000):
   AP = A.dot(P)
-  top = numpy.trace((R.T.dot(R)).todense())
-  bottom = numpy.trace((P.T.dot(AP)).todense())
+  AP = 0.5*(AP.T + AP)
+  top = ((R.T).multiply(R)).sum()
+  bottom = ((P.T).multiply(AP)).sum()
   alpha = top / bottom
 
   X = X + alpha * P
@@ -112,15 +111,14 @@ for i in range(0,100):
   norm_value = norm(R)
   if norm_value < 1e-8:
     break
-  new_top = numpy.trace((R.T.dot(R)).todense())
+  new_top = ((R.T).multiply(R)).sum()
   beta = new_top/top
   P = R + beta * P
 
 print("Done:", i, norm_value)
 {% endhighlight %}
 
-On a side note, I sure wish scipy had a sparse trace routine. But we'll return
-to this point about the trace...
+I snuck in a symmetrizing operation because I noticed some drift.
 
 How do these two methods compare in performance? Let's take a look.
 > [1] https://en.wikipedia.org/wiki/Conjugate_gradient_method
