@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Sparse Matrix Conjugate Gradient"
-date:   2017-09-01 11:00:00 +0900
+date:   2017-10-01 11:00:00 +0900
 categories: blog method
-draft: true
+draft: false
 ---
 
 In the previous blog post, I introduced Hotelling's method for computing
@@ -76,7 +76,7 @@ case as being the vector case, but you're trying to solve for multiple
 right hand sides. Matrix-vector multiplication is now
 matrix-matrix multiplication, because that's how you multiply a matrix by
 a set of vectors. For the dot products, we just pairwise multiply the
-matrices and sum up their elements.
+matrices and sum up their elements (see the last blog post).
 
 {% highlight python %}
 # Libraries
@@ -120,7 +120,12 @@ print("Done:", i, norm_value)
 
 I snuck in a symmetrizing operation because I noticed some drift.
 
-How do these two methods compare in performance? Let's take a look.
+One important difference between using CG and Hotelling's method is that we
+can also introduce a preconditioner into the mix. Additionally, there are
+often situations where we have a good guess for a solution, and just want
+to use CG to refine it. Perhaps in a future blog post we can study the
+performance comparison closer...
+
 > [1] https://en.wikipedia.org/wiki/Conjugate_gradient_method
 
 > [2] Shewchuk, Jonathan Richard. "An introduction to the conjugate gradient
