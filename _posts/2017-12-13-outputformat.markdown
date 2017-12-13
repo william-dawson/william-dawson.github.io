@@ -222,4 +222,5 @@ printer best interact with the calling program. Perhaps my progress will make
 for a good future blog post.
 
 > [1] http://www.qboxcode.org/
+
 > [2] http://bigdft.org/Wiki/index.php?title=BigDFT_website
