@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Publications
-permalink: /current/
+permalink: /publications/
 ---
 
 Below please find a list of my publications.
