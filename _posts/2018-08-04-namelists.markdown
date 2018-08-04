@@ -3,7 +3,7 @@ layout: post
 title:  "A Program For Managing Namelists"
 date:   2018-08-04 11:00:00 +0900
 categories: blog scripts
-draft: true
+draft: false
 ---
 
 Recently, I like to stay in the office late once or twice a week. I'll break up
