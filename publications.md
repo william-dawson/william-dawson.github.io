@@ -6,6 +6,12 @@ permalink: /publications/
 
 Below please find a list of my publications.
 
+- [Chan, Bun, Yukio Kawashima, William Dawson, Michio Katouda, 
+Takahito Nakajima, and Kimihiko Hirao. "A Simple Model for Relative Energies of 
+All Fullerenes Reveals the Interplay between Intrinsic Resonance and Structural 
+Deformation Effects in Medium-Sized Fullerenes." Journal of chemical theory and computation (2019).
+](https://pubs.acs.org/doi/abs/10.1021/acs.jctc.8b00981)
+
 - [Dawson, William, and François Gygi. "Equilibration and analysis of
 first-principles molecular dynamics simulations of water." The Journal of
 chemical physics 148, no. 12 (2018): 124501.

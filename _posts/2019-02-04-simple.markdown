@@ -3,7 +3,7 @@ layout: post
 title:  "A Simple Solver In Python"
 date:   2019-02-04 11:00:00 +0900
 categories: blog
-draft: true
+draft: false
 ---
 
 In this blog post, I would to introduce a simple Schrödinger equation solver
