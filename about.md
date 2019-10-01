@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-My name is William Dawson and I am currently a postdoctoral researcher
+My name is William Dawson and I am currently a research scientist
 at the RIKEN
 [Center for Computational Science](http://www.riken.jp/en/research/labs/r-ccs/).
 My main research interest is on designing algorithms and writing programs for
