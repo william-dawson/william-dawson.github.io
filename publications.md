@@ -9,8 +9,8 @@ Below please find a list of my publications.
 - [Zaccaria, Marco, William Dawson, Viviana Cristiglio, Massimo Reverberi,
 Laura E. Ratcliff, Takahito Nakajima, Luigi Genovese, and Babak Momeni.
 "Designing a bioremediator: mechanistic models guide cellular and molecular
-specialization." Current Opinion in Biotechnology 62 (2020): 98-105.]
-(https://www.sciencedirect.com/science/article/pii/S0958166919300758)
+specialization." Current Opinion in Biotechnology 62 (2020): 98-105.
+](https://www.sciencedirect.com/science/article/pii/S0958166919300758)
 
 - [Chan, Bun, Yukio Kawashima, William Dawson, Michio Katouda,
 Takahito Nakajima, and Kimihiko Hirao. "A Simple Model for Relative Energies of
