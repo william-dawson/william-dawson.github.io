@@ -6,9 +6,15 @@ permalink: /publications/
 
 Below please find a list of my publications.
 
-- [Chan, Bun, Yukio Kawashima, William Dawson, Michio Katouda, 
-Takahito Nakajima, and Kimihiko Hirao. "A Simple Model for Relative Energies of 
-All Fullerenes Reveals the Interplay between Intrinsic Resonance and Structural 
+- [Zaccaria, Marco, William Dawson, Viviana Cristiglio, Massimo Reverberi,
+Laura E. Ratcliff, Takahito Nakajima, Luigi Genovese, and Babak Momeni.
+"Designing a bioremediator: mechanistic models guide cellular and molecular
+specialization." Current Opinion in Biotechnology 62 (2020): 98-105.]
+(https://www.sciencedirect.com/science/article/pii/S0958166919300758)
+
+- [Chan, Bun, Yukio Kawashima, William Dawson, Michio Katouda,
+Takahito Nakajima, and Kimihiko Hirao. "A Simple Model for Relative Energies of
+All Fullerenes Reveals the Interplay between Intrinsic Resonance and Structural
 Deformation Effects in Medium-Sized Fullerenes." Journal of chemical theory and computation (2019).
 ](https://pubs.acs.org/doi/abs/10.1021/acs.jctc.8b00981)
 
