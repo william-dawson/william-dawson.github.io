@@ -6,9 +6,7 @@ permalink: /publications/
 
 Below please find a list of my publications.
 
-- [Dawson, William, Stephan Mohr, Laura E. Ratcliff, Takahito Nakajima,
-and Luigi Genovese "Complexity Reduction in Density Functional Theory Calculations of Large Systems: System Partitioning and Fragment Embedding." Journal of chemical theory and
-computation (2020).
+- [Dawson, William, Stephan Mohr, Laura E. Ratcliff, Takahito Nakajima, and Luigi Genovese. "Complexity Reduction in Density Functional Theory Calculations of Large Systems: System Partitioning and Fragment Embedding." Journal of Chemical Theory and Computation 16, no. 5 (2020): 2952-2964.
 ](https://pubs.acs.org/doi/10.1021/acs.jctc.9b01152)
 
 - [Zaccaria, Marco, William Dawson, Viviana Cristiglio, Massimo Reverberi,
