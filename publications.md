@@ -6,6 +6,8 @@ permalink: /publications/
 
 Below please find a list of my publications.
 
+- [Ratcliff, Laura E., William Dawson, Giuseppe Fisicaro, Damien Caliste, Stephan Mohr, Augustin Degomme, Brice Videau et al. "Flexibilities of wavelets as a computational basis set for large-scale electronic structure calculations." The Journal of Chemical Physics 152, no. 19 (2020): 194110.](https://aip.scitation.org/doi/full/10.1063/5.0004792)
+
 - [Dawson, William, Stephan Mohr, Laura E. Ratcliff, Takahito Nakajima, and Luigi Genovese. "Complexity Reduction in Density Functional Theory Calculations of Large Systems: System Partitioning and Fragment Embedding." Journal of Chemical Theory and Computation 16, no. 5 (2020): 2952-2964.
 ](https://pubs.acs.org/doi/10.1021/acs.jctc.9b01152)
 
