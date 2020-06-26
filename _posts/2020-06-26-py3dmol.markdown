@@ -1,4 +1,11 @@
-# py3Dmol
+---
+layout: post
+title:  "Using py3Dmol"
+date:   2020-06-26 11:00:00 +0900
+categories: blog
+draft: false
+---
+
 In this blog post, I want to introduce a very useful tool: [py3Dmol](https://pypi.org/project/py3Dmol/). py3Dmol is python wrapper for the 3Dmol javascript library, which can be used to create visualizations of molecular systems. I find this tool incredibly useful because it means we can visualize a system inside a jupyter notebook. This means that when you're setting up a system, or analyzing results about it, you don't have to leave the notebook, which means you get quick feedback, and can easily share results. For this reason, I've added it to the PyBigDFT library as the `InlineVisualizor` class.
 
 Unfortunately, the documentation is lacking. I think the developers are mainly concerned with making it easy for you to show a molecule on a website. But when using it from a jupyter notebook, you're inevitably going to do more complex things. In this blog post, I want to show some uses of it. 
