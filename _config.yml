@@ -25,9 +25,11 @@ github_username:  william-dawson
 markdown: kramdown
 theme: minima
 plugins:
-  - jekyll-feed
+  # - jekyll-feed
+  - jekyll-paginate
 
-paginate_path: "/posts/:num/"
+paginate_path: "/blog/page:num/"
+paginate: 1
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
