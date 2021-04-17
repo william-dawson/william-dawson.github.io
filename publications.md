@@ -45,6 +45,8 @@ chemical physics 148, no. 12 (2018): 124501.
 
 Matrix Functions.
 
+- [Yu, Victor Wen-zhe, Carmen Campos, William Dawson, Alberto García, Ville Havu, Ben Hourahine, William P. Huhn et al. "ELSI—An open infrastructure for electronic structure solvers." Computer Physics Communications 256 (2020): 107459.](https://www.sciencedirect.com/science/article/abs/pii/S0010465520302150)
+
 - [Dawson, William, and Takahito Nakajima. "Massively parallel sparse matrix
 function calculations with NTPoly." Computer Physics Communications (2017).
 ](https://www.sciencedirect.com/science/article/pii/S0010465517304150)
