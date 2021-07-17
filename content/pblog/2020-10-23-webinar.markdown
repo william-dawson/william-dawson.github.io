@@ -1,0 +1,12 @@
+Title: BigDFT Webinar
+Date: 2020-10-23 01:00:00
+Category: Personal Blog
+
+On November twelfth, we will be hosting a webinar about the BigDFT
+code entitled [The Flexibilities of Wavelets for Electronic Structure 
+Calculations in Large Systems](http://www.max-centre.eu/webinar/flexibilities-wavelets-electronic-structure-calculations-large-systems). If
+you are interested in electronic structure software or its applications
+to large systems (1000+ atoms) I think you will find it quite interesting.
+We will be presenting material that should be interesting to both
+chemists and people who do materials science. The webinar is free to
+attend, so feel free to join!

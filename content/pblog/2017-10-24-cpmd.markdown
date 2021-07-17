@@ -1,0 +1,47 @@
+Title: CPMD 2017 Workshop
+Date: 2017-10-27 11:00:00 +0900
+Category: Personal Blog
+
+Last week, I was able to attend the
+[CPMD2017 workshop](http://www.nims.go.jp/MII-I/CPMD2017/) in Tsukuba, Japan.
+CPMD in this case stands for Car-Parrinello molecular dynamics, one of the
+most important techniques in computational physics. This workshop featured
+talks from some of the top scientists in the field, including of course both
+Roberto Car and Michele Parrinello.
+
+This workshop also coincided with the 70th birthday of Dr. Roberto Car. It was
+fun to see people celebrate as he certainly had a big impact on the scientific
+careers of many people there. On a less positive note, this workshop all
+coincided with Typhoon Lan. I hope that everyone from the conference was able
+to safely and smoothly return home despite the severe weather.
+
+What is CPMD and what it is useful for? First principles techniques such as
+density functional theory can be used to compute the ground state energy of
+a given molecular system. This works well for computing things like bulk
+crystal systems, but what about dynamically evolving systems such as liquid
+water? In that case, we need to be able to compute the motion of atoms as well.
+This combination of molecular dynamics and density functional theory is an
+important tool for interpreting experiment, and studying systems under extreme
+conditions. Car and Parrinello were pioneers in combining molecular dynamics
+with density functional theory, including inventing the method now called
+Car-Parrinello molecular dynamics which was first introduced in their 1985
+paper [1].
+
+For me personally, the most impactful talk was given by Dr. Osamu Sugino from
+the University of Tokyo. In his talk, he referenced his group's work on
+using first-principles molecular dynamics simulations to study firefly
+bioluminescence [2]. For this study, it was necessary for them to relax the
+structure of the oxyluciferin anions in solution. This simulation proved to
+be very slow to converge, but in a true tour de force calculation they spent
+200 days performing this simulation using 128 Xeon processors for each isomer.
+These time consuming simulations are an inspiration to us who work on the
+computational side, reminding us how important it is to get the best performance
+out of our codes.
+
+> [1] Car, Richard, and Mark Parrinello. "Unified approach for molecular
+> dynamics and density-functional theory." Physical review letters 55,
+> no. 22 (1985): 2471.
+
+> [2] Noguchi, Yoshifumi, Miyabi Hiyama, Motoyuki Shiga, Osamu Sugino, and
+Hidefumi Akiyama. "Reverse Stability of Oxyluciferin Isomers in Aqueous
+Solutions." The Journal of Physical Chemistry B 120, no. 34 (2016): 8776-8783.

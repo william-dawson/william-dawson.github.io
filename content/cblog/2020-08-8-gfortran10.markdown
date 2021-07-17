@@ -1,0 +1,96 @@
+Title: Legacy Software and gfortran-10
+Date: 2020-08-08 11:00:00
+Category: Lessons
+
+I don't follow any Fortran blogs. In fact, I'm not sure if any of them exist.
+If there are such blogs though, I might expect them to be ablaze right now
+about gfortran version 10 and all the legacy software is breaking.
+What is the problem you ask? Well consider the following program, which wraps
+up computing the eigenvectors of a matrix using LAPACK.
+```Fortran
+SUBROUTINE Routine(MatA, MatV)
+  DOUBLE PRECISION, DIMENSION(:,:), INTENT(IN) :: MatA
+  DOUBLE PRECISION, DIMENSION(:,:), INTENT(INOUT) :: MatV
+  CHARACTER, PARAMETER :: job = 'V', uplo = 'U'
+  INTEGER :: N, LDA
+  DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: W
+  DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: WORK
+  DOUBLE PRECISION :: WORKTEMP
+  INTEGER :: LWORK
+  INTEGER, DIMENSION(:), ALLOCATABLE :: IWORK
+  INTEGER :: IWORKTEMP
+  INTEGER :: LIWORK
+  INTEGER :: INFO
+  INTEGER :: II
+
+  MatV = MatA
+
+  N = SIZE(MatA,DIM=1)
+  LDA = N
+
+  !! Allocations
+  ALLOCATE(W(N))
+
+  !! Determine the scratch space size
+  LWORK = -1
+  CALL DSYEVD(JOB, UPLO, N, MatA, LDA, W, &
+       & WORKTEMP, LWORK, &
+       & IWORKTEMP, LIWORK, &
+       & INFO)
+  N = LDA
+  LWORK = INT(WORKTEMP)
+  ALLOCATE(WORK(LWORK))
+  LIWORK = INT(IWORKTEMP)
+  ALLOCATE(IWORK(LIWORK))
+
+  !! Run Lapack For Real
+  CALL DSYEVD(JOB, UPLO, N, MatV, LDA, W, &
+       & WORK, LWORK, &
+       & IWORK, LIWORK, &
+       & INFO)
+
+  !! Cleanup
+  DEALLOCATE(W)
+  DEALLOCATE(Work)
+  DEALLOCATE(IWork)
+
+END SUBROUTINE Routine
+```
+
+The important thing to note here is the two calls to `DSYEVD`. We perform
+two calls because the first one tells us the required scratch space size,
+and the second performs the actual decomposition. There is a subtle point
+about these calls. In the first call we pass `WORKTEMP` and `IWORKTEMP` which
+are double precision and integer variables. In the second, we pass the actual
+scratch space arrays. If we compile this code with gfortran version 9, there
+are no problems. But with version 10 we get the following errors:
+
+```
+   27 |        & WORKTEMP, LWORK, &
+      |         2
+......
+   38 |        & WORK, LWORK, &
+      |         1
+Error: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+```
+The solution is simple: change the variables `WORKTEMP` and `IWORKTEMP` to be
+arrays of length one, and now the arguments match. Another time I've seen this
+come up is in old code that does something like this:
+```Fortran
+CALL DCOPY(NX, ZERO, 0, ARRAY1(1:NX), 1)
+...
+CALL DCOPY(NX, ARRAY1, 1, ARRAY2, 1)
+```
+In the first case, we're using `dcopy` to initialize some memory to zero. In
+the second, we're using it as a memcopy. I'm not sure why other programmers
+didn't just use the assignment operator to initialize the memory, though I
+wouldn't be surprised if older compilers weren't always optimal.
+
+One final place I've encountered these kinds of errors is in calls to MPI.
+Fortunately, placing the `USE MPI` statement in your code can resolve this
+(and should have been there in the first place to prevent bugs).
+
+These errors can be resolved with a flag like `--std=legacy`, but this is
+for sure a good time to bring legacy code up to spec. Version 10 is already
+available on homebrew, so if you have Mac users now is the time to check
+your code!
