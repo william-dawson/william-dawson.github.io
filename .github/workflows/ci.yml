@@ -7,8 +7,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
 
-      - name: Install and Build 
+      - name: conda
         uses: conda-incubator/setup-miniconda@v2
+
+      - name: Install and Build 
         run: |
           conda env create --file requirements.yml
           conda activate pelican
