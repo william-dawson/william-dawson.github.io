@@ -14,8 +14,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
 
       - name: Install and Build 
+        shell: bash -l {0}
         run: |
-          conda init bash
           conda env create --file requirements.yml
           conda activate pelican
           make publish
