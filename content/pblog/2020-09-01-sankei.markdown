@@ -1,0 +1,36 @@
+Title: My Article in The Sankei News
+Date: 2020-09-01 01:00:00 +0900
+Category: Personal Blog
+Tags: personal
+Summary: An article I wrote for The Sankei News called "The Appeal of Chemistry You Can Do At Home" has been published.
+
+I am happy to announce that an article I wrote has appeared in
+[The Sankei News](https://www.sankei.com/west/news/200829/wst2008290003-n1.html).
+The title of the article is "The Appeal of Chemistry You Can Do At Home".
+The article is written in Japanese. I received a lot of help from people at
+RIKEN and the editor at the newspaper to turn my poor Japanese into what
+appears to be a coherent article. The article also features an illustration
+created by my talented wife.
+
+I won't offer a translation here, but I would like to summarize the main
+points. In this article, I discuss how I, like many researchers at RIKEN,
+have been working from home as a measure to prevent the spread of COVID-19.
+Of course, upon hearing that many people will wonder "how can you research
+chemistry at home?" To answer this, I give an overview of what simulation
+is and how we can do it from the comfort of home.
+
+At the end of the article, I tried to discuss something more personal to me.
+One of the things I enjoy about doing science is those "aha!" moments. In
+that sense, I think computational chemistry is really ideal. It's a constant
+bombardment of little successes. Each simulation you run gives you more
+information about what you're studying. And each line of code you write is 
+gives you deeper insight into the theory that you are modelling. 
+
+For me, the most enjoyable science is the science with the quickest time from
+question to answer. The trick to quick turnaround time is to build good tools
+that can be re-used to study new problems. This is not so easy when you
+are an experimentalist, you can't build a robot to replace you, and you rarely
+have the opportunity to design new equipment. But in simulation science, we
+very easily can extend the toolsets we have. This is a privilege we developers
+should keep in mind and use as motivation to build the most powerful and
+easy to use tools we can.

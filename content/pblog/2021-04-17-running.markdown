@@ -1,0 +1,72 @@
+Title: Some Mid-Pandemic Thoughts on Running
+Date: 2021-04-17 17:38:38
+Category: Personal Blog
+Tags: personal
+Summary: A year into the COVID-19 pandemic, I describe my new hobby of running, and why it is so much fun in Japan.
+
+Since about May of last year, I've taken up running as a hobby. Usually I try
+to stay active by playing basketball or futsal with people from work, but
+pandemic restrictions have put an end to that. It's been about a year since
+I started, and I really am enjoying it, so I wanted to write a blog post
+about why.
+
+It all comes back to that famous middle school formula: $$\pi r^2$$. When you
+first start running, you get out of the house, do a loop around the
+neighborhood, and come back panting. You get a little bit of that runner's
+high, but mainly it just feels like work. But as the months go by, you start
+to be able to run longer and longer distances. That's when you realize that
+it's not the distance that matters, but the area of the circle.
+
+Without giving away too much personal information, I live in the city of
+Nishinomiya now, which has at its center Nishinomiya station. On google maps,
+I can hover above that station, and search "points of interest".
+From Nishinomiya station there is Nishinomiya Shrine about half a kilometer
+away, so the beginner can enjoy taking a loop around a beautiful shrine.
+About one kilometer away is Shukugawa park, a park with a nice long river
+and a long line of cherry blossom trees. As you start to get your legs you
+can take a visit.
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13114.252404064842!2d135.33859122100577!3d34.74140551934538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000f2429396d4e7%3A0x80d4db7e4d62994b!2sNishinomiya%20Station!5e0!3m2!1sen!2sjp!4v1618650138672!5m2!1sen!2sjp" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+Five kilometers is about the shortest distance you can run without feeling like
+a total failure. Turning south from Shukugawa park, you can make it to 
+Omaehama park, which has a small beach and a nice view of the ocean. Round
+trip from the station should be just the right distance. If you go north,
+you'll find yourself turning around at Hirota shrine, which is a wide and
+open shrine with a great view as you approach. If you go east and run along
+the train line, you will arrive at Koshien station, where you can see Japan's
+most famous baseball stadium and its iconic ivy. The round trip is about 5.5
+kilometers.
+
+After a few months of running, I discovered that my wallet wasn't in my pocket.
+I had to double back the entire route to look for it, and that's how I ran
+my first 10K of the season (the wallet was at home the entire time). From Nishinomiya
+station, if you're willing to gain some elevation, in under 10K you can make
+it all the way up to Kabutoyama Forest Park (and the nearby Kwansei Gakuin
+University) which has a spectacular view of the city. If you go south west,
+there is a small (artificial?) island which has a free footbath you can use,
+which makes for a great stopping point. Of course that's not the right attitude
+if you care about how fast you're running, but that's missing the point. The
+real fun of running in Japan is all the places you can discover.
+
+![png]({attach}assets/IMG_7596.jpg)
+
+Japan has one of the best train systems in the entire world. So if you really
+want to expand you range, taking the train home will instantly double the
+distance you can travel. If you run east, you can make it to Amagasaki Castle,
+and you know you made a good decision about a hobby when an ancient castle
+is the destination. Running to Takarazuka city along the Muko river was also
+a great experience. If you go west until Ashiya and then go north along the
+river, you can find my favorite hiking course. At the entrace, there is a
+small waterfall (look for Taki no Chaya on the map) which is right before
+the paved roads end.
+
+The most I have done in this pandemic stretch is just over 20K. I've already
+had to leave out a lot of great destinations, and with the radius now expanded
+to 20K it almost becomes an impossible task. Recently I find myself stuck
+looking at google maps instead of sleeping because I want to plan long distance
+runs. Due to the pandemic, I try to wear a mask whenever there are other
+people anywhere nearby, which means there are a few destinations I haven't yet
+made it to because I know the streets are going to be crowded the whole way. 
+But I'm optimistic about the coming year, and hope to report on some future
+adventures.

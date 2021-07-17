@@ -1,0 +1,119 @@
+Title: Linear Operators in Python
+Date: 2019-07-01 11:00:00 +0900
+Category: Lessons
+Tags: computational chemistry
+Summary: In this post I will extend the previously presented simple Schrödinger equation solver using the concepts of linear operators and closures.
+
+This blog post is a follow up to my [previous post](linear-operators-in-python.html) about creating a simple Schrödinger equation solver in python. Please read that post before continuing.
+
+In the previous post, we represented our operators (Kinetic Energy and Potential Energy) as sparse matrices. This worked well, but we spent a lot of effort dealing with matrix indexing. What we would prefer would be to write a function that simply takes an input vector (the wavefunction), and computes how it is transformed by a given operator. This can in fact be done, using scipy's feature of linear operators[1].
+
+Let's begin by considering the potential. What is the simplest way to describe a potential? Well, as a vector, where we write the potential at each point in space. Our goal then is to write the potential like this:  
+```python
+def HydrogenOperator(x_values):
+    '''
+    Hydrogen potential well
+    '''
+    return [1.0/abs(x) for x in x_values]
+```
+
+Beyond that, we would like to write the action of the potential on a given wavefunction like this:
+```python
+def HydrogenOperator(x_values, wavefunction):
+    '''
+    Hydrogen potential well
+    '''
+    return [w * 1.0/abs(x) for x, w in zip(x_values, wavefunction)]
+```
+
+And we would like to similarly write the action of the kinetic energy operator as:
+```python
+def TOperator(invec, grid_spacing):
+    '''
+    Five point stencil kinetic energy operator.
+    '''
+    from numpy import zeros
+    grid_size = len(invec)
+    outvec = zeros(grid_size)
+
+    for i in range(0, grid_size):
+        outval = 0
+        if i > 1:
+            outval -= invec[i - 2]
+        if i > 0:
+            outval += 16.0 * invec[i - 1]
+        outval -= 30.0 * invec[i]
+        if i + 1 < grid_size:
+            outval += 16.0 * invec[i + 1]
+        if i + 2 < grid_size:
+            outval -= invec[i + 2]
+
+        outvec[i] = -0.5 * outval / (12.0 * grid_spacing**2)
+
+    return outvec
+```
+
+How do we accomplish that? Well if we look at the documentation for the linear operator[1], we see that to construct it, we need two pieces of information. First, the size of the matrix like operator we are creating, and second a function that applies it to a vector. There is one problem though. This function needs to take only one variable as input!
+
+This problem can be circumvented using a closure[2]. Closures are a powerful paradigm that comes from the world of functional programming. Imagine a simple scenario. We have a function as below: 
+```python
+def f(x, b):
+  return x + b
+```
+
+Now, we want to be able to pass this function to a different piece of code, and we want that piece of code to not have to worry about knowing the value of `b`. This could be done with a function factory like approach: 
+```python
+def factory(b):
+    def f(x):
+        return x + b
+    return f
+
+
+myfun = factory(3)
+```
+
+Calling the factory function will return a function `f` that takes one argument `x`, and remembers the value `b` due to dynamic scoping. This could be written more succinctly with a lambda expression:
+```python
+b = 3
+f = lambda x: x + b
+```
+
+So how do we use this with the linear operator? Like this:
+```python
+from scipy.sparse.linalg import LinearOperator
+KineticOperator = LinearOperator((grid_size, grid_size),
+                                 matvec=lambda wf: TOperator(wf, grid_spacing))
+```
+
+A similar approach works for the potential energy operator. Then we sum
+the operators up into our Hamiltonian, and we can use the eigensolver exactly
+as before:
+```python
+# Solve The Eigenvalue Equation
+values, vectors = eigsh(Hamiltonian, k=nocc, which='SA')
+```
+
+Now let's use this paradigm to try something interesting. What if we wanted to tease out how the `eigsh` function works? One thing we could do is keep track of what vectors it passes to our operator.
+```python
+passed_values = []
+
+def track_hamiltonian(wf):
+    passed_values.append(wf)
+    return TOperator(wf, grid_spacing) + potential(wf, x_values)
+
+Hamiltonian = LinearOperator((grid_size, grid_size),
+                             matvec=track_hamiltonian)
+
+# Solve The Eigenvalue Equation
+values, vectors = eigsh(Hamiltonian, k=nocc, which='SA')
+```
+
+Now we can do something like figure out how many iterations were required
+to solve the equation:
+```python
+print(len(passed_values))
+```
+
+> [1] https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.LinearOperator.html
+
+> [2] https://en.wikipedia.org/wiki/Closure_(computer_programming)
