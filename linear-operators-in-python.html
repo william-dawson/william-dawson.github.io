@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Linear Operators in Python &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2019-07-01" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Linear Operators in Python"/>
+    <meta property="og:description" content="In this post I will extend the previously presented simple Schrödinger equation solver using the concepts of linear operators and closures."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/linear-operators-in-python.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Linear Operators in Python">
+    <meta name="twitter:description" content="In this post I will extend the previously presented simple Schrödinger equation solver using the concepts of linear operators and closures.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/linear-operators-in-python.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Linear Operators in Python</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2019-07-01T11:00:00+09:00">Mon 01 July 2019</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/computational-chemistry.html" title="All articles with Computational Chemistry tag">#computational chemistry</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>This blog post is a follow up to my <a href="linear-operators-in-python.html">previous post</a> about creating a simple Schrödinger equation solver in python. Please read that post before continuing.</p>
+<p>In the previous post, we represented our operators (Kinetic Energy and Potential Energy) as sparse matrices. This worked well, but we spent a lot of effort dealing with matrix indexing. What we would prefer would be to write a function that simply takes an input vector (the wavefunction), and computes how it is transformed by a given operator. This can in fact be done, using scipy's feature of linear operators[1].</p>
+<p>Let's begin by considering the potential. What is the simplest way to describe a potential? Well, as a vector, where we write the potential at each point in space. Our goal then is to write the potential like this:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Hydrogen potential well</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="mf">1.0</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_values</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Beyond that, we would like to write the action of the potential on a given wavefunction like this:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">wavefunction</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Hydrogen potential well</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">w</span> <span class="o">*</span> <span class="mf">1.0</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">wavefunction</span><span class="p">)]</span>
+</code></pre></div>
+
+<p>And we would like to similarly write the action of the kinetic energy operator as:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">TOperator</span><span class="p">(</span><span class="n">invec</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Five point stencil kinetic energy operator.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span>
+    <span class="n">grid_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">invec</span><span class="p">)</span>
+    <span class="n">outvec</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">grid_size</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">):</span>
+        <span class="n">outval</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">outval</span> <span class="o">-=</span> <span class="n">invec</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">outval</span> <span class="o">+=</span> <span class="mf">16.0</span> <span class="o">*</span> <span class="n">invec</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">outval</span> <span class="o">-=</span> <span class="mf">30.0</span> <span class="o">*</span> <span class="n">invec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">grid_size</span><span class="p">:</span>
+            <span class="n">outval</span> <span class="o">+=</span> <span class="mf">16.0</span> <span class="o">*</span> <span class="n">invec</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">grid_size</span><span class="p">:</span>
+            <span class="n">outval</span> <span class="o">-=</span> <span class="n">invec</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">outvec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">outval</span> <span class="o">/</span> <span class="p">(</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">grid_spacing</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">outvec</span>
+</code></pre></div>
+
+<p>How do we accomplish that? Well if we look at the documentation for the linear operator[1], we see that to construct it, we need two pieces of information. First, the size of the matrix like operator we are creating, and second a function that applies it to a vector. There is one problem though. This function needs to take only one variable as input!</p>
+<p>This problem can be circumvented using a closure[2]. Closures are a powerful paradigm that comes from the world of functional programming. Imagine a simple scenario. We have a function as below: </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div>
+
+<p>Now, we want to be able to pass this function to a different piece of code, and we want that piece of code to not have to worry about knowing the value of <code>b</code>. This could be done with a function factory like approach: </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">factory</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">f</span>
+
+
+<span class="n">myfun</span> <span class="o">=</span> <span class="n">factory</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Calling the factory function will return a function <code>f</code> that takes one argument <code>x</code>, and remembers the value <code>b</code> due to dynamic scoping. This could be written more succinctly with a lambda expression:</p>
+<div class="highlight"><pre><span></span><code><span class="n">b</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div>
+
+<p>So how do we use this with the linear operator? Like this:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">LinearOperator</span>
+<span class="n">KineticOperator</span> <span class="o">=</span> <span class="n">LinearOperator</span><span class="p">((</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">),</span>
+                                 <span class="n">matvec</span><span class="o">=</span><span class="k">lambda</span> <span class="n">wf</span><span class="p">:</span> <span class="n">TOperator</span><span class="p">(</span><span class="n">wf</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">))</span>
+</code></pre></div>
+
+<p>A similar approach works for the potential energy operator. Then we sum
+the operators up into our Hamiltonian, and we can use the eigensolver exactly
+as before:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Solve The Eigenvalue Equation</span>
+<span class="n">values</span><span class="p">,</span> <span class="n">vectors</span> <span class="o">=</span> <span class="n">eigsh</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">nocc</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;SA&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Now let's use this paradigm to try something interesting. What if we wanted to tease out how the <code>eigsh</code> function works? One thing we could do is keep track of what vectors it passes to our operator.</p>
+<div class="highlight"><pre><span></span><code><span class="n">passed_values</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">def</span> <span class="nf">track_hamiltonian</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+    <span class="n">passed_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wf</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TOperator</span><span class="p">(</span><span class="n">wf</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">)</span> <span class="o">+</span> <span class="n">potential</span><span class="p">(</span><span class="n">wf</span><span class="p">,</span> <span class="n">x_values</span><span class="p">)</span>
+
+<span class="n">Hamiltonian</span> <span class="o">=</span> <span class="n">LinearOperator</span><span class="p">((</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">),</span>
+                             <span class="n">matvec</span><span class="o">=</span><span class="n">track_hamiltonian</span><span class="p">)</span>
+
+<span class="c1"># Solve The Eigenvalue Equation</span>
+<span class="n">values</span><span class="p">,</span> <span class="n">vectors</span> <span class="o">=</span> <span class="n">eigsh</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">nocc</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;SA&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Now we can do something like figure out how many iterations were required
+to solve the equation:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">passed_values</span><span class="p">))</span>
+</code></pre></div>
+
+<blockquote>
+<p>[1] https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.LinearOperator.html</p>
+<p>[2] https://en.wikipedia.org/wiki/Closure_(computer_programming)</p>
+</blockquote>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/linear-operators-in-python.html&amp;t=william-dawson.github.io%3A%20Linear%20Operators%20in%20Python" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/linear-operators-in-python.html&amp;text=william-dawson.github.io%3A%20Linear%20Operators%20in%20Python" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/linear-operators-in-python.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>

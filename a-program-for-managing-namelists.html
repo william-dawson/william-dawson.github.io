@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>A Program For Managing Namelists &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2018-08-04" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="A Program For Managing Namelists"/>
+    <meta property="og:description" content="Recently, I have written a utility program for managing namelist based input in Fortran. I will describe the motivation for this program and demonstrate its utility in application."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/a-program-for-managing-namelists.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="A Program For Managing Namelists">
+    <meta name="twitter:description" content="Recently, I have written a utility program for managing namelist based input in Fortran. I will describe the motivation for this program and demonstrate its utility in application.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/a-program-for-managing-namelists.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>A Program For Managing Namelists</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2018-08-04T11:00:00+09:00">Sat 04 August 2018</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/software.html" title="All articles with Software tag">#software</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>Recently, I like to stay in the office late once or twice a week. I'll break up the day by joining one of the sports clubs, going for a jog, or just grabbing dinner somewhere by the office. After the break, I'll get back to work, and I find that I'm quite productive. It's a great time to get in a four or five hour code sprint, where I can usually create a rough version of my newest idea.</p>
+<p>Last week, I put together a new code for managing Fortran namelists (see an example of a namelist <a href="http://jules-lsm.github.io/vn4.2/namelists/intro.html">here</a>), which is available as
+<a href="https://github.com/william-dawson/NameListManager">NameListManager</a> on github. Fortran lacks a standard library with  many built in features that users of other languages have come to expect, but surprisingly it comes with a very easy to use I/O routines for a specific type of file.</p>
+<p>My group's code uses these files to specify the assortment of parameters needed by our quantum chemistry program. However, I noticed a real problem with this approach. Each developer would add new parameters to the code, and have to hardcode the default values inside the reader routines. This meant you had to look at the source code every time you wanted to know how an input parameter works.</p>
+<p>Of course, documenting the code with doxygen would help. You would automatically get a website with a description of all the variables according to your in code comments. But consider this stub program for reading a namelist:</p>
+<div class="highlight"><pre><span></span><code><span class="k">MODULE </span><span class="n">InModule</span>
+ <span class="k">IMPLICIT NONE</span>
+<span class="k"> </span><span class="kt">REAL</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="kd">::</span> <span class="n">converge_tol</span> <span class="c">!&lt; The maximum iterations to perform.</span>
+ <span class="kt">INTEGER</span> <span class="kd">::</span> <span class="n">max_steps</span> <span class="c">!&lt; Tolerance to determine if a calculation converged.</span>
+<span class="k">CONTAINS</span>
+<span class="k"> SUBROUTINE </span><span class="n">ReadIn</span>
+   <span class="kt">INTEGER</span><span class="p">,</span> <span class="k">PARAMETER</span> <span class="kd">::</span> <span class="n">IO</span> <span class="o">=</span> <span class="mi">1</span>
+   <span class="k">NAMELIST</span> <span class="o">/</span><span class="n">INPUT</span><span class="o">/</span> <span class="n">converge_tol</span><span class="p">,</span> <span class="n">max_steps</span>
+   <span class="n">converge_tol</span> <span class="o">=</span> <span class="mf">1.0D-10</span>
+   <span class="n">max_steps</span> <span class="o">=</span> <span class="mi">100</span>
+   <span class="k">OPEN</span><span class="p">(</span><span class="n">UNIT</span><span class="o">=</span><span class="n">IO</span><span class="p">,</span> <span class="k">FILE</span><span class="o">=</span><span class="s2">&quot;INPUT&quot;</span><span class="p">,</span> <span class="n">STATUS</span><span class="o">=</span><span class="s1">&#39;OLD&#39;</span><span class="p">,</span> <span class="nb">ACCESS</span><span class="o">=</span><span class="s1">&#39;SEQUENTIAL&#39;</span><span class="p">)</span>
+   <span class="k">READ</span><span class="p">(</span><span class="n">IO</span><span class="p">,</span> <span class="n">INPUT</span><span class="p">)</span>
+   <span class="k">CLOSE</span><span class="p">(</span><span class="n">IO</span><span class="p">)</span>
+ <span class="k">END SUBROUTINE</span>
+<span class="k">END MODULE </span><span class="n">InModule</span>
+</code></pre></div>
+
+<p>Now naturally we have documented the variables <code>converge_tol</code> and <code>max_steps</code> by writing some doxygen style comments beside them. But notice the problem with this approach. The initialization is separated from the documentation, which means you might end up with inconsistent default values. If you set the default values at the start:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">REAL</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="kd">::</span> <span class="n">converge_tol</span> <span class="o">=</span> <span class="mf">1.0D-10</span>
+</code></pre></div>
+
+<p>Subsequent calls to <code>ReadIn</code> won't reinitialize the default value. So naturally I overreacted to this problem and decided to build an entire package to manage this. <code>NameListManager</code> solves this problem in two steps. First, you begin by writing an XML file which describes the valid input parameters.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;example&quot;</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">mpi=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;group</span> <span class="na">name=</span><span class="s">&quot;input&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;description_list&gt;</span>
+      <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+        A module for storing the input parameters.
+      <span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;/description_list&gt;</span>
+    <span class="nt">&lt;element_list&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">&quot;max_steps&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;datatype&gt;</span>integer<span class="nt">&lt;/datatype&gt;</span>
+        <span class="nt">&lt;description_list&gt;</span>
+          <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+            The maximum iterations to perform
+          <span class="nt">&lt;/description&gt;</span>
+        <span class="nt">&lt;/description_list&gt;</span>
+        <span class="nt">&lt;default&gt;</span>100<span class="nt">&lt;/default&gt;</span>
+      <span class="nt">&lt;/element&gt;</span>
+      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">&quot;converge_tol&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;datatype&gt;</span>real(8)<span class="nt">&lt;/datatype&gt;</span>
+        <span class="nt">&lt;description_list&gt;</span>
+          <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+            Tolerance to determine if a calculation converged.
+          <span class="nt">&lt;/description&gt;</span>
+        <span class="nt">&lt;/description_list&gt;</span>
+        <span class="nt">&lt;default&gt;</span>1.0D-10<span class="nt">&lt;/default&gt;</span>
+      <span class="nt">&lt;/element&gt;</span>
+    <span class="nt">&lt;/element_list&gt;</span>
+  <span class="nt">&lt;/group&gt;</span>
+<span class="nt">&lt;/input&gt;</span>
+</code></pre></div>
+
+<p>Then if if you run the namelist manager on this input file, it automatically generates the source code for storing, initializing, and reading in these parameters. It also generates restructed text documentation that you might add to a sphinx project. Now when you want to add new input parameters to your program, you don't even have to look at the source code, but instead you spend time describing your new parameter.</p>
+<p>One final note: why did I pick XML for input format? Of course, XML has the downside of being verbose, and isn't as trendy as say JSON or YAML. But (as described in earlier blog posts...) XML has the benefit of a schema file. I've included in <code>namelistmanager</code> a xml schema, which your input file is automatically checked against.</p>
+<p>No doubt there are other great ways to accomplish this task, but if this light weight approach looks good to you, please clone this project on github. I hope to add this program to something <a href="https://pypi.org/">PyPI</a> as well in the near future.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/a-program-for-managing-namelists.html&amp;t=william-dawson.github.io%3A%20A%20Program%20For%20Managing%20Namelists" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/a-program-for-managing-namelists.html&amp;text=william-dawson.github.io%3A%20A%20Program%20For%20Managing%20Namelists" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/a-program-for-managing-namelists.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>

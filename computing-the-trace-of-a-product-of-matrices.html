@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Computing The Trace of a Product of Matrices &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2017-08-30" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Computing The Trace of a Product of Matrices"/>
+    <meta property="og:description" content="Frequently in a Quantum Chemistry code one needs to compute the trace of the produce of two symmetric matrices. This post describes a common method to do this without having to perform matrix multiplication."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/computing-the-trace-of-a-product-of-matrices.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Computing The Trace of a Product of Matrices">
+    <meta name="twitter:description" content="Frequently in a Quantum Chemistry code one needs to compute the trace of the produce of two symmetric matrices. This post describes a common method to do this without having to perform matrix multiplication.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/computing-the-trace-of-a-product-of-matrices.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Computing The Trace of a Product of Matrices</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2017-08-30T11:00:00+09:00">Wed 30 August 2017</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/linear-algebra.html" title="All articles with Linear Algebra tag">#linear algebra</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>I'm going to cover a very simple concept here, but it's one that I wish I had learned earlier. In a number of algorithms, we're confronted with the problem of computing the trace of a product of matrices:</p>
+<p>$$\begin{equation}
+\DeclareMathOperator{\Tr}{Tr}
+\Tr(AB).
+\end{equation}$$</p>
+<p>One example of this is in quantum chemistry, where we're interested in computing the energy of the system:</p>
+<p>$$\begin{equation}
+\DeclareMathOperator{\Tr}{Tr}
+\text{energy} = \Tr(\rho H)
+\end{equation}$$</p>
+<p>where $\rho$ is the density matrix, and $H$ the hamiltonian.</p>
+<p>What's the big deal? Well, let's say we're running an algorithm that iteratively computes $\rho$. One way to check if we're converged would be to compute the energy at each update. What is the cost of doing this? Naively, we would need to multiply two matrices, and compute the trace. Unfortunately, those multiplications add up, and can significantly increase the run time. Fortunately, there's a very simple way to avoid this.</p>
+<div class="highlight"><pre><span></span><code><span class="err">|A|A|A|A|A|.......|B|B|B|B|B|.......|C|C|C|C|C|</span>
+<span class="err">|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|C|C|C|C|C|</span>
+<span class="err">|A|A|A|A|A|...X...|B|B|B|B|B|.......|C|C|C|C|C|</span>
+<span class="err">|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|C|C|C|C|C|</span>
+<span class="err">|A|A|A|A|A|.......|B|B|B|B|B|.......|C|C|C|C|C|</span>
+</code></pre></div>
+
+<p>To compute the trace, we only need to compute the diagonal elements of the
+matrix. How do we compute a given diagonal element?</p>
+<div class="highlight"><pre><span></span><code><span class="err">|O|O|O|O|O|.......|O|B|O|O|O|.......|O|O|O|O|O|</span>
+<span class="err">|A|A|A|A|A|..X.X..|O|B|O|O|O|..===..|O|C|O|O|O|</span>
+<span class="err">|O|O|O|O|O|...X...|O|B|O|O|O|.......|O|O|O|O|O|</span>
+<span class="err">|O|O|O|O|O|..X.X..|O|B|O|O|O|..===..|O|O|O|O|O|</span>
+<span class="err">|O|O|O|O|O|.......|O|B|O|O|O|.......|O|O|O|O|O|</span>
+</code></pre></div>
+
+<p>And in the case of symmetric matrices:</p>
+<div class="highlight"><pre><span></span><code><span class="err">|O|O|O|O|O|.......|O|O|O|O|O|.......|O|O|O|O|O|</span>
+<span class="err">|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|O|C|O|O|O|</span>
+<span class="err">|O|O|O|O|O|...X...|O|O|O|O|O|.......|O|O|O|O|O|</span>
+<span class="err">|O|O|O|O|O|..X.X..|O|O|O|O|O|..===..|O|O|O|O|O|</span>
+<span class="err">|O|O|O|O|O|.......|O|O|O|O|O|.......|O|O|O|O|O|</span>
+</code></pre></div>
+
+<p>As we can see then, each diagonal element can be computed by just taking the dot product of each row (element-wise multiplication). And for the full trace, we just sum up those dot products. This means not only can we avoid performing the matrix multiplication, but we can even do this perfectly in parallel, and avoid any communication besides the final all-reduce of a single value.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Libraries</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">multiply</span><span class="p">,</span> <span class="n">trace</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="nb">sum</span> <span class="k">as</span> <span class="n">np_sum</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">rand</span>
+
+<span class="c1"># Make Matrices</span>
+<span class="n">matrix_dimension</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">MatrixA</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">matrix_dimension</span><span class="p">,</span> <span class="n">matrix_dimension</span><span class="p">)</span>
+<span class="n">MatrixA</span> <span class="o">=</span> <span class="n">MatrixA</span> <span class="o">+</span> <span class="n">MatrixA</span><span class="o">.</span><span class="n">T</span>
+<span class="n">MatrixB</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">matrix_dimension</span><span class="p">,</span> <span class="n">matrix_dimension</span><span class="p">)</span>
+<span class="n">MatrixB</span> <span class="o">=</span> <span class="n">MatrixB</span> <span class="o">+</span> <span class="n">MatrixB</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Compute Traces</span>
+<span class="n">check_value</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">MatrixA</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">MatrixB</span><span class="p">))</span>
+<span class="n">new_value</span> <span class="o">=</span> <span class="n">np_sum</span><span class="p">(</span><span class="n">multiply</span><span class="p">(</span><span class="n">MatrixA</span><span class="p">,</span> <span class="n">MatrixB</span><span class="p">))</span>
+
+<span class="c1"># Check Answer</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">check_value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+</code></pre></div>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/computing-the-trace-of-a-product-of-matrices.html&amp;t=william-dawson.github.io%3A%20Computing%20The%20Trace%20of%20a%20Product%20of%20Matrices" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/computing-the-trace-of-a-product-of-matrices.html&amp;text=william-dawson.github.io%3A%20Computing%20The%20Trace%20of%20a%20Product%20of%20Matrices" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/computing-the-trace-of-a-product-of-matrices.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Lennard Jones Potential &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2021-07-15" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Lennard Jones Potential"/>
+    <meta property="og:description" content="The Lennard-Jones potential is a well studied model potential describing the interaction of molecules. In this post, I will explore parameterizing the Lennard-Jones potential using Quantum Chemistry calculations."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/lennard-jones-potential.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Lennard Jones Potential">
+    <meta name="twitter:description" content="The Lennard-Jones potential is a well studied model potential describing the interaction of molecules. In this post, I will explore parameterizing the Lennard-Jones potential using Quantum Chemistry calculations.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/lennard-jones-potential.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Lennard Jones Potential</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2021-07-15T12:00:00+09:00">Thu 15 July 2021</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/computational-chemistry.html" title="All articles with Computational Chemistry tag">#computational chemistry</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>The <a href="https://en.wikipedia.org/wiki/Lennard-Jones_potential">Lennard-Jones potential</a> is a well studied model potential. It has a very simple form:
+$$V(r) = 4\epsilon \bigg[ \big(\frac{\sigma}{r}\big)^{12} - 
+                          \big(\frac{\sigma}{r}\big)^{6} \bigg].$$
+In order to use this potential, you need to know what your two parameters $\epsilon$ and $\sigma$ are. In this post, I thought it would be fun try to extract those parameters from quantum chemistry calculations, and see how good of a job it does. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;legend.fontsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;lines.linewidth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;lines.markersize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.formatter.useoffset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.formatter.limits&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</code></pre></div>
+
+<p>First, let's pick some atomic elements to compute. We'll pick some noble gases as typical Lennard-Jones systems.</p>
+<div class="highlight"><pre><span></span><code><span class="n">elements</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;He&quot;</span><span class="p">,</span> <span class="s2">&quot;He&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Ne&quot;</span><span class="p">,</span> <span class="s2">&quot;Ne&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;He&quot;</span><span class="p">,</span> <span class="s2">&quot;Ne&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Ar&quot;</span><span class="p">,</span> <span class="s2">&quot;Ne&quot;</span><span class="p">)]</span>
+</code></pre></div>
+
+<p>We will use a dictionary to store each dimer as two fragments. Note that we start with the atoms overlapping because we're going to vary the distance later.</p>
+<div class="highlight"><pre><span></span><code><span class="n">dimers</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+    <span class="n">dimers</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">dimers</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+    <span class="n">dimers</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="s2">&quot;FRA:1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+</code></pre></div>
+
+<p>The next step is to define a function which computes the interaction energy between two molecules. We will use <a href="https://pyscf.org/index.html">PySCF</a> to compute energies at the MP2//cc-pVDZ level of theory. Ideally we'd use a higher level of theory, but for the purposes of this blog post we'll just stick with MP2 and a smaller basis.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_energy</span><span class="p">(</span><span class="n">istr</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">M</span><span class="p">,</span> <span class="n">cc</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="n">istr</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
+    <span class="n">hf</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">HF</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">mp</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">MP2</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mp</span><span class="o">.</span><span class="n">e_tot</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">quan_ene</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+    <span class="n">istr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]:</span>
+        <span class="n">istr</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">at</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span>
+    <span class="n">mon_ene</span> <span class="o">=</span> <span class="n">get_energy</span><span class="p">(</span><span class="n">istr</span><span class="p">)</span>
+
+    <span class="n">istr2</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:1&quot;</span><span class="p">]:</span> <span class="c1"># this loop includes the distance shift</span>
+        <span class="n">istr2</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">at</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">at</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span>
+    <span class="n">mon_ene</span> <span class="o">+=</span> <span class="n">get_energy</span><span class="p">(</span><span class="n">istr2</span><span class="p">)</span>
+
+    <span class="n">dim_ene</span> <span class="o">=</span> <span class="n">get_energy</span><span class="p">(</span><span class="n">istr</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span> <span class="o">+</span> <span class="n">istr2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dim_ene</span> <span class="o">-</span> <span class="n">mon_ene</span>
+</code></pre></div>
+
+<p>How do we extract the parameters now? One option we have is to use the curve fitting feature to try and match the function. There is a simpler approach though, using a bit of calculus. First, define the Lennard-Jones potential using <code>sympy</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">r</span>
+<span class="kn">from</span> <span class="nn">sympy.physics.units.quantities</span> <span class="kn">import</span> <span class="n">Quantity</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s2">&quot;ε&quot;</span><span class="p">)</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s2">&quot;σ&quot;</span><span class="p">)</span>
+<span class="n">lj</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">((</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span> <span class="o">-</span> <span class="p">(</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">lj</span>
+</code></pre></div>
+
+<p>$$\displaystyle 4 \left(\frac{\text{σ}^{12}}{r^{12}} - \frac{\text{σ}^{6}}{r^{6}}\right) \text{ε}$$</p>
+<p>Now we can compute the minimum of this function on the domain of positive reals.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">diff</span>
+<span class="kn">from</span> <span class="nn">sympy.solvers.solveset</span> <span class="kn">import</span> <span class="n">solveset_real</span>
+<span class="n">dlj</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">lj</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span class="n">extrema</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">solveset_real</span><span class="p">(</span><span class="n">dlj</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">extrema</span>
+</code></pre></div>
+
+<p>$$\displaystyle \sqrt[6]{2} \text{σ}$$</p>
+<p>Last the value of the function at this minimum point.</p>
+<div class="highlight"><pre><span></span><code><span class="n">lj</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">extrema</span><span class="p">)</span>
+</code></pre></div>
+
+<p>$$\displaystyle - \text{ε}$$</p>
+<p>We thus can discover that the Lennard-Jones potential has its minimum at distance $r = 2^{\frac{1}{6}}\sigma$ with value $V(r) = -\epsilon$. That means to get these parameters we simply have to find the interatomic distance of the minimum energy value of our system. We could of course perform geometry optimization, but in this case of symmetric atoms in 1D it's simple enough to just use a black box minimizer.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+<span class="n">opt_result</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+    <span class="n">opt_result</span><span class="p">[(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">quan_ene</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dimers</span><span class="p">[</span><span class="n">e</span><span class="p">]),</span> <span class="n">x0</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">opt_result</span><span class="p">[(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="n">opt_result</span><span class="p">[(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+</code></pre></div>
+
+<p>In order to compare and plot the results, we can also compute the values on a distance grid.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span>
+<span class="n">energies</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
+    <span class="n">energies</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="n">opt_result</span><span class="p">[</span><span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">:</span>
+        <span class="n">energies</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">quan_ene</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dimers</span><span class="p">[</span><span class="n">e</span><span class="p">])</span>
+</code></pre></div>
+
+<p>Below we will plot the values on the grid as well as the minimum value to verify the optimization procedure.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[</span><span class="n">e</span><span class="p">]),</span> <span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[</span><span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> 
+                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Distance (A.U)&quot;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">opt_result</span><span class="p">[(</span><span class="n">e</span><span class="p">)]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">opt_result</span><span class="p">[(</span><span class="n">e</span><span class="p">)]</span><span class="o">.</span><span class="n">fun</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (A.U)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="Dimer Energies" height="80%" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_20_0.png" width="80%"></p>
+<p>With the Lennard-Jones parameters computed, we can now turn to computing the actual function.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">lennard_jones</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">((</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span> <span class="o">-</span> <span class="p">(</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We can plot both the reference values and those values computed with the potential on the same grid to see how this potential does.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
+    <span class="n">xvals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[</span><span class="n">e</span><span class="p">])</span>
+
+    <span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">6.0</span><span class="p">)</span>
+    <span class="n">computed</span> <span class="o">=</span> <span class="p">[</span><span class="n">lennard_jones</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">opt_result</span><span class="p">[(</span><span class="n">e</span><span class="p">)]</span><span class="o">.</span><span class="n">fun</span><span class="p">,</span> 
+                              <span class="n">opt_result</span><span class="p">[(</span><span class="n">e</span><span class="p">)]</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">scale</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xvals</span><span class="p">]</span>
+
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[</span><span class="n">e</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> 
+                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reference&quot;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">computed</span><span class="p">,</span> 
+                <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lennard-Jones&quot;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Distance (A.U.)&quot;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mf">1.03</span><span class="p">,</span><span class="mf">1.</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (A.U.)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="Dimer Comparison" height="80%" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_24_0.png" width="80%"></p>
+<p>Now let's consider a system with more than two atoms of different types. In this case, we might hope that the interactions we parameterized can be additive. Let's test this out.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">lennard_jones_group</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+    <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+    <span class="n">etot</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">at1</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">at2</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:1&quot;</span><span class="p">]:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">at1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">at2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">epsilon</span> <span class="o">=</span> <span class="n">opt_result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">fun</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">opt_result</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">6.0</span><span class="p">)</span>
+
+            <span class="n">shifted</span> <span class="o">=</span> <span class="n">at2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">shifted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dist</span>
+
+            <span class="n">r</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">array</span><span class="p">(</span><span class="n">at1</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">-</span> <span class="n">shifted</span><span class="p">)</span>
+            <span class="n">etot</span> <span class="o">+=</span> <span class="o">-</span><span class="mi">4</span> <span class="o">*</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">((</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span> <span class="o">-</span> <span class="p">(</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">etot</span>
+</code></pre></div>
+
+<p>Our test cluster will be two squares of He and Ne atoms.</p>
+<div class="highlight"><pre><span></span><code><span class="n">cluster</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;He&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Ne&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;He&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Ne&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+<span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;FRA:1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;He&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Ne&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;He&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;Ne&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+</code></pre></div>
+
+<p>Compute the reference values on a grid.</p>
+<div class="highlight"><pre><span></span><code><span class="n">grid</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">2.4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">energies</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">:</span>
+    <span class="n">energies</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">quan_ene</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">cluster</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Plot.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">xvals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[(</span><span class="s2">&quot;cluster&quot;</span><span class="p">)])</span>
+<span class="n">computed</span> <span class="o">=</span> <span class="p">[</span><span class="n">lennard_jones_group</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xvals</span><span class="p">]</span>
+
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[(</span><span class="s2">&quot;cluster&quot;</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> 
+         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reference&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">computed</span><span class="p">,</span> 
+         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lennard-Jones&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Distance (A.U.)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Cluster&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (A.U.)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="Cluster Comparison" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_32_1.png"></p>
+<p>What is the source of the error in this case? It can either be from our two body pairwise approximation or from the accumulation of errors from the inexact Lennard-Jones potential. To tease that out, let's also plot the energy that comes from doing MP2 in a pairwise way.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">pairwise_mp2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+    <span class="n">etot</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">at1</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]:</span>
+        <span class="n">at1str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">at1</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;;&quot;</span>
+        <span class="n">mon_ene</span> <span class="o">=</span> <span class="n">get_energy</span><span class="p">(</span><span class="n">at1str</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">at2</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:1&quot;</span><span class="p">]:</span>
+            <span class="n">at2str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">at2</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">at2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span>
+            <span class="n">mon_ene2</span> <span class="o">=</span> <span class="n">get_energy</span><span class="p">(</span><span class="n">at2str</span><span class="p">)</span>
+
+            <span class="n">dim_ene</span> <span class="o">=</span> <span class="n">get_energy</span><span class="p">(</span><span class="n">at1str</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span> <span class="o">+</span> <span class="n">at2str</span><span class="p">)</span>
+            <span class="n">etot</span> <span class="o">+=</span> <span class="n">dim_ene</span> <span class="o">-</span> <span class="p">(</span><span class="n">mon_ene</span> <span class="o">+</span> <span class="n">mon_ene2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">etot</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">grid</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">2.4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">energies</span><span class="p">[</span><span class="s2">&quot;pairwise_cluster&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">:</span>
+    <span class="n">energies</span><span class="p">[</span><span class="s2">&quot;pairwise_cluster&quot;</span><span class="p">][</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">pairwise_mp2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">cluster</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">xvals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[(</span><span class="s2">&quot;cluster&quot;</span><span class="p">)])</span>
+<span class="n">computed</span> <span class="o">=</span> <span class="p">[</span><span class="n">lennard_jones_group</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">xvals</span><span class="p">]</span>
+
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[(</span><span class="s2">&quot;cluster&quot;</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> 
+         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reference&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">computed</span><span class="p">,</span> 
+         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Lennard-Jones&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="p">[(</span><span class="s2">&quot;pairwise_cluster&quot;</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> 
+         <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MP2 Pairwise&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Distance (A.U.)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Cluster&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (A.U.)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="Cluster Updated" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_36_1.png"></p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/lennard-jones-potential.html&amp;t=william-dawson.github.io%3A%20Lennard%20Jones%20Potential" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/lennard-jones-potential.html&amp;text=william-dawson.github.io%3A%20Lennard%20Jones%20Potential" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/lennard-jones-potential.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>

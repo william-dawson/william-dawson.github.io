@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Sparse Matrix Conjugate Gradient &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2017-10-01" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Sparse Matrix Conjugate Gradient"/>
+    <meta property="og:description" content="The conjugate gradient method is a commonly used approach to solve linear equations. In this blog I will describe the matrix generalization of this method and provide a toy implementation."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/sparse-matrix-conjugate-gradient.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Sparse Matrix Conjugate Gradient">
+    <meta name="twitter:description" content="The conjugate gradient method is a commonly used approach to solve linear equations. In this blog I will describe the matrix generalization of this method and provide a toy implementation.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/sparse-matrix-conjugate-gradient.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Sparse Matrix Conjugate Gradient</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2017-10-01T11:00:00+09:00">Sun 01 October 2017</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/linear-algebra.html" title="All articles with Linear Algebra tag">#linear algebra</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>In the previous blog post, I introduced Hotelling's method for computing the inverse of a matrix. In this page, I would like to describe a similar tool: the sparse matrix conjugate gradient. We would like to solve the following equation:</p>
+<p>$$\begin{equation}
+AX = B
+\end{equation}$$</p>
+<p>where $A$, $X$, and $B$ are also sparse matrices. This can of course be used to invert a matrix, by setting $B=I$.</p>
+<p>I will presume that you are familiar with the standard linear equation:</p>
+<p>$$\begin{equation}
+Ax = b
+\end{equation}$$</p>
+<p>where now $x$ and $b$ are vectors. One way to solve this is to use the conjugate gradient method. Below I've converted the algorithm shown on the Wikipedia[1] into python:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Libraries</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">rand</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+
+<span class="c1"># Input Parameters</span>
+<span class="n">dimension</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sparsity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="c1"># Initial Matrix and Vectors</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">sparsity</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+
+<span class="c1"># Iterate</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+    <span class="n">Ap</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">Ap</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">top</span> <span class="o">/</span> <span class="n">bottom</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">p</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">Ap</span>
+
+    <span class="n">norm_value</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">norm_value</span> <span class="o">&lt;</span> <span class="mf">1e-8</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">new_top</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">new_top</span><span class="o">/</span><span class="n">top</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">p</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">norm_value</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Usual caveats about the condition number, existence of solutions, etc. Also, check out the cleverly titled reference [2] if you want a more detailed review of this method.</p>
+<p>Now lets expand to the matrix case. It's easiest to think of the matrix case as being the vector case, but you're trying to solve for multiple right hand sides. Matrix-vector multiplication is now matrix-matrix multiplication, because that's how you multiply a matrix by a set of vectors. For the dot products, we just pairwise multiply the matrices and sum up their elements (see the last blog post).</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">identity</span><span class="p">,</span> <span class="n">rand</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+
+<span class="c1"># Input Parameters</span>
+<span class="n">dimension</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sparsity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="c1"># Initial Matrix and Vectors</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">dimension</span><span class="p">,</span> <span class="n">dimension</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">sparsity</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csr&quot;</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">identity</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+
+<span class="c1"># Iterate</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">B</span> <span class="o">-</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">):</span>
+    <span class="n">AP</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">AP</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">AP</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">AP</span><span class="p">)</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="p">((</span><span class="n">R</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">R</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="p">((</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">AP</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">top</span> <span class="o">/</span> <span class="n">bottom</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">P</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">R</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">AP</span>
+
+    <span class="n">norm_value</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">norm_value</span> <span class="o">&lt;</span> <span class="mf">1e-8</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">new_top</span> <span class="o">=</span> <span class="p">((</span><span class="n">R</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">R</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">new_top</span><span class="o">/</span><span class="n">top</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">R</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">P</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">norm_value</span><span class="p">)</span>
+</code></pre></div>
+
+<p>I snuck in a symmetrizing operation because I noticed some drift.</p>
+<p>One important difference between using CG and Hotelling's method is that we can also introduce a preconditioner into the mix. Additionally, there are often situations where we have a good guess for a solution, and just want to use CG to refine it. Perhaps in a future blog post we can study the performance comparison closer...</p>
+<blockquote>
+<p>[1] https://en.wikipedia.org/wiki/Conjugate_gradient_method</p>
+<p>[2] Shewchuk, Jonathan Richard. "An introduction to the conjugate gradient
+method without the agonizing pain." (1994).</p>
+</blockquote>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/sparse-matrix-conjugate-gradient.html&amp;t=william-dawson.github.io%3A%20Sparse%20Matrix%20Conjugate%20Gradient" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/sparse-matrix-conjugate-gradient.html&amp;text=william-dawson.github.io%3A%20Sparse%20Matrix%20Conjugate%20Gradient" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/sparse-matrix-conjugate-gradient.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>

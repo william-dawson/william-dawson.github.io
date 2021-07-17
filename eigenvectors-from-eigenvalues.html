@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Eigenvectors from Eigenvalues &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2019-11-13" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Eigenvectors from Eigenvalues"/>
+    <meta property="og:description" content="A recent paper by Denton et al. revealed an interesting fundamental relationship between the eigenvalues and eigenvectors of a matrix. I will describe their findings and explore how it might be applied."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/eigenvectors-from-eigenvalues.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Eigenvectors from Eigenvalues">
+    <meta name="twitter:description" content="A recent paper by Denton et al. revealed an interesting fundamental relationship between the eigenvalues and eigenvectors of a matrix. I will describe their findings and explore how it might be applied.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/eigenvectors-from-eigenvalues.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Eigenvectors from Eigenvalues</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2019-11-13T11:00:00+09:00">Wed 13 November 2019</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/paper-discussions.html" title="All articles with Paper Discussions tag">#paper discussions</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>Recently, I saw an interesting article about a group of scientists studying
+neutrinos who discovered an interesting relationship between eigenvalues
+and eigenvectors [1]. You can read their paper on this relationship on
+arxiv [2]. In the spirit of this blog, I would like to explore this result
+in a hands on way.</p>
+<p>The main result of this paper is as follows. Let $A$ by an $N\times N$
+hermitian matrix with eigenvectors $v$ and unique, nonzero eigenvalues
+$\lambda_i (A)$. And let $M_j$ be the minor matrix, which is $A$ with
+its $j$'th row and column removed. Then, the following relationship holds:</p>
+<p>$$\begin{equation}
+|v_{ij}|^2 = \frac{\prod_{k=1}^{N-1}\lambda_i(A) - \lambda_k(M_j)}
+{\prod_{k=1, k \neq i}^{N}\lambda_i(A) - \lambda_k(A)}
+\end{equation}$$</p>
+<p>Note that in this case we aren't computing the actual eigenvectors, but
+the squared norm of each entry. The paper hints that a transformation back
+exists, but it is more complicated to compute.</p>
+<p>Now, how about we implement this in python. Let's get our import statements
+out of the way.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">rand</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigh</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">diag</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+</code></pre></div>
+
+<p>And now setup the matrix to test on, and compute its eigenvalues and
+eigenvectors:</p>
+<div class="highlight"><pre><span></span><code><span class="n">N</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span>
+<span class="n">lamba</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endhighlight</span> <span class="o">%</span><span class="p">}</span>
+</code></pre></div>
+
+<p>Let's dive right in and write a function to implement the main result of the
+paper. It is quite simple to do:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_eigenvectors</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">):</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="c1"># bottom expression of (1)</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">bottom</span> <span class="o">*=</span> <span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+            <span class="c1"># compute the matrix minor</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[:,</span> <span class="n">ax</span><span class="p">][</span><span class="n">ax</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">lamba_m</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">eigvals_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># top expression of (1)</span>
+            <span class="n">top</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">top</span> <span class="o">*=</span> <span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba_m</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+            <span class="c1"># divide to get the square norm</span>
+            <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">top</span><span class="o">/</span><span class="n">bottom</span>
+
+  <span class="k">return</span> <span class="n">v</span>
+</code></pre></div>
+
+<p>To test it out, we need to compute the square norm eigenvectors. Then we
+can subtract the results and compute the norm:</p>
+<div class="highlight"><pre><span></span><code><span class="n">v2</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">v2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">v2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">v2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">vcomputed</span> <span class="o">=</span> <span class="n">compute_eigenvectors</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">lamba</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">vcomputed</span> <span class="o">-</span> <span class="n">v2</span><span class="p">))</span>
+</code></pre></div>
+
+<p>If you implement this and run it yourself, you'll notice something strange:
+this doesn't work. Fortunately, this code can be fixed with just one line:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">vcomputed</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">v2</span><span class="p">))</span>
+</code></pre></div>
+
+<p>We should of course remember that the definition of the eigenvectors as either
+being the columns or the rows of the matrix $v$ is going to depend on our
+definition of matrix multiplication. This is actually an important point, and
+we can see why by writing a second routine, which only computes a select
+eigenvalue:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_eigenvector</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># bottom expression of (1)</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">bottom</span> <span class="o">*=</span> <span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="c1"># compute the matrix minor</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[:,</span> <span class="n">ax</span><span class="p">][</span><span class="n">ax</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">lamba_m</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">eigvals_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># top expression of (1)</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">top</span> <span class="o">*=</span> <span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba_m</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="c1"># divide to get the square norm</span>
+        <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">top</span><span class="o">/</span><span class="n">bottom</span>
+
+    <span class="k">return</span> <span class="n">v</span>
+</code></pre></div>
+
+<p>What we can see from this code is that even if we only want to compute a
+single eigenvector, we still need the eigenvalues of every minor of the matrix.
+By contrast, if we wanted to compute all the eigenvectors at a single point,
+we could do so using just one matrix minor. As far as I know, there aren't many
+methods that offer some computational benefit when only computing eigenvectors
+at select points, in fact it would be hard to design such a method because you
+would have no way to keep the eigenvectors orthogonal.</p>
+<p>There's one other aspect of this relationship I would like to explore. In the
+code, we have to do the inner loop over minors. But we might ask if we could
+exit out of that loop early. Essentially, we're wondering how fast the sum
+in equation (1) converges. Let's rewrite the code to explore this:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_converge</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">bottomvals</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+
+    <span class="c1"># bottom expression of (1)</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">bottom</span> <span class="o">*=</span> <span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">bottomvals</span> <span class="o">+=</span> <span class="p">[</span><span class="n">bottom</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="c1"># compute the matrix minor</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[:,</span> <span class="n">ax</span><span class="p">][</span><span class="n">ax</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">lamba_m</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">eigvals_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># top expression of (2)</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">top</span> <span class="o">*=</span> <span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba_m</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">ratio</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">top</span><span class="o">/</span><span class="n">bottomvals</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+    <span class="c1"># Compute the relative error and return</span>
+    <span class="n">relerror</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">relerror</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">ratio</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">ratio</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="n">ratio</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+
+    <span class="k">return</span> <span class="n">relerror</span>
+</code></pre></div>
+
+<p>Now let's compute the convergence for various eigenvectors and plot it.</p>
+<div class="highlight"><pre><span></span><code><span class="n">relerror0</span> <span class="o">=</span> <span class="n">compute_converge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">relerror1</span> <span class="o">=</span> <span class="n">compute_converge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">relerror_half</span> <span class="o">=</span> <span class="n">compute_converge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">relerror_minus</span> <span class="o">=</span> <span class="n">compute_converge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">relerror_minus2</span> <span class="o">=</span> <span class="n">compute_converge</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># plotting code omitted for brevity</span>
+</code></pre></div>
+
+<p><img alt="Example output" height="50%" src="https://william-dawson.github.io/Test-Website/assets/eigconverge.png" width="50%"></p>
+<p>Two things stand out here. First, convergence is much quicker when including
+the eigenvalues and minors "close" to the eigenvector we are computing. Second,
+this effect is much greater for the larger eigenvalues. We might recall that
+for a random matrix, the larger eigenvalues are very spread out. Could this
+be the reason? We can test this by creating a matrix with evenly spaced
+eigenvalues, except for the first value which we will keep separated.</p>
+<div class="highlight"><pre><span></span><code><span class="n">a2vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">N</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lamba</span><span class="p">]</span>
+<span class="n">a2vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">A2</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">diag</span><span class="p">(</span><span class="n">a2vals</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+<span class="n">relerror0</span> <span class="o">=</span> <span class="n">compute_converge</span><span class="p">(</span><span class="n">A2</span><span class="p">,</span> <span class="n">a2vals</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c1"># plotting code omitted for brevity</span>
+</code></pre></div>
+
+<p><img alt="Example output" height="50%" src="https://william-dawson.github.io/Test-Website/assets/eigconverge2.png" width="50%"></p>
+<p>Indeed, with this approach the error is quite low after including the first
+eigenvalue. Next, let's explore the ordering of the sum. If including the
+$n$th eigenvalue seems to drop the error the most, what if we added that
+one first? In fact, let's add minors such that the eigenvalues closest to
+our target are added first.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_converge2</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">bottomvals</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+
+    <span class="n">order</span> <span class="o">=</span> <span class="n">argsort</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># bottom expression of (1)</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">order</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">bottom</span> <span class="o">*=</span> <span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">bottomvals</span> <span class="o">+=</span> <span class="p">[</span><span class="n">bottom</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">order</span><span class="p">:</span>
+        <span class="c1"># compute the matrix minor</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[:,</span> <span class="n">ax</span><span class="p">][</span><span class="n">ax</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">lamba_m</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">eigvals_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># top expression of (2)</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">top</span> <span class="o">*=</span> <span class="n">lamba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">lamba_m</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">ratio</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">top</span><span class="o">/</span><span class="n">bottomvals</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+    <span class="c1"># Compute the relative error and return</span>
+    <span class="n">relerror</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">relerror</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">ratio</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">ratio</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span><span class="o">/</span><span class="n">norm</span><span class="p">(</span><span class="n">ratio</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+
+    <span class="k">return</span> <span class="n">relerror</span>
+</code></pre></div>
+
+<p><img alt="Example output" height="50%" src="https://william-dawson.github.io/Test-Website/assets/eigconverge3.png" width="50%"></p>
+<p>This did seem to improve the convergence for some values, but not the largest
+eigenvalues. We can leave this to future work, perhaps there is an interesting
+hint here. Overall, from this method we can see some interesting properties
+of eigenvectors and eigenvalues, in particular when considering elements local
+in space or energy.</p>
+<p>[1] https://www.quantamagazine.org/neutrinos-lead-to-unexpected-discovery-in-basic-math-20191113/</p>
+<p>[2] https://arxiv.org/abs/1908.03795</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/eigenvectors-from-eigenvalues.html&amp;t=william-dawson.github.io%3A%20Eigenvectors%20from%20Eigenvalues" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/eigenvectors-from-eigenvalues.html&amp;text=william-dawson.github.io%3A%20Eigenvectors%20from%20Eigenvalues" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/eigenvectors-from-eigenvalues.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>

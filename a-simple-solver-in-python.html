@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>A Simple Solver In Python &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2019-02-04" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="A Simple Solver In Python"/>
+    <meta property="og:description" content="In this post I will present a simple solver of the Schrödinger equation in python based on a real space formulism."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/a-simple-solver-in-python.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="A Simple Solver In Python">
+    <meta name="twitter:description" content="In this post I will present a simple solver of the Schrödinger equation in python based on a real space formulism.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/a-simple-solver-in-python.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>A Simple Solver In Python</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2019-02-04T11:00:00+09:00">Mon 04 February 2019</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/computational-chemistry.html" title="All articles with Computational Chemistry tag">#computational chemistry</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>In this blog post, I would to introduce a simple Schrödinger equation solver in python. There are of course plenty of programs out there that can solve the Schrödinger equation. And many of them solve it in the context of practical theories and systems. However, often times the resulting wavefunctions of those calculations are deeply hidden within the program, which makes it tedious to experiment with. When I'm trying to do something new, sometimes I'll turn to this kind of simple program.</p>
+<p>I'm going to write here what I think is the absolute bare minimum solver you can make. We'll only solve equations in one dimension. We'll use the eigensolver provided by SciPy. And we'll solve all the equations in real space using the finite difference method. First, let's recall the time independent Schrödinger equation:</p>
+<p>$$\begin{equation}
+\big[\nabla^2 + V(x)\big] \psi = \lambda \psi.
+\end{equation}$$</p>
+<p>First let's process the input. Ignore some of the import statements for now,
+we'll come back to these functions when we use them.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">diag</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">eigsh</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="kn">from</span> <span class="nn">UniversalOperators</span> <span class="kn">import</span> <span class="n">TOperator</span>
+<span class="kn">import</span> <span class="nn">SystemOperators</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Process Input</span>
+    <span class="n">grid_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">nocc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">PotentialName</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">x_values</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">6.28</span><span class="p">,</span> <span class="mf">6.28</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">)</span>
+    <span class="n">grid_spacing</span> <span class="o">=</span> <span class="n">x_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Our program takes three input parameters:</p>
+<ul>
+<li>The number of grid points.</li>
+<li>The number of eigenvectors to compute.</li>
+<li>The name of the potential we want to study.</li>
+</ul>
+<p>Using the <code>linspace</code> function in <code>numpy</code>, we can easily generate a list of evenly spaced grid points to represent our potential and wavefunction on.</p>
+<p>Next we need a matrix that represents the kinetic energy:</p>
+<div class="highlight"><pre><span></span><code>    <span class="c1"># Build Operator</span>
+    <span class="n">KineticMatrix</span> <span class="o">=</span> <span class="n">TOperator</span><span class="p">(</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The Kinetic Energy operator is a universal operator, as opposed to the potential energy operators which are specific to the system we are trying to model. We will put the kinetic energy operator in a file <code>UniversalOperators.py</code> and the potential energy operators in <code>SystemOperators.py</code>. The kinetic energy operator can be implemented using the five point stencil approximation[1]:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">coo_matrix</span>
+
+<span class="k">def</span> <span class="nf">TOperator</span><span class="p">(</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Five point stencil kinetic energy operator.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">grid_spacing</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">16.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">grid_spacing</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">30.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">grid_spacing</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">grid_size</span><span class="p">:</span>
+            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">16.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">grid_spacing</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">grid_size</span><span class="p">:</span>
+            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">12.0</span> <span class="o">*</span> <span class="n">grid_spacing</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">))</span>
+</code></pre></div>
+
+<p>In this routine, all the logic like <code>if i &gt; 0</code> is to deal with the boundary condition. In this simple example, the boundary condition is that the wavefunction goes to zero. Next we'll also have to construct a potential energy operator, and add it to our overall Hamiltonian:</p>
+<div class="highlight"><pre><span></span><code>    <span class="k">try</span><span class="p">:</span>
+        <span class="n">PotentialOperator</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">SystemOperators</span><span class="p">,</span> <span class="n">PotentialName</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">PotentialMatrix</span><span class="p">,</span> <span class="n">potential</span> <span class="o">=</span> <span class="n">PotentialOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">)</span>
+    <span class="n">Hamiltonian</span> <span class="o">=</span> <span class="n">KineticMatrix</span> <span class="o">+</span> <span class="n">PotentialMatrix</span>
+</code></pre></div>
+
+<p>Here we'll take advantage of Python's flexibility. The <code>getattr</code> function will get the function in the <code>SystemOperators.py</code> based on the string provided to the program. How should we implement these potential energy operators? Here's are two examples:</p>
+<div class="highlight"><pre><span></span><code><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Generate operators representing various systems.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">coo_matrix</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">exp</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">lambertw</span>
+
+<span class="k">def</span> <span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Hydrogen potential well</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">grid_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_values</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">):</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">)),</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">LambertOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Lambert W Function</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">grid_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_values</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">):</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">col</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x_values</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">data_point</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">lambertw</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)))))</span><span class="o">.</span><span class="n">real</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_point</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">)),</span> <span class="n">data</span>
+</code></pre></div>
+
+<p>The <code>HydrogenOperator</code> function is just a simple $\frac{1}{r}$ operator. The <code>LambertOperator</code> uses the Lambert W function[2] just to keep things interesting.</p>
+<p>Now that we have the operator in matrix form, we can solve for the eigenvectors.</p>
+<div class="highlight"><pre><span></span><code>    <span class="c1"># Solve The Eigenvalue Equation</span>
+    <span class="n">values</span><span class="p">,</span> <span class="n">vectors</span> <span class="o">=</span> <span class="n">eigsh</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">nocc</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;SA&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>And we can plot the result.</p>
+<div class="highlight"><pre><span></span><code>    <span class="c1"># Plotting</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nocc</span><span class="p">):</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">vectors</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;o--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;K=&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">PotentialMatrix</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(),</span> <span class="s1">&#39;x--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;potential&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Some example output is below. We'll come back to this example later for some more interesting exercises.</p>
+<p><img alt="Example output" height="75%" src="https://william-dawson.github.io/Test-Website/assets/1DViz.png" width="75%"></p>
+<blockquote>
+<p>[1] https://en.wikipedia.org/wiki/Five-point_stencil</p>
+<p>[2] https://en.wikipedia.org/wiki/Lambert_W_function</p>
+</blockquote>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/a-simple-solver-in-python.html&amp;t=william-dawson.github.io%3A%20A%20Simple%20Solver%20In%20Python" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/a-simple-solver-in-python.html&amp;text=william-dawson.github.io%3A%20A%20Simple%20Solver%20In%20Python" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/a-simple-solver-in-python.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>

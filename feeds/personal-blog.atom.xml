@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>william-dawson.github.io - Personal Blog</title><link href="https://william-dawson.github.io/Test-Website/" rel="alternate"></link><link href="https://william-dawson.github.io/Test-Website/feeds/personal-blog.atom.xml" rel="self"></link><id>https://william-dawson.github.io/Test-Website/</id><updated>2021-04-17T17:38:38+09:00</updated><entry><title>Some Mid-Pandemic Thoughts on Running</title><link href="https://william-dawson.github.io/Test-Website/some-mid-pandemic-thoughts-on-running.html" rel="alternate"></link><published>2021-04-17T17:38:38+09:00</published><updated>2021-04-17T17:38:38+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2021-04-17:/Test-Website/some-mid-pandemic-thoughts-on-running.html</id><summary type="html">&lt;p&gt;A year into the COVID-19 pandemic, I describe my new hobby of running, and why it is so much fun in Japan.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Since about May of last year, I've taken up running as a hobby. Usually I try
+to stay active by playing basketball or futsal with people from work, but
+pandemic restrictions have put an end to that. It's been about a year since
+I started, and I really am enjoying it, so I wanted to write a blog post
+about why.&lt;/p&gt;
+&lt;p&gt;It all comes back to that famous middle school formula: $$\pi r^2$$. When you
+first start running, you get out of the house, do a loop around the
+neighborhood, and come back panting. You get a little bit of that runner's
+high, but mainly it just feels like work. But as the months go by, you start
+to be able to run longer and longer distances. That's when you realize that
+it's not the distance that matters, but the area of the circle.&lt;/p&gt;
+&lt;p&gt;Without giving away too much personal information, I live in the city of
+Nishinomiya now, which has at its center Nishinomiya station. On google maps,
+I can hover above that station, and search "points of interest".
+From Nishinomiya station there is Nishinomiya Shrine about half a kilometer
+away, so the beginner can enjoy taking a loop around a beautiful shrine.
+About one kilometer away is Shukugawa park, a park with a nice long river
+and a long line of cherry blossom trees. As you start to get your legs you
+can take a visit.&lt;/p&gt;
+&lt;iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13114.252404064842!2d135.33859122100577!3d34.74140551934538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000f2429396d4e7%3A0x80d4db7e4d62994b!2sNishinomiya%20Station!5e0!3m2!1sen!2sjp!4v1618650138672!5m2!1sen!2sjp" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy"&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Five kilometers is about the shortest distance you can run without feeling like
+a total failure. Turning south from Shukugawa park, you can make it to 
+Omaehama park, which has a small beach and a nice view of the ocean. Round
+trip from the station should be just the right distance. If you go north,
+you'll find yourself turning around at Hirota shrine, which is a wide and
+open shrine with a great view as you approach. If you go east and run along
+the train line, you will arrive at Koshien station, where you can see Japan's
+most famous baseball stadium and its iconic ivy. The round trip is about 5.5
+kilometers.&lt;/p&gt;
+&lt;p&gt;After a few months of running, I discovered that my wallet wasn't in my pocket.
+I had to double back the entire route to look for it, and that's how I ran
+my first 10K of the season (the wallet was at home the entire time). From Nishinomiya
+station, if you're willing to gain some elevation, in under 10K you can make
+it all the way up to Kabutoyama Forest Park (and the nearby Kwansei Gakuin
+University) which has a spectacular view of the city. If you go south west,
+there is a small (artificial?) island which has a free footbath you can use,
+which makes for a great stopping point. Of course that's not the right attitude
+if you care about how fast you're running, but that's missing the point. The
+real fun of running in Japan is all the places you can discover.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="png" src="https://william-dawson.github.io/Test-Website/assets/IMG_7596.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Japan has one of the best train systems in the entire world. So if you really
+want to expand you range, taking the train home will instantly double the
+distance you can travel. If you run east, you can make it to Amagasaki Castle,
+and you know you made a good decision about a hobby when an ancient castle
+is the destination. Running to Takarazuka city along the Muko river was also
+a great experience. If you go west until Ashiya and then go north along the
+river, you can find my favorite hiking course. At the entrace, there is a
+small waterfall (look for Taki no Chaya on the map) which is right before
+the paved roads end.&lt;/p&gt;
+&lt;p&gt;The most I have done in this pandemic stretch is just over 20K. I've already
+had to leave out a lot of great destinations, and with the radius now expanded
+to 20K it almost becomes an impossible task. Recently I find myself stuck
+looking at google maps instead of sleeping because I want to plan long distance
+runs. Due to the pandemic, I try to wear a mask whenever there are other
+people anywhere nearby, which means there are a few destinations I haven't yet
+made it to because I know the streets are going to be crowded the whole way. 
+But I'm optimistic about the coming year, and hope to report on some future
+adventures.&lt;/p&gt;</content><category term="Personal Blog"></category><category term="personal"></category></entry><entry><title>BigDFT Tutorials</title><link href="https://william-dawson.github.io/Test-Website/bigdft-tutorials.html" rel="alternate"></link><published>2021-02-01T01:00:00+09:00</published><updated>2021-02-01T01:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2021-02-01:/Test-Website/bigdft-tutorials.html</id><summary type="html">&lt;p&gt;I present a new set of tutorials for the BigDFT software.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently, we have been creating a new version of the website for the BigDFT
+code. One of the goals for the new website is to present a new workflow
+for using BigDFT. In the past, the code was used by preparing input files
+manually and then running the program. However, for a few years now we
+have been developing the PyBigDFT python bindings for BigDFT [1]. The new
+workflow will have you write python code that can handle everything from 
+pre-processing, to running calculations, to analyzing the results.&lt;/p&gt;
+&lt;p&gt;With this in mind, we have been developing some new tutorials for how to
+use the code. Each of these tutorials is build from a jupyter notebook that
+we imported into sphinx. I think this is a very fun way to write tutorials,
+you can almost do a mini study and share it with the world. Every time I
+add to the tutorials, I realize there are some new features I would like to
+develop.&lt;/p&gt;
+&lt;p&gt;One thing I would like to try to demonstrate in these tutorials is the ability
+of PyBigDFT to work with other code bases. To me, being able to quickly mix
+a variety of libraries is the exceptional part of python. In my recent
+tutorial on 
+&lt;a href="https://l_sim.gitlab.io/bigdft-suite/lessons/GeometryOptimization.html"&gt;Geometry Optimization&lt;/a&gt;,
+I do just this. In the first part, we go
+from a SMILES string to an optimized geometry, by integrating 
+&lt;a href="http://openbabel.org/wiki/Main_Page"&gt;openbabel&lt;/a&gt; into
+a BigDFT workflow. In the second part, a slab is created with the aid of
+the &lt;a href="https://wiki.fysik.dtu.dk/ase/"&gt;Atomic Simulation Environment&lt;/a&gt;. In 
+&lt;a href="https://l_sim.gitlab.io/bigdft-suite/lessons/MachineLearning.html"&gt;another tutorial&lt;/a&gt;
+, I integrate PyBigDFT with a machine learning framework called
+&lt;a href="https://www.qmlcode.org/index.html"&gt;qmlcode&lt;/a&gt;. Developing clear datastructures
+that enable transformations like this is definitely one of our goals for
+PyBigDFT.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[1] Ratcliff, Laura E., William Dawson, Giuseppe Fisicaro, Damien Caliste,
+Stephan Mohr, Augustin Degomme, Brice Videau et al. "Flexibilities of wavelets
+as a computational basis set for large-scale electronic structure
+calculations." The Journal of Chemical Physics 152, no. 19 (2020): 194110.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="Personal Blog"></category><category term="software"></category></entry><entry><title>BigDFT Webinar</title><link href="https://william-dawson.github.io/Test-Website/bigdft-webinar.html" rel="alternate"></link><published>2020-10-23T01:00:00+09:00</published><updated>2020-10-23T01:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2020-10-23:/Test-Website/bigdft-webinar.html</id><summary type="html">&lt;p&gt;On November twelfth, we will be hosting a webinar about the BigDFT code entitled The Flexibilities of Wavelets for Electronic Structure  Calculations in Large Systems.&lt;/p&gt;</summary><content type="html">&lt;p&gt;On November twelfth, we will be hosting a webinar about the BigDFT
+code entitled &lt;a href="http://www.max-centre.eu/webinar/flexibilities-wavelets-electronic-structure-calculations-large-systems"&gt;The Flexibilities of Wavelets for Electronic Structure 
+Calculations in Large Systems&lt;/a&gt;. If
+you are interested in electronic structure software or its applications
+to large systems (1000+ atoms) I think you will find it quite interesting.
+We will be presenting material that should be interesting to both
+chemists and people who do materials science. The webinar is free to
+attend, so feel free to join!&lt;/p&gt;</content><category term="Personal Blog"></category><category term="workshop"></category></entry><entry><title>My Article in The Sankei News</title><link href="https://william-dawson.github.io/Test-Website/my-article-in-the-sankei-news.html" rel="alternate"></link><published>2020-09-01T01:00:00+09:00</published><updated>2020-09-01T01:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2020-09-01:/Test-Website/my-article-in-the-sankei-news.html</id><summary type="html">&lt;p&gt;An article I wrote for The Sankei News called "The Appeal of Chemistry You Can Do At Home" has been published.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I am happy to announce that an article I wrote has appeared in
+&lt;a href="https://www.sankei.com/west/news/200829/wst2008290003-n1.html"&gt;The Sankei News&lt;/a&gt;.
+The title of the article is "The Appeal of Chemistry You Can Do At Home".
+The article is written in Japanese. I received a lot of help from people at
+RIKEN and the editor at the newspaper to turn my poor Japanese into what
+appears to be a coherent article. The article also features an illustration
+created by my talented wife.&lt;/p&gt;
+&lt;p&gt;I won't offer a translation here, but I would like to summarize the main
+points. In this article, I discuss how I, like many researchers at RIKEN,
+have been working from home as a measure to prevent the spread of COVID-19.
+Of course, upon hearing that many people will wonder "how can you research
+chemistry at home?" To answer this, I give an overview of what simulation
+is and how we can do it from the comfort of home.&lt;/p&gt;
+&lt;p&gt;At the end of the article, I tried to discuss something more personal to me.
+One of the things I enjoy about doing science is those "aha!" moments. In
+that sense, I think computational chemistry is really ideal. It's a constant
+bombardment of little successes. Each simulation you run gives you more
+information about what you're studying. And each line of code you write is 
+gives you deeper insight into the theory that you are modelling. &lt;/p&gt;
+&lt;p&gt;For me, the most enjoyable science is the science with the quickest time from
+question to answer. The trick to quick turnaround time is to build good tools
+that can be re-used to study new problems. This is not so easy when you
+are an experimentalist, you can't build a robot to replace you, and you rarely
+have the opportunity to design new equipment. But in simulation science, we
+very easily can extend the toolsets we have. This is a privilege we developers
+should keep in mind and use as motivation to build the most powerful and
+easy to use tools we can.&lt;/p&gt;</content><category term="Personal Blog"></category><category term="personal"></category></entry><entry><title>CPMD 2017 Workshop</title><link href="https://william-dawson.github.io/Test-Website/cpmd-2017-workshop.html" rel="alternate"></link><published>2017-10-27T11:00:00+09:00</published><updated>2017-10-27T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-10-27:/Test-Website/cpmd-2017-workshop.html</id><summary type="html">&lt;p&gt;I describe my experience at the CPMD2017 workshop in Tsukuba Japan.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Last week, I was able to attend the
+&lt;a href="http://www.nims.go.jp/MII-I/CPMD2017/"&gt;CPMD2017 workshop&lt;/a&gt; in Tsukuba, Japan.
+CPMD in this case stands for Car-Parrinello molecular dynamics, one of the
+most important techniques in computational physics. This workshop featured
+talks from some of the top scientists in the field, including of course both
+Roberto Car and Michele Parrinello.&lt;/p&gt;
+&lt;p&gt;This workshop also coincided with the 70th birthday of Dr. Roberto Car. It was
+fun to see people celebrate as he certainly had a big impact on the scientific
+careers of many people there. On a less positive note, this workshop all
+coincided with Typhoon Lan. I hope that everyone from the conference was able
+to safely and smoothly return home despite the severe weather.&lt;/p&gt;
+&lt;p&gt;What is CPMD and what it is useful for? First principles techniques such as
+density functional theory can be used to compute the ground state energy of
+a given molecular system. This works well for computing things like bulk
+crystal systems, but what about dynamically evolving systems such as liquid
+water? In that case, we need to be able to compute the motion of atoms as well.
+This combination of molecular dynamics and density functional theory is an
+important tool for interpreting experiment, and studying systems under extreme
+conditions. Car and Parrinello were pioneers in combining molecular dynamics
+with density functional theory, including inventing the method now called
+Car-Parrinello molecular dynamics which was first introduced in their 1985
+paper [1].&lt;/p&gt;
+&lt;p&gt;For me personally, the most impactful talk was given by Dr. Osamu Sugino from
+the University of Tokyo. In his talk, he referenced his group's work on
+using first-principles molecular dynamics simulations to study firefly
+bioluminescence [2]. For this study, it was necessary for them to relax the
+structure of the oxyluciferin anions in solution. This simulation proved to
+be very slow to converge, but in a true tour de force calculation they spent
+200 days performing this simulation using 128 Xeon processors for each isomer.
+These time consuming simulations are an inspiration to us who work on the
+computational side, reminding us how important it is to get the best performance
+out of our codes.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[1] Car, Richard, and Mark Parrinello. "Unified approach for molecular
+dynamics and density-functional theory." Physical review letters 55,
+no. 22 (1985): 2471.&lt;/p&gt;
+&lt;p&gt;[2] Noguchi, Yoshifumi, Miyabi Hiyama, Motoyuki Shiga, Osamu Sugino, and
+Hidefumi Akiyama. "Reverse Stability of Oxyluciferin Isomers in Aqueous
+Solutions." The Journal of Physical Chemistry B 120, no. 34 (2016): 8776-8783.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="Personal Blog"></category><category term="workshop"></category></entry></feed>
