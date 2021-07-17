@@ -6,6 +6,8 @@ SITENAME = "william-dawson.github.io"
 SITEURL = ''
 
 PATH = 'content'
+STATIC_PATHS = ["images", "extra"]
+EXTRA_PATH_METADATA = {"extra/googleec2f5ff69ee23ffa.blank": {"path": "googleec2f5ff69ee23ffa.html"}}
 
 TIMEZONE = 'Japan'
 
