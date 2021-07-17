@@ -15,9 +15,10 @@ jobs:
 
       - name: Install and Build 
         run: |
+          conda init bash
           conda env create --file requirements.yml
           conda activate pelican
-          make deploy
+          make publish
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
