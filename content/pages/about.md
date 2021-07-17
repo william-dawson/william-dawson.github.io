@@ -18,5 +18,5 @@ in the lessons on this site. The exception is when the code is a derivative
 work of an external library, in which case please comply with that license's
 specific rules.
 
-This blog is powered by [Pelican](https://getpelican.com/) and is using
-the theme by [Smashing Magazine](https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/)
+This blog is powered by [Pelican](https://getpelican.com/) and based on
+the [MinimalXY](https://github.com/petrnohejl/MinimalXY) them.

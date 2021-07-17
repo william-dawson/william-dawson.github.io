@@ -1,48 +1,59 @@
-{% extends "base.html" %}
-{% block content_title %}{% endblock %}
-{% block content %}
-{% if articles %}
-    {% for article in articles_page.object_list %}
+    {% extends "base.html" %}
 
-        {% if loop.first %}
-            <section id="content" class="body">
-                <ol id="posts-list" class="hfeed" start="{{ articles_paginator.per_page -1 }}">
-        {% endif %}
-        <li><article class="hentry">
-            <header>
-                <h1><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
-                       title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h1>
-            </header>
-
-            <div class="entry-content">
-            {% include 'article_infos.html' %}
-            {{ article.summary }}
-            <a class="readmore" href="{{ SITEURL }}/{{ article.url }}">read more</a>
-            {% include 'comments.html' %}
-            </div><!-- /.entry-content -->
-        </article></li>
-        {% if loop.last %}
-            {% if loop.length > 1 or articles_page.has_other_pages() %}
-                </ol><!-- /#posts-list -->
-                {% if articles_page.has_other_pages() %}
-                    {% include 'pagination.html' %}
-                {% endif %}
-                </section><!-- /#content -->
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-{% else %}
-<section id="content" class="body">
-    {% if pages %}
-    <h2>Pages</h2>
-    <ul>
-    {% for page in pages %}
-        <li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
-    {% endfor %}
-    </ul>
-    {% else %}
-    <p>This site currently has no content.</p>
+    {% block content_title %}
+    {% if articles_page.number == 1 %}
+    {% include 'introduction.html' %}
     {% endif %}
-</section>
-{% endif %}
-{% endblock content %}
+    {% endblock %}
+
+    {% block content %}
+
+    <br><br><br>
+
+    <section id="listing">
+      {% for article in articles_page.object_list %}
+      <article class="w3-container w3-card-2 w3-white col-main">
+        <header>
+          {% if article.headerimage %}
+          <div class="headerimage-card">
+            <a href="{{ SITEURL }}/{{ article.url }}"><img src="{{ article.headerimage }}" style="width: 100%;"></img></a>
+          </div>
+          {% endif %}
+          <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+          <div class="post-info">
+            <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+              <span><time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time> in <a href="{{ SITEURL }}/{{ article.category.url }}" title="All articles in category {{ article.category }}">{{ article.category }}</a></span>
+            </div>
+            {% if article.tags %}
+            <div class="w3-margin-right">
+              {% for tag in article.tags %}
+              <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+                <a href="{{ SITEURL }}/{{ tag.url }}" title="All articles with {{ tag.name.title() }} tag">#{{ tag }}</a>
+              </span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </header>
+
+        <div class="entry-content">
+          {{ article.summary|striptags }}
+        </div>
+
+        <footer>
+          <a class="w3-btn w3-green w3-right" href="{{ SITEURL }}/{{ article.url }}">Read &#10093;</a>
+        </footer>
+      </article>
+
+      <br><br><br>
+
+      {% endfor %}
+
+      {% if articles_page.has_other_pages() %}
+      {% include 'pagination.html' %}
+      <br><br><br>
+      {% endif %}
+
+    </section>
+
+    {% endblock content %}
