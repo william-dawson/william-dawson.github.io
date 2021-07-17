@@ -1,0 +1,6 @@
+name: pelican
+channels:
+  - defaults
+dependencies:
+  - pelican
+  - markdown
