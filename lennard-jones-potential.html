@@ -19,29 +19,29 @@
     <meta property="og:title" content="Lennard Jones Potential"/>
     <meta property="og:description" content="The Lennard-Jones potential is a well studied model potential describing the interaction of molecules. In this post, I will explore parameterizing the Lennard-Jones potential using Quantum Chemistry calculations."/>
     <meta property="og:site_name" content="william-dawson.github.io" />
-    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/lennard-jones-potential.html"/>
+    <meta property="og:url" content="https://william-dawson.github.io/lennard-jones-potential.html"/>
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Lennard Jones Potential">
     <meta name="twitter:description" content="The Lennard-Jones potential is a well studied model potential describing the interaction of molecules. In this post, I will explore parameterizing the Lennard-Jones potential using Quantum Chemistry calculations.">
-    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/lennard-jones-potential.html">
+    <meta name="twitter:url" content="https://william-dawson.github.io/lennard-jones-potential.html">
 
     <!-- Feed -->
-    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
-    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
-    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
-    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
 
     <!-- Icon -->
 
     <!-- JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
     <script>
     MathJax = {
       tex: {
@@ -61,14 +61,14 @@
   <body>
     <div class="w3-row w3-card w3-white">
       <header id="header">
-        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
         <nav id="header-menu">
           <ul>
-            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
-            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
-            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
-            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
-            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
           </ul>
         </nav>
       </header>
@@ -83,11 +83,11 @@
         <h1>Lennard Jones Potential</h1>
         <div class="post-info">
           <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
-            <span><time datetime="2021-07-15T12:00:00+09:00">Thu 15 July 2021</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+            <span><time datetime="2021-07-15T12:00:00+09:00">Thu 15 July 2021</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
           </div>
           <div>
             <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
-              <a href="https://william-dawson.github.io/Test-Website/tag/computational-chemistry.html" title="All articles with Computational Chemistry tag">#computational chemistry</a>
+              <a href="https://william-dawson.github.io/tag/computational-chemistry.html" title="All articles with Computational Chemistry tag">#computational chemistry</a>
             </span>
           </div>
         </div>
@@ -208,7 +208,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </code></pre></div>
 
-<p><img alt="Dimer Energies" height="80%" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_20_0.png" width="80%"></p>
+<p><img alt="Dimer Energies" height="80%" src="https://william-dawson.github.io/assets/lennard/output_20_0.png" width="80%"></p>
 <p>With the Lennard-Jones parameters computed, we can now turn to computing the actual function.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">lennard_jones</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">((</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span> <span class="o">-</span> <span class="p">(</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
@@ -237,7 +237,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </code></pre></div>
 
-<p><img alt="Dimer Comparison" height="80%" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_24_0.png" width="80%"></p>
+<p><img alt="Dimer Comparison" height="80%" src="https://william-dawson.github.io/assets/lennard/output_24_0.png" width="80%"></p>
 <p>Now let's consider a system with more than two atoms of different types. In this case, we might hope that the interactions we parameterized can be additive. Let's test this out.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">lennard_jones_group</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
@@ -285,7 +285,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 <span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div>
 
-<p><img alt="Cluster Comparison" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_32_1.png"></p>
+<p><img alt="Cluster Comparison" src="https://william-dawson.github.io/assets/lennard/output_32_1.png"></p>
 <p>What is the source of the error in this case? It can either be from our two body pairwise approximation or from the accumulation of errors from the inexact Lennard-Jones potential. To tease that out, let's also plot the energy that comes from doing MP2 in a pairwise way.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">pairwise_mp2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
     <span class="n">etot</span> <span class="o">=</span> <span class="mi">0</span>
@@ -323,7 +323,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 <span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div>
 
-<p><img alt="Cluster Updated" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_36_1.png"></p>
+<p><img alt="Cluster Updated" src="https://william-dawson.github.io/assets/lennard/output_36_1.png"></p>
         </section>
 
         <br><br><br>
@@ -345,13 +345,13 @@ In order to use this potential, you need to know what your two parameters $\epsi
 
           <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
           <div id="share" class="share">
-            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/lennard-jones-potential.html&amp;t=william-dawson.github.io%3A%20Lennard%20Jones%20Potential" target="_blank" class="w3-btn w3-indigo">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/lennard-jones-potential.html&amp;t=william-dawson.github.io%3A%20Lennard%20Jones%20Potential" target="_blank" class="w3-btn w3-indigo">
               <i class="fa fa-facebook"></i> <span>Facebook</span>
             </a>
-            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/lennard-jones-potential.html&amp;text=william-dawson.github.io%3A%20Lennard%20Jones%20Potential" target="_blank" class="w3-btn w3-blue">
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/lennard-jones-potential.html&amp;text=william-dawson.github.io%3A%20Lennard%20Jones%20Potential" target="_blank" class="w3-btn w3-blue">
               <i class="fa fa-twitter"></i> <span>Twitter</span>
             </a>
-            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/lennard-jones-potential.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/lennard-jones-potential.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
               <i class="fa fa-google-plus"></i> <span>Google</span>
             </a>
           </div>
@@ -367,7 +367,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 
     <footer id="footer">
       <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
-        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
       </div>
     </footer>
 
