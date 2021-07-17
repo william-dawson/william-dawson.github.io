@@ -1,6 +1,6 @@
 name: pelican
 channels:
-  - defaults
+  - conda-forge
 dependencies:
   - pelican
   - markdown
