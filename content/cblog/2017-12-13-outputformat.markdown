@@ -1,6 +1,8 @@
 Title: What should be the output format for scientific codes?
 Date: 2017-12-13 11:00:00 +0900
 Category: Lessons
+Tags: software
+Summary: Scientific software needs to print out information during the course of a run. In this post, I will describe three key features that program output should have, and compare various output formats by this rubric.
 
 Recently, I've been wondering what is the best output format to use for a scientific code. By output, I don't mean just the raw data that you have computed, but instead the real time output to the terminal that happens as you perform the calculation.
 

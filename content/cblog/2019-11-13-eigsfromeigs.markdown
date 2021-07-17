@@ -1,6 +1,8 @@
 Title: Eigenvectors from Eigenvalues
 Date: 2019-11-13 11:00:00 +0900
 Category: Lessons
+Tags: paper discussions
+Summary: A recent paper by Denton et al. revealed an interesting fundamental relationship between the eigenvalues and eigenvectors of a matrix. I will describe their findings and explore how it might be applied.
 
 Recently, I saw an interesting article about a group of scientists studying
 neutrinos who discovered an interesting relationship between eigenvalues

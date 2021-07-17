@@ -1,6 +1,8 @@
 Title: My Article in The Sankei News
 Date: 2020-09-01 01:00:00 +0900
 Category: Personal Blog
+Tags: personal
+Summary: An article I wrote for The Sankei News called "The Appeal of Chemistry You Can Do At Home" has been published.
 
 I am happy to announce that an article I wrote has appeared in
 [The Sankei News](https://www.sankei.com/west/news/200829/wst2008290003-n1.html).

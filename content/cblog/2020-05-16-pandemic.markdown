@@ -1,6 +1,8 @@
 Title: Playing with Pandemic Models
 Date: 2020-05-16 11:00:00
 Category: Lessons
+Tags: modelling
+Summary: The ongoing COVID-19 pandemic provides some opportunity to explore discrete event modelling with python.
 
 In this topical notebook, I wanted to explore modelling our ongoing pandemic. Recently, there has been some discussion about whether top down lockdown rules are necessary. One counter argument I see is that once the general public is well informed about the virus, we can expect them to reduce social interaction voluntarily. With this in mind, we would like some way to measure whether this reduction is sufficient.
 

@@ -1,6 +1,8 @@
 Title: Hotelling's Method
 Date: 2017-08-21 11:00:00 +0900
 Category: Lessons
+Tags: linear algebra
+Summary: Hotelling's method is a way to compute the inverse of a matrix. I will introduce the method, present a toy implementation, and describe situations where it might be applicable.
 
 I would like to use this first blog post to introduce Hotelling's method for computing the inverse of a matrix. We'll focus on the symmetric case. First let's begin by asking why we would want to directly compute the inverse of a matrix. After all, one of the first things you'll learn in any numerical linear algebra class is to always avoid explicitly inverting a matrix.
 

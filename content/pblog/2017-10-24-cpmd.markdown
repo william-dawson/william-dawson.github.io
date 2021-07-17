@@ -1,6 +1,8 @@
 Title: CPMD 2017 Workshop
 Date: 2017-10-27 11:00:00 +0900
 Category: Personal Blog
+Tags: workshop
+Summary: I describe my experience at the CPMD2017 workshop in Tsukuba Japan.
 
 Last week, I was able to attend the
 [CPMD2017 workshop](http://www.nims.go.jp/MII-I/CPMD2017/) in Tsukuba, Japan.

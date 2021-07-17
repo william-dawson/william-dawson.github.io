@@ -1,6 +1,8 @@
 Title: Legacy Software and gfortran-10
 Date: 2020-08-08 11:00:00
 Category: Lessons
+Tags: software
+Summary: A recent update to the gfortran program is breaking compiliation of many legacy software packages. I will describe the underlying cause and possible mitigation strategies.
 
 I don't follow any Fortran blogs. In fact, I'm not sure if any of them exist.
 If there are such blogs though, I might expect them to be ablaze right now

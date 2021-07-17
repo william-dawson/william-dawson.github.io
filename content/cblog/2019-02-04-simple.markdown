@@ -1,6 +1,8 @@
 Title: A Simple Solver In Python
 Date: 2019-02-04 11:00:00 +0900
 Category: Lessons
+Tags: computational chemistry
+Summary: In this post I will present a simple solver of the Schrödinger equation in python based on a real space formulism. 
 
 In this blog post, I would to introduce a simple Schrödinger equation solver in python. There are of course plenty of programs out there that can solve the Schrödinger equation. And many of them solve it in the context of practical theories and systems. However, often times the resulting wavefunctions of those calculations are deeply hidden within the program, which makes it tedious to experiment with. When I'm trying to do something new, sometimes I'll turn to this kind of simple program.
 

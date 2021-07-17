@@ -1,6 +1,8 @@
 Title: Linear Operators in Python
 Date: 2019-07-01 11:00:00 +0900
 Category: Lessons
+Tags: computational chemistry
+Summary: In this post I will extend the previously presented simple Schrödinger equation solver using the concepts of linear operators and closures.
 
 This blog post is a follow up to my [previous post](linear-operators-in-python.html) about creating a simple Schrödinger equation solver in python. Please read that post before continuing.
 

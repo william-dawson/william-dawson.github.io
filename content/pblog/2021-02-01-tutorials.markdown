@@ -1,6 +1,8 @@
 Title: BigDFT Tutorials
 Date: 2021-02-01 01:00:00 
 Category: Personal Blog
+Tags: software
+Summary: I present a new set of tutorials for the BigDFT software.
 
 Recently, we have been creating a new version of the website for the BigDFT
 code. One of the goals for the new website is to present a new workflow

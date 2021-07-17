@@ -1,6 +1,8 @@
 Title: BigDFT Webinar
 Date: 2020-10-23 01:00:00
 Category: Personal Blog
+Tags: workshop
+Summary: On November twelfth, we will be hosting a webinar about the BigDFT code entitled The Flexibilities of Wavelets for Electronic Structure  Calculations in Large Systems.
 
 On November twelfth, we will be hosting a webinar about the BigDFT
 code entitled [The Flexibilities of Wavelets for Electronic Structure 

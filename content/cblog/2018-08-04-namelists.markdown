@@ -1,6 +1,8 @@
 Title: A Program For Managing Namelists
 Date: 2018-08-04 11:00:00 +0900
 Category: Lessons
+Tags: software
+Summary: Recently, I have written a utility program for managing namelist based input in Fortran. I will describe the motivation for this program and demonstrate its utility in application.
 
 Recently, I like to stay in the office late once or twice a week. I'll break up the day by joining one of the sports clubs, going for a jog, or just grabbing dinner somewhere by the office. After the break, I'll get back to work, and I find that I'm quite productive. It's a great time to get in a four or five hour code sprint, where I can usually create a rough version of my newest idea.
 

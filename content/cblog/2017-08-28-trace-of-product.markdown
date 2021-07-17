@@ -1,6 +1,8 @@
 Title: Computing The Trace of a Product of Matrices
 Date: 2017-08-30 11:00:00 +0900
 Category: Lessons
+Tags: linear algebra
+Summary: Frequently in a Quantum Chemistry code one needs to compute the trace of the produce of two symmetric matrices. This post describes a common method to do this without having to perform matrix multiplication.
 
 I'm going to cover a very simple concept here, but it's one that I wish I had learned earlier. In a number of algorithms, we're confronted with the problem of computing the trace of a product of matrices:
 
