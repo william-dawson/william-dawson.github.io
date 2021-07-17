@@ -19,19 +19,19 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-#LINKS = (('Pelican', 'https://getpelican.com/'),
-#        ('Python.org', 'https://www.python.org/'),
-#        ('Jinja2', 'https://palletsprojects.com/p/jinja/'),
-#        ('You can modify those links in your config file', '#'),)
+# LINKS = (('Pelican', 'https://getpelican.com/'),
+#         ('Python.org', 'https://www.python.org/'),
+#         ('Jinja2', 'https://palletsprojects.com/p/jinja/'),
+#         ('You can modify those links in your config file', '#'),)
 
 # Social widget
-#SOCIAL = (('You can add links in your config file', '#'),
-#          ('Another social link', '#'),)
+# SOCIAL = (('You can add links in your config file', '#'),
+#           ('Another social link', '#'),)
 
 DEFAULT_PAGINATION = 5
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
-#THEME = "notmyidea"
+# RELATIVE_URLS = True
+# THEME = "notmyidea"
 THEME = "theme"
 DISPLAY_CATEGORIES_ON_MENU = True

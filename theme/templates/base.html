@@ -67,9 +67,6 @@
     {% if FEED_RSS %}
     <link rel="alternate" type="application/rss+xml" href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}" title="{{ SITENAME }} RSS Feed" />
     {% endif %}
-    {% if CATEGORY_FEED_ATOM and category %}
-    <link rel="alternate" type="application/atom+xml" href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_ATOM|format(category.slug) }}" title="{{ SITENAME }} Categories Atom Feed" />
-    {% endif %}
     {% if CATEGORY_FEED_RSS and category %}
     <link rel="alternate" type="application/rss+xml" href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_RSS|format(category.slug) }}" title="{{ SITENAME }} Categories RSS Feed" />
     {% endif %}
