@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>william-dawson.github.io - Lessons</title><link href="https://william-dawson.github.io/" rel="alternate"></link><link href="https://william-dawson.github.io/feeds/lessons.atom.xml" rel="self"></link><id>https://william-dawson.github.io/</id><updated>2021-07-15T12:00:00+09:00</updated><entry><title>Lennard Jones Potential</title><link href="https://william-dawson.github.io/lennard-jones-potential.html" rel="alternate"></link><published>2021-07-15T12:00:00+09:00</published><updated>2021-07-15T12:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2021-07-15:/lennard-jones-potential.html</id><summary type="html">&lt;p&gt;The Lennard-Jones potential is a well studied model potential describing the interaction of molecules. In this post, I will explore parameterizing the Lennard-Jones potential using Quantum Chemistry calculations.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The &lt;a href="https://en.wikipedia.org/wiki/Lennard-Jones_potential"&gt;Lennard-Jones potential&lt;/a&gt; is a well studied model potential. It has a very simple form:
+<feed xmlns="http://www.w3.org/2005/Atom"><title>william-dawson.github.io - Lessons</title><link href="https://william-dawson.github.io/Test-Website/" rel="alternate"></link><link href="https://william-dawson.github.io/Test-Website/feeds/lessons.atom.xml" rel="self"></link><id>https://william-dawson.github.io/Test-Website/</id><updated>2021-07-15T12:00:00+09:00</updated><entry><title>Lennard Jones Potential</title><link href="https://william-dawson.github.io/Test-Website/lennard-jones-potential.html" rel="alternate"></link><published>2021-07-15T12:00:00+09:00</published><updated>2021-07-15T12:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2021-07-15:/Test-Website/lennard-jones-potential.html</id><summary type="html">&lt;p&gt;The Lennard-Jones potential is a well studied model potential describing the interaction of molecules. In this post, I will explore parameterizing the Lennard-Jones potential using Quantum Chemistry calculations.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The &lt;a href="https://en.wikipedia.org/wiki/Lennard-Jones_potential"&gt;Lennard-Jones potential&lt;/a&gt; is a well studied model potential. It has a very simple form:
 $$V(r) = 4\epsilon \bigg[ \big(\frac{\sigma}{r}\big)^{12} - 
                           \big(\frac{\sigma}{r}\big)^{6} \bigg].$$
 In order to use this potential, you need to know what your two parameters $\epsilon$ and $\sigma$ are. In this post, I thought it would be fun try to extract those parameters from quantum chemistry calculations, and see how good of a job it does. &lt;/p&gt;
@@ -109,7 +109,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 &lt;span class="n"&gt;fig&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tight_layout&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Dimer Energies" height="80%" src="https://william-dawson.github.io/assets/lennard/output_20_0.png" width="80%"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Dimer Energies" height="80%" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_20_0.png" width="80%"&gt;&lt;/p&gt;
 &lt;p&gt;With the Lennard-Jones parameters computed, we can now turn to computing the actual function.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;lennard_jones&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;epsilon&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sigma&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;epsilon&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;sigma&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sigma&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -138,7 +138,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 &lt;span class="n"&gt;fig&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tight_layout&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Dimer Comparison" height="80%" src="https://william-dawson.github.io/assets/lennard/output_24_0.png" width="80%"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Dimer Comparison" height="80%" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_24_0.png" width="80%"&gt;&lt;/p&gt;
 &lt;p&gt;Now let's consider a system with more than two atoms of different types. In this case, we might hope that the interactions we parameterized can be additive. Let's test this out.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;lennard_jones_group&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dim&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dist&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;array&lt;/span&gt;
@@ -186,7 +186,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 &lt;span class="n"&gt;axs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Cluster Comparison" src="https://william-dawson.github.io/assets/lennard/output_32_1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Cluster Comparison" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_32_1.png"&gt;&lt;/p&gt;
 &lt;p&gt;What is the source of the error in this case? It can either be from our two body pairwise approximation or from the accumulation of errors from the inexact Lennard-Jones potential. To tease that out, let's also plot the energy that comes from doing MP2 in a pairwise way.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;pairwise_mp2&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dim&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;etot&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
@@ -224,7 +224,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 &lt;span class="n"&gt;axs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Cluster Updated" src="https://william-dawson.github.io/assets/lennard/output_36_1.png"&gt;&lt;/p&gt;</content><category term="Lessons"></category><category term="computational chemistry"></category></entry><entry><title>Legacy Software and gfortran-10</title><link href="https://william-dawson.github.io/legacy-software-and-gfortran-10.html" rel="alternate"></link><published>2020-08-08T11:00:00+09:00</published><updated>2020-08-08T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2020-08-08:/legacy-software-and-gfortran-10.html</id><summary type="html">&lt;p&gt;A recent update to the gfortran program is breaking compiliation of many legacy software packages. I will describe the underlying cause and possible mitigation strategies.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I don't follow any Fortran blogs. In fact, I'm not sure if any of them exist.
+&lt;p&gt;&lt;img alt="Cluster Updated" src="https://william-dawson.github.io/Test-Website/assets/lennard/output_36_1.png"&gt;&lt;/p&gt;</content><category term="Lessons"></category><category term="computational chemistry"></category></entry><entry><title>Legacy Software and gfortran-10</title><link href="https://william-dawson.github.io/Test-Website/legacy-software-and-gfortran-10.html" rel="alternate"></link><published>2020-08-08T11:00:00+09:00</published><updated>2020-08-08T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2020-08-08:/Test-Website/legacy-software-and-gfortran-10.html</id><summary type="html">&lt;p&gt;A recent update to the gfortran program is breaking compiliation of many legacy software packages. I will describe the underlying cause and possible mitigation strategies.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I don't follow any Fortran blogs. In fact, I'm not sure if any of them exist.
 If there are such blogs though, I might expect them to be ablaze right now
 about gfortran version 10 and all the legacy software is breaking.
 What is the problem you ask? Well consider the following program, which wraps
@@ -285,12 +285,12 @@ about these calls. In the first call we pass &lt;code&gt;WORKTEMP&lt;/code&gt; a
 are double precision and integer variables. In the second, we pass the actual
 scratch space arrays. If we compile this code with gfortran version 9, there
 are no problems. But with version 10 we get the following errors:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;   27 |        &amp;amp; WORKTEMP, LWORK, &amp;amp;&lt;/span&gt;
-&lt;span class="err"&gt;      |         2&lt;/span&gt;
-&lt;span class="err"&gt;......&lt;/span&gt;
-&lt;span class="err"&gt;   38 |        &amp;amp; WORK, LWORK, &amp;amp;&lt;/span&gt;
-&lt;span class="err"&gt;      |         1&lt;/span&gt;
-&lt;span class="c"&gt;Error: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;   27 |        &amp;amp; WORKTEMP, LWORK, &amp;amp;
+      |         2
+......
+   38 |        &amp;amp; WORK, LWORK, &amp;amp;
+      |         1
+Error: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The solution is simple: change the variables &lt;code&gt;WORKTEMP&lt;/code&gt; and &lt;code&gt;IWORKTEMP&lt;/code&gt; to be
@@ -311,7 +311,7 @@ Fortunately, placing the &lt;code&gt;USE MPI&lt;/code&gt; statement in your code
 &lt;p&gt;These errors can be resolved with a flag like &lt;code&gt;--std=legacy&lt;/code&gt;, but this is
 for sure a good time to bring legacy code up to spec. Version 10 is already
 available on homebrew, so if you have Mac users now is the time to check
-your code!&lt;/p&gt;</content><category term="Lessons"></category><category term="software"></category></entry><entry><title>Using py3Dmol</title><link href="https://william-dawson.github.io/using-py3dmol.html" rel="alternate"></link><published>2020-06-26T11:00:00+09:00</published><updated>2020-06-26T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2020-06-26:/using-py3dmol.html</id><summary type="html">&lt;p&gt;py3Dmol is a convenient python model for visualizing molecules inside python notebooks. Here I will provide a tutorial for using py3Dmol, including some advanced features.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this blog post, I want to introduce a very useful tool: &lt;a href="https://pypi.org/project/py3Dmol/"&gt;py3Dmol&lt;/a&gt;. py3Dmol is python wrapper for the 3Dmol javascript library, which can be used to create visualizations of molecular systems. I find this tool incredibly useful because it means we can visualize a system inside a jupyter notebook. This means that when you're setting up a system, or analyzing results about it, you don't have to leave the notebook, which means you get quick feedback, and can easily share results. For this reason, I've added it to the PyBigDFT library as the &lt;code&gt;InlineVisualizor&lt;/code&gt; class.&lt;/p&gt;
+your code!&lt;/p&gt;</content><category term="Lessons"></category><category term="software"></category></entry><entry><title>Using py3Dmol</title><link href="https://william-dawson.github.io/Test-Website/using-py3dmol.html" rel="alternate"></link><published>2020-06-26T11:00:00+09:00</published><updated>2020-06-26T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2020-06-26:/Test-Website/using-py3dmol.html</id><summary type="html">&lt;p&gt;py3Dmol is a convenient python model for visualizing molecules inside python notebooks. Here I will provide a tutorial for using py3Dmol, including some advanced features.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this blog post, I want to introduce a very useful tool: &lt;a href="https://pypi.org/project/py3Dmol/"&gt;py3Dmol&lt;/a&gt;. py3Dmol is python wrapper for the 3Dmol javascript library, which can be used to create visualizations of molecular systems. I find this tool incredibly useful because it means we can visualize a system inside a jupyter notebook. This means that when you're setting up a system, or analyzing results about it, you don't have to leave the notebook, which means you get quick feedback, and can easily share results. For this reason, I've added it to the PyBigDFT library as the &lt;code&gt;InlineVisualizor&lt;/code&gt; class.&lt;/p&gt;
 &lt;p&gt;Unfortunately, the documentation is lacking. I think the developers are mainly concerned with making it easy for you to show a molecule on a website. But when using it from a jupyter notebook, you're inevitably going to do more complex things. In this blog post, I want to show some uses of it. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;py3Dmol&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -2636,7 +2636,7 @@ viewer_1593144291179816 = $3Dmol.createViewer($("#3dmolviewer_1593144291179816")
   viewer_1593144291179816.animate({"loop": "forward"});
 viewer_1593144291179816.render();
 });
-&lt;/script&gt;</content><category term="Lessons"></category><category term="software"></category></entry><entry><title>Playing with Pandemic Models</title><link href="https://william-dawson.github.io/playing-with-pandemic-models.html" rel="alternate"></link><published>2020-05-16T11:00:00+09:00</published><updated>2020-05-16T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2020-05-16:/playing-with-pandemic-models.html</id><summary type="html">&lt;p&gt;The ongoing COVID-19 pandemic provides some opportunity to explore discrete event modelling with python.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this topical notebook, I wanted to explore modelling our ongoing pandemic. Recently, there has been some discussion about whether top down lockdown rules are necessary. One counter argument I see is that once the general public is well informed about the virus, we can expect them to reduce social interaction voluntarily. With this in mind, we would like some way to measure whether this reduction is sufficient.&lt;/p&gt;
+&lt;/script&gt;</content><category term="Lessons"></category><category term="software"></category></entry><entry><title>Playing with Pandemic Models</title><link href="https://william-dawson.github.io/Test-Website/playing-with-pandemic-models.html" rel="alternate"></link><published>2020-05-16T11:00:00+09:00</published><updated>2020-05-16T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2020-05-16:/Test-Website/playing-with-pandemic-models.html</id><summary type="html">&lt;p&gt;The ongoing COVID-19 pandemic provides some opportunity to explore discrete event modelling with python.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this topical notebook, I wanted to explore modelling our ongoing pandemic. Recently, there has been some discussion about whether top down lockdown rules are necessary. One counter argument I see is that once the general public is well informed about the virus, we can expect them to reduce social interaction voluntarily. With this in mind, we would like some way to measure whether this reduction is sufficient.&lt;/p&gt;
 &lt;p&gt;Before starting, I will add the caveat that I know almost nothing about epidemiology. As a result, most of what is presented here is probably wrong, but fun nonetheless. To emphasize this point, we'll use the xkcd plot style:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;matplotlib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;pyplot&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;plt&lt;/span&gt;
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;xkcd&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
@@ -2661,7 +2661,7 @@ viewer_1593144291179816.render();
 &lt;span class="n"&gt;axs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_ylabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;New Infections&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Number of infections" src="https://william-dawson.github.io/assets/pand/output_5_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Number of infections" src="https://william-dawson.github.io/Test-Website/assets/pand/output_5_0.png"&gt;&lt;/p&gt;
 &lt;p&gt;Imagine that we implement some sort of policy which changes the $R_0$ value to something new. We'll flip the switch at day 60.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;copy&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;deepcopy&lt;/span&gt;
 
@@ -2678,7 +2678,7 @@ viewer_1593144291179816.render();
 &lt;span class="n"&gt;axs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_ylabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;New Infections&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Switch flipped" src="https://william-dawson.github.io/assets/pand/output_7_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Switch flipped" src="https://william-dawson.github.io/Test-Website/assets/pand/output_7_0.png"&gt;&lt;/p&gt;
 &lt;p&gt;That's looking much better. But we don't want to study the number of cases, because this is very difficult to directly measure. Instead, we will study the number of deaths. In our model, we will assume that everyone who gets sick dies. Now we want to produce a plot of deaths per day. To do so, we need two variables: the average days to die since getting a case, and the standard deviation. Let's pick 20 days as the average, and 3 as the deviation.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;mean&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;20&lt;/span&gt;
 &lt;span class="n"&gt;deviation&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
@@ -2715,7 +2715,7 @@ viewer_1593144291179816.render();
 &lt;span class="n"&gt;axs2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_xticklabels&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ticks&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;rotation&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;vertical&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Deaths" src="https://william-dawson.github.io/assets/pand/output_13_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Deaths" src="https://william-dawson.github.io/Test-Website/assets/pand/output_13_0.png"&gt;&lt;/p&gt;
 &lt;p&gt;So in this model, we end up with a peak number of deaths 20 days after the lockdown. Let's consider a second policy, which will correspond to a voluntary lockdown. For this, we'll pick some medium size $R_0$ to switch to.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;rsoft&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;1.05&lt;/span&gt;
 &lt;span class="n"&gt;switch_soft&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;
@@ -2741,7 +2741,7 @@ viewer_1593144291179816.render();
 &lt;span class="n"&gt;axs2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;set_xticklabels&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ticks&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;()),&lt;/span&gt; &lt;span class="n"&gt;rotation&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;vertical&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Voluntary lockdown" src="https://william-dawson.github.io/assets/pand/output_15_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Voluntary lockdown" src="https://william-dawson.github.io/Test-Website/assets/pand/output_15_0.png"&gt;&lt;/p&gt;
 &lt;p&gt;In fact, with the soft lockdown it is not so easy to see the effect. Now for our real goal. What happens if we do a two staged approach? In the first stage, the public begins hearing that the virus is going around. They start to worry, and begin changing their behavior, modifying the $R_0$. Then the actual lockdown happens, and the $R_0$ is modified again. What does this plot look like?&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;model3&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;deepcopy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cases&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;switch_soft&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cases&lt;/span&gt;&lt;span class="p"&gt;)):&lt;/span&gt;
@@ -2771,7 +2771,7 @@ viewer_1593144291179816.render();
 &lt;span class="n"&gt;axs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Two stage" src="https://william-dawson.github.io/assets/pand/output_18_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Two stage" src="https://william-dawson.github.io/Test-Website/assets/pand/output_18_0.png"&gt;&lt;/p&gt;
 &lt;p&gt;Indeed in this two stage model the deaths have been reduced. However, we don't really see much other evidence that something has happened, as the peak didn't move all the way back to the soft lockdown + mean location. We can repeat this study once more, but this time using a lower value of $R_0$ for the soft lockdown.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;rsoft2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;1.0&lt;/span&gt;
 &lt;span class="n"&gt;model4&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;deepcopy&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cases&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2802,9 +2802,9 @@ viewer_1593144291179816.render();
 &lt;span class="n"&gt;axs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;legend&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Lower R0" src="https://william-dawson.github.io/assets/pand/output_21_0.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Lower R0" src="https://william-dawson.github.io/Test-Website/assets/pand/output_21_0.png"&gt;&lt;/p&gt;
 &lt;p&gt;In this case, the lockdown peak has shifted much further back. So from this exercise, what we have (maybe?) learned, is that: 1) everyone's voluntary social distancing may help quite a bit, even if that alone is not enough ;
-2) depending on how impactful it is, we may be able to see it in a shifted peak, but this is not guaranteed.&lt;/p&gt;</content><category term="Lessons"></category><category term="modelling"></category></entry><entry><title>Eigenvectors from Eigenvalues</title><link href="https://william-dawson.github.io/eigenvectors-from-eigenvalues.html" rel="alternate"></link><published>2019-11-13T11:00:00+09:00</published><updated>2019-11-13T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2019-11-13:/eigenvectors-from-eigenvalues.html</id><summary type="html">&lt;p&gt;A recent paper by Denton et al. revealed an interesting fundamental relationship between the eigenvalues and eigenvectors of a matrix. I will describe their findings and explore how it might be applied.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently, I saw an interesting article about a group of scientists studying
+2) depending on how impactful it is, we may be able to see it in a shifted peak, but this is not guaranteed.&lt;/p&gt;</content><category term="Lessons"></category><category term="modelling"></category></entry><entry><title>Eigenvectors from Eigenvalues</title><link href="https://william-dawson.github.io/Test-Website/eigenvectors-from-eigenvalues.html" rel="alternate"></link><published>2019-11-13T11:00:00+09:00</published><updated>2019-11-13T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2019-11-13:/Test-Website/eigenvectors-from-eigenvalues.html</id><summary type="html">&lt;p&gt;A recent paper by Denton et al. revealed an interesting fundamental relationship between the eigenvalues and eigenvectors of a matrix. I will describe their findings and explore how it might be applied.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently, I saw an interesting article about a group of scientists studying
 neutrinos who discovered an interesting relationship between eigenvalues
 and eigenvectors [1]. You can read their paper on this relationship on
 arxiv [2]. In the spirit of this blog, I would like to explore this result
@@ -2973,7 +2973,7 @@ in equation (1) converges. Let's rewrite the code to explore this:&lt;/p&gt;
 &lt;span class="c1"&gt;# plotting code omitted for brevity&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Example output" height="50%" src="https://william-dawson.github.io/assets/eigconverge.png" width="50%"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Example output" height="50%" src="https://william-dawson.github.io/Test-Website/assets/eigconverge.png" width="50%"&gt;&lt;/p&gt;
 &lt;p&gt;Two things stand out here. First, convergence is much quicker when including
 the eigenvalues and minors "close" to the eigenvector we are computing. Second,
 this effect is much greater for the larger eigenvalues. We might recall that
@@ -2988,7 +2988,7 @@ eigenvalues, except for the first value which we will keep separated.&lt;/p&gt;
 &lt;span class="c1"&gt;# plotting code omitted for brevity&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Example output" height="50%" src="https://william-dawson.github.io/assets/eigconverge2.png" width="50%"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Example output" height="50%" src="https://william-dawson.github.io/Test-Website/assets/eigconverge2.png" width="50%"&gt;&lt;/p&gt;
 &lt;p&gt;Indeed, with this approach the error is quite low after including the first
 eigenvalue. Next, let's explore the ordering of the sum. If including the
 $n$th eigenvalue seems to drop the error the most, what if we added that
@@ -3030,14 +3030,14 @@ our target are added first.&lt;/p&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;relerror&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img alt="Example output" height="50%" src="https://william-dawson.github.io/assets/eigconverge3.png" width="50%"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Example output" height="50%" src="https://william-dawson.github.io/Test-Website/assets/eigconverge3.png" width="50%"&gt;&lt;/p&gt;
 &lt;p&gt;This did seem to improve the convergence for some values, but not the largest
 eigenvalues. We can leave this to future work, perhaps there is an interesting
 hint here. Overall, from this method we can see some interesting properties
 of eigenvectors and eigenvalues, in particular when considering elements local
 in space or energy.&lt;/p&gt;
 &lt;p&gt;[1] https://www.quantamagazine.org/neutrinos-lead-to-unexpected-discovery-in-basic-math-20191113/&lt;/p&gt;
-&lt;p&gt;[2] https://arxiv.org/abs/1908.03795&lt;/p&gt;</content><category term="Lessons"></category><category term="paper discussions"></category></entry><entry><title>Linear Operators in Python</title><link href="https://william-dawson.github.io/linear-operators-in-python.html" rel="alternate"></link><published>2019-07-01T11:00:00+09:00</published><updated>2019-07-01T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2019-07-01:/linear-operators-in-python.html</id><summary type="html">&lt;p&gt;In this post I will extend the previously presented simple Schrödinger equation solver using the concepts of linear operators and closures.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This blog post is a follow up to my &lt;a href="linear-operators-in-python.html"&gt;previous post&lt;/a&gt; about creating a simple Schrödinger equation solver in python. Please read that post before continuing.&lt;/p&gt;
+&lt;p&gt;[2] https://arxiv.org/abs/1908.03795&lt;/p&gt;</content><category term="Lessons"></category><category term="paper discussions"></category></entry><entry><title>Linear Operators in Python</title><link href="https://william-dawson.github.io/Test-Website/linear-operators-in-python.html" rel="alternate"></link><published>2019-07-01T11:00:00+09:00</published><updated>2019-07-01T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2019-07-01:/Test-Website/linear-operators-in-python.html</id><summary type="html">&lt;p&gt;In this post I will extend the previously presented simple Schrödinger equation solver using the concepts of linear operators and closures.&lt;/p&gt;</summary><content type="html">&lt;p&gt;This blog post is a follow up to my &lt;a href="linear-operators-in-python.html"&gt;previous post&lt;/a&gt; about creating a simple Schrödinger equation solver in python. Please read that post before continuing.&lt;/p&gt;
 &lt;p&gt;In the previous post, we represented our operators (Kinetic Energy and Potential Energy) as sparse matrices. This worked well, but we spent a lot of effort dealing with matrix indexing. What we would prefer would be to write a function that simply takes an input vector (the wavefunction), and computes how it is transformed by a given operator. This can in fact be done, using scipy's feature of linear operators[1].&lt;/p&gt;
 &lt;p&gt;Let's begin by considering the potential. What is the simplest way to describe a potential? Well, as a vector, where we write the potential at each point in space. Our goal then is to write the potential like this:  &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;HydrogenOperator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x_values&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -3137,7 +3137,7 @@ to solve the equation:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;[1] https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.LinearOperator.html&lt;/p&gt;
 &lt;p&gt;[2] https://en.wikipedia.org/wiki/Closure_(computer_programming)&lt;/p&gt;
-&lt;/blockquote&gt;</content><category term="Lessons"></category><category term="computational chemistry"></category></entry><entry><title>A Simple Solver In Python</title><link href="https://william-dawson.github.io/a-simple-solver-in-python.html" rel="alternate"></link><published>2019-02-04T11:00:00+09:00</published><updated>2019-02-04T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2019-02-04:/a-simple-solver-in-python.html</id><summary type="html">&lt;p&gt;In this post I will present a simple solver of the Schrödinger equation in python based on a real space formulism.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this blog post, I would to introduce a simple Schrödinger equation solver in python. There are of course plenty of programs out there that can solve the Schrödinger equation. And many of them solve it in the context of practical theories and systems. However, often times the resulting wavefunctions of those calculations are deeply hidden within the program, which makes it tedious to experiment with. When I'm trying to do something new, sometimes I'll turn to this kind of simple program.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="Lessons"></category><category term="computational chemistry"></category></entry><entry><title>A Simple Solver In Python</title><link href="https://william-dawson.github.io/Test-Website/a-simple-solver-in-python.html" rel="alternate"></link><published>2019-02-04T11:00:00+09:00</published><updated>2019-02-04T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2019-02-04:/Test-Website/a-simple-solver-in-python.html</id><summary type="html">&lt;p&gt;In this post I will present a simple solver of the Schrödinger equation in python based on a real space formulism.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In this blog post, I would to introduce a simple Schrödinger equation solver in python. There are of course plenty of programs out there that can solve the Schrödinger equation. And many of them solve it in the context of practical theories and systems. However, often times the resulting wavefunctions of those calculations are deeply hidden within the program, which makes it tedious to experiment with. When I'm trying to do something new, sometimes I'll turn to this kind of simple program.&lt;/p&gt;
 &lt;p&gt;I'm going to write here what I think is the absolute bare minimum solver you can make. We'll only solve equations in one dimension. We'll use the eigensolver provided by SciPy. And we'll solve all the equations in real space using the finite difference method. First, let's recall the time independent Schrödinger equation:&lt;/p&gt;
 &lt;p&gt;$$\begin{equation}
 \big[\nabla^2 + V(x)\big] \psi = \lambda \psi.
@@ -3280,11 +3280,11 @@ we'll come back to these functions when we use them.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Some example output is below. We'll come back to this example later for some more interesting exercises.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Example output" height="75%" src="https://william-dawson.github.io/assets/1DViz.png" width="75%"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Example output" height="75%" src="https://william-dawson.github.io/Test-Website/assets/1DViz.png" width="75%"&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;[1] https://en.wikipedia.org/wiki/Five-point_stencil&lt;/p&gt;
 &lt;p&gt;[2] https://en.wikipedia.org/wiki/Lambert_W_function&lt;/p&gt;
-&lt;/blockquote&gt;</content><category term="Lessons"></category><category term="computational chemistry"></category></entry><entry><title>A Program For Managing Namelists</title><link href="https://william-dawson.github.io/a-program-for-managing-namelists.html" rel="alternate"></link><published>2018-08-04T11:00:00+09:00</published><updated>2018-08-04T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2018-08-04:/a-program-for-managing-namelists.html</id><summary type="html">&lt;p&gt;Recently, I have written a utility program for managing namelist based input in Fortran. I will describe the motivation for this program and demonstrate its utility in application.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently, I like to stay in the office late once or twice a week. I'll break up the day by joining one of the sports clubs, going for a jog, or just grabbing dinner somewhere by the office. After the break, I'll get back to work, and I find that I'm quite productive. It's a great time to get in a four or five hour code sprint, where I can usually create a rough version of my newest idea.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="Lessons"></category><category term="computational chemistry"></category></entry><entry><title>A Program For Managing Namelists</title><link href="https://william-dawson.github.io/Test-Website/a-program-for-managing-namelists.html" rel="alternate"></link><published>2018-08-04T11:00:00+09:00</published><updated>2018-08-04T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2018-08-04:/Test-Website/a-program-for-managing-namelists.html</id><summary type="html">&lt;p&gt;Recently, I have written a utility program for managing namelist based input in Fortran. I will describe the motivation for this program and demonstrate its utility in application.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently, I like to stay in the office late once or twice a week. I'll break up the day by joining one of the sports clubs, going for a jog, or just grabbing dinner somewhere by the office. After the break, I'll get back to work, and I find that I'm quite productive. It's a great time to get in a four or five hour code sprint, where I can usually create a rough version of my newest idea.&lt;/p&gt;
 &lt;p&gt;Last week, I put together a new code for managing Fortran namelists (see an example of a namelist &lt;a href="http://jules-lsm.github.io/vn4.2/namelists/intro.html"&gt;here&lt;/a&gt;), which is available as
 &lt;a href="https://github.com/william-dawson/NameListManager"&gt;NameListManager&lt;/a&gt; on github. Fortran lacks a standard library with  many built in features that users of other languages have come to expect, but surprisingly it comes with a very easy to use I/O routines for a specific type of file.&lt;/p&gt;
 &lt;p&gt;My group's code uses these files to specify the assortment of parameters needed by our quantum chemistry program. However, I noticed a real problem with this approach. Each developer would add new parameters to the code, and have to hardcode the default values inside the reader routines. This meant you had to look at the source code every time you wanted to know how an input parameter works.&lt;/p&gt;
@@ -3345,7 +3345,7 @@ we'll come back to these functions when we use them.&lt;/p&gt;
 
 &lt;p&gt;Then if if you run the namelist manager on this input file, it automatically generates the source code for storing, initializing, and reading in these parameters. It also generates restructed text documentation that you might add to a sphinx project. Now when you want to add new input parameters to your program, you don't even have to look at the source code, but instead you spend time describing your new parameter.&lt;/p&gt;
 &lt;p&gt;One final note: why did I pick XML for input format? Of course, XML has the downside of being verbose, and isn't as trendy as say JSON or YAML. But (as described in earlier blog posts...) XML has the benefit of a schema file. I've included in &lt;code&gt;namelistmanager&lt;/code&gt; a xml schema, which your input file is automatically checked against.&lt;/p&gt;
-&lt;p&gt;No doubt there are other great ways to accomplish this task, but if this light weight approach looks good to you, please clone this project on github. I hope to add this program to something &lt;a href="https://pypi.org/"&gt;PyPI&lt;/a&gt; as well in the near future.&lt;/p&gt;</content><category term="Lessons"></category><category term="software"></category></entry><entry><title>What should be the output format for scientific codes?</title><link href="https://william-dawson.github.io/what-should-be-the-output-format-for-scientific-codes.html" rel="alternate"></link><published>2017-12-13T11:00:00+09:00</published><updated>2017-12-13T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-12-13:/what-should-be-the-output-format-for-scientific-codes.html</id><summary type="html">&lt;p&gt;Scientific software needs to print out information during the course of a run. In this post, I will describe three key features that program output should have, and compare various output formats by this rubric.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently, I've been wondering what is the best output format to use for a scientific code. By output, I don't mean just the raw data that you have computed, but instead the real time output to the terminal that happens as you perform the calculation.&lt;/p&gt;
+&lt;p&gt;No doubt there are other great ways to accomplish this task, but if this light weight approach looks good to you, please clone this project on github. I hope to add this program to something &lt;a href="https://pypi.org/"&gt;PyPI&lt;/a&gt; as well in the near future.&lt;/p&gt;</content><category term="Lessons"></category><category term="software"></category></entry><entry><title>What should be the output format for scientific codes?</title><link href="https://william-dawson.github.io/Test-Website/what-should-be-the-output-format-for-scientific-codes.html" rel="alternate"></link><published>2017-12-13T11:00:00+09:00</published><updated>2017-12-13T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-12-13:/Test-Website/what-should-be-the-output-format-for-scientific-codes.html</id><summary type="html">&lt;p&gt;Scientific software needs to print out information during the course of a run. In this post, I will describe three key features that program output should have, and compare various output formats by this rubric.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Recently, I've been wondering what is the best output format to use for a scientific code. By output, I don't mean just the raw data that you have computed, but instead the real time output to the terminal that happens as you perform the calculation.&lt;/p&gt;
 &lt;p&gt;For this questions, I came up with three features I would like to see in a program output format.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Readable (that is, by a human)&lt;/li&gt;
@@ -3381,55 +3381,55 @@ we'll come back to these functions when we use them.&lt;/p&gt;
 &lt;h2&gt;Spaghetti Output&lt;/h2&gt;
 &lt;p&gt;Probably the most common output format is... well no format at all. Let's
 imagine what that might look like with our program.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;############################################################################&lt;/span&gt;
-&lt;span class="err"&gt;/  |      /         / / /                     /|/|      /    /            |&lt;/span&gt;
-&lt;span class="err"&gt;(___| ___ (___  ___ ( (    ___  ___  ___      ( / | ___ (___ (___  ___  ___|&lt;/span&gt;
-&lt;span class="err"&gt;|   )|   )|    |___)| | | |   )|   )|___      |   )|___)|    |   )|   )|   )&lt;/span&gt;
-&lt;span class="err"&gt;|  / |__/ |__  |__  | | | |  / |__/  __/      |  / |__  |__  |  / |__/ |__/&lt;/span&gt;
-&lt;span class="err"&gt;############################################################################&lt;/span&gt;
-&lt;span class="err"&gt;Reading input...&lt;/span&gt;
-&lt;span class="err"&gt;Output read! Input file=S_matrix.mtx&lt;/span&gt;
-&lt;span class="err"&gt;Computing initial guess matrix...&lt;/span&gt;
-&lt;span class="err"&gt;Largest eigenvalue:1.86124928636&lt;/span&gt;
-&lt;span class="err"&gt;Initial guess computed!&lt;/span&gt;
-&lt;span class="err"&gt;Running algorithm&lt;/span&gt;
-&lt;span class="err"&gt;1.57802206403&lt;/span&gt;
-&lt;span class="err"&gt;1.2555463121&lt;/span&gt;
-&lt;span class="err"&gt;0.966656384587&lt;/span&gt;
-&lt;span class="err"&gt;0.652685328614&lt;/span&gt;
-&lt;span class="err"&gt;0.312962675887&lt;/span&gt;
-&lt;span class="err"&gt;0.0782546324211&lt;/span&gt;
-&lt;span class="err"&gt;0.00561087257415&lt;/span&gt;
-&lt;span class="err"&gt;3.11928836745e-05&lt;/span&gt;
-&lt;span class="err"&gt;Program finished, with convergence of: 9.72911618378e-10&lt;/span&gt;
-&lt;span class="err"&gt;Thank you for using our program&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;############################################################################
+&lt;span class="o"&gt;/&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt;      &lt;span class="o"&gt;/&lt;/span&gt;         &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;                     &lt;span class="o"&gt;/|/|&lt;/span&gt;      &lt;span class="o"&gt;/&lt;/span&gt;    &lt;span class="o"&gt;/&lt;/span&gt;            &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;___&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;___&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;___&lt;/span&gt;  &lt;span class="nv"&gt;___&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;    &lt;span class="nv"&gt;___&lt;/span&gt;  &lt;span class="nv"&gt;___&lt;/span&gt;  &lt;span class="nv"&gt;___&lt;/span&gt;      &lt;span class="ss"&gt;(&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;___&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;___&lt;/span&gt; &lt;span class="ss"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;___&lt;/span&gt;  &lt;span class="nv"&gt;___&lt;/span&gt;  &lt;span class="nv"&gt;___&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt;   &lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;   &lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;___&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;   &lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;   &lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;___&lt;/span&gt;      &lt;span class="o"&gt;|&lt;/span&gt;   &lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;___&lt;/span&gt;&lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt;   &lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;   &lt;span class="ss"&gt;)&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;   &lt;span class="ss"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt;  &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;__&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;__&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;__&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;  &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;__&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;  &lt;span class="nv"&gt;__&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;      &lt;span class="o"&gt;|&lt;/span&gt;  &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;__&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;__&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt;  &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;__&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nv"&gt;__&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+############################################################################
+&lt;span class="nv"&gt;Reading&lt;/span&gt; &lt;span class="nv"&gt;input&lt;/span&gt;...
+&lt;span class="nv"&gt;Output&lt;/span&gt; &lt;span class="nv"&gt;read&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="nv"&gt;Input&lt;/span&gt; &lt;span class="nv"&gt;file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;S_matrix&lt;/span&gt;.&lt;span class="nv"&gt;mtx&lt;/span&gt;
+&lt;span class="nv"&gt;Computing&lt;/span&gt; &lt;span class="nv"&gt;initial&lt;/span&gt; &lt;span class="nv"&gt;guess&lt;/span&gt; &lt;span class="nv"&gt;matrix&lt;/span&gt;...
+&lt;span class="nv"&gt;Largest&lt;/span&gt; &lt;span class="nv"&gt;eigenvalue&lt;/span&gt;:&lt;span class="mi"&gt;1&lt;/span&gt;.&lt;span class="mi"&gt;86124928636&lt;/span&gt;
+&lt;span class="nv"&gt;Initial&lt;/span&gt; &lt;span class="nv"&gt;guess&lt;/span&gt; &lt;span class="nv"&gt;computed&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
+&lt;span class="nv"&gt;Running&lt;/span&gt; &lt;span class="nv"&gt;algorithm&lt;/span&gt;
+&lt;span class="mi"&gt;1&lt;/span&gt;.&lt;span class="mi"&gt;57802206403&lt;/span&gt;
+&lt;span class="mi"&gt;1&lt;/span&gt;.&lt;span class="mi"&gt;2555463121&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;966656384587&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;652685328614&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;312962675887&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;0782546324211&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;00561087257415&lt;/span&gt;
+&lt;span class="mi"&gt;3&lt;/span&gt;.&lt;span class="mi"&gt;11928836745&lt;/span&gt;&lt;span class="nv"&gt;e&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;
+&lt;span class="nv"&gt;Program&lt;/span&gt; &lt;span class="nv"&gt;finished&lt;/span&gt;, &lt;span class="nv"&gt;with&lt;/span&gt; &lt;span class="nv"&gt;convergence&lt;/span&gt; &lt;span class="nv"&gt;of&lt;/span&gt;: &lt;span class="mi"&gt;9&lt;/span&gt;.&lt;span class="mi"&gt;72911618378&lt;/span&gt;&lt;span class="nv"&gt;e&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="nv"&gt;Thank&lt;/span&gt; &lt;span class="nv"&gt;you&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;using&lt;/span&gt; &lt;span class="nv"&gt;our&lt;/span&gt; &lt;span class="nv"&gt;program&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Ugly, but at least it's friendly. And of course I couldn't forget the giant ascii header that we've all seen before. This output gives us enough output to know what stage we are at in the calculation, so a user can easily track the progress of the code. We could try to be even more pretty with our output. How about this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;#&lt;/span&gt; &lt;span class="n"&gt;My&lt;/span&gt; &lt;span class="n"&gt;Hotelling&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;s Method Code&lt;/span&gt;
-&lt;span class="s1"&gt;Compute a matrix inverse using hotelling&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="k"&gt;method&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;# &lt;span class="nv"&gt;My&lt;/span&gt; &lt;span class="nv"&gt;Hotelling&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="s"&gt;s Method Code&lt;/span&gt;
+&lt;span class="nv"&gt;Compute&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="nv"&gt;matrix&lt;/span&gt; &lt;span class="nv"&gt;inverse&lt;/span&gt; &lt;span class="nv"&gt;using&lt;/span&gt; &lt;span class="nv"&gt;hotelling&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="s"&gt;s method&lt;/span&gt;
 
-&lt;span class="o"&gt;##&lt;/span&gt; &lt;span class="n"&gt;Reading&lt;/span&gt; &lt;span class="k"&gt;input&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
-&lt;span class="k"&gt;Output&lt;/span&gt; &lt;span class="k"&gt;read&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="k"&gt;Input&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;S_matrix&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mtx&lt;/span&gt;
+## &lt;span class="nv"&gt;Reading&lt;/span&gt; &lt;span class="nv"&gt;input&lt;/span&gt;...
+&lt;span class="nv"&gt;Output&lt;/span&gt; &lt;span class="nv"&gt;read&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt; &lt;span class="nv"&gt;Input&lt;/span&gt; &lt;span class="nv"&gt;file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;S_matrix&lt;/span&gt;.&lt;span class="nv"&gt;mtx&lt;/span&gt;
 
-&lt;span class="o"&gt;##&lt;/span&gt; &lt;span class="n"&gt;Computing&lt;/span&gt; &lt;span class="n"&gt;initial&lt;/span&gt; &lt;span class="n"&gt;guess&lt;/span&gt; &lt;span class="n"&gt;matrix&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;
-&lt;span class="n"&gt;Largest&lt;/span&gt; &lt;span class="n"&gt;eigenvalue&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;86124928636&lt;/span&gt;
-&lt;span class="n"&gt;Initial&lt;/span&gt; &lt;span class="n"&gt;guess&lt;/span&gt; &lt;span class="n"&gt;computed&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
+## &lt;span class="nv"&gt;Computing&lt;/span&gt; &lt;span class="nv"&gt;initial&lt;/span&gt; &lt;span class="nv"&gt;guess&lt;/span&gt; &lt;span class="nv"&gt;matrix&lt;/span&gt;...
+&lt;span class="nv"&gt;Largest&lt;/span&gt; &lt;span class="nv"&gt;eigenvalue&lt;/span&gt;: &lt;span class="mi"&gt;1&lt;/span&gt;.&lt;span class="mi"&gt;86124928636&lt;/span&gt;
+&lt;span class="nv"&gt;Initial&lt;/span&gt; &lt;span class="nv"&gt;guess&lt;/span&gt; &lt;span class="nv"&gt;computed&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
 
-&lt;span class="o"&gt;##&lt;/span&gt; &lt;span class="n"&gt;Running&lt;/span&gt; &lt;span class="n"&gt;algorithm&lt;/span&gt;
-&lt;span class="n"&gt;Iterations&lt;/span&gt;
-&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;57802206403&lt;/span&gt;
-&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;2555463121&lt;/span&gt;
-&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;966656384587&lt;/span&gt;
-&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;652685328614&lt;/span&gt;
-&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;312962675887&lt;/span&gt;
-&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0782546324211&lt;/span&gt;
-&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;00561087257415&lt;/span&gt;
-&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;11928836745&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;
+## &lt;span class="nv"&gt;Running&lt;/span&gt; &lt;span class="nv"&gt;algorithm&lt;/span&gt;
+&lt;span class="nv"&gt;Iterations&lt;/span&gt;
+&lt;span class="mi"&gt;0&lt;/span&gt;. &lt;span class="mi"&gt;1&lt;/span&gt;.&lt;span class="mi"&gt;57802206403&lt;/span&gt;
+&lt;span class="mi"&gt;1&lt;/span&gt;. &lt;span class="mi"&gt;1&lt;/span&gt;.&lt;span class="mi"&gt;2555463121&lt;/span&gt;
+&lt;span class="mi"&gt;2&lt;/span&gt;. &lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;966656384587&lt;/span&gt;
+&lt;span class="mi"&gt;3&lt;/span&gt;. &lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;652685328614&lt;/span&gt;
+&lt;span class="mi"&gt;4&lt;/span&gt;. &lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;312962675887&lt;/span&gt;
+&lt;span class="mi"&gt;5&lt;/span&gt;. &lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;0782546324211&lt;/span&gt;
+&lt;span class="mi"&gt;6&lt;/span&gt;. &lt;span class="mi"&gt;0&lt;/span&gt;.&lt;span class="mi"&gt;00561087257415&lt;/span&gt;
+&lt;span class="mi"&gt;7&lt;/span&gt;. &lt;span class="mi"&gt;3&lt;/span&gt;.&lt;span class="mi"&gt;11928836745&lt;/span&gt;&lt;span class="nv"&gt;e&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;
 
-&lt;span class="o"&gt;##&lt;/span&gt; &lt;span class="n"&gt;Summary&lt;/span&gt;
-&lt;span class="n"&gt;Program&lt;/span&gt; &lt;span class="n"&gt;finished&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="n"&gt;convergence&lt;/span&gt; &lt;span class="k"&gt;of&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;72911618378&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;
-&lt;span class="n"&gt;Thank&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="n"&gt;our&lt;/span&gt; &lt;span class="n"&gt;program&lt;/span&gt;
+## &lt;span class="nv"&gt;Summary&lt;/span&gt;
+&lt;span class="nv"&gt;Program&lt;/span&gt; &lt;span class="nv"&gt;finished&lt;/span&gt;, &lt;span class="nv"&gt;with&lt;/span&gt; &lt;span class="nv"&gt;convergence&lt;/span&gt; &lt;span class="nv"&gt;of&lt;/span&gt;: &lt;span class="mi"&gt;9&lt;/span&gt;.&lt;span class="mi"&gt;72911618378&lt;/span&gt;&lt;span class="nv"&gt;e&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="nv"&gt;Thank&lt;/span&gt; &lt;span class="nv"&gt;you&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;using&lt;/span&gt; &lt;span class="nv"&gt;our&lt;/span&gt; &lt;span class="nv"&gt;program&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;That's right, it's markdown. If the text alone isn't easy enough to read, you could easily convert it into an html website even. Maybe I could just run my programs instead of writing blog posts.&lt;/p&gt;
@@ -3493,7 +3493,7 @@ BigDFT's choice of output is YAML:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;[1] http://www.qboxcode.org/&lt;/p&gt;
 &lt;p&gt;[2] http://bigdft.org/Wiki/index.php?title=BigDFT_website&lt;/p&gt;
-&lt;/blockquote&gt;</content><category term="Lessons"></category><category term="software"></category></entry><entry><title>Sparse Matrix Conjugate Gradient</title><link href="https://william-dawson.github.io/sparse-matrix-conjugate-gradient.html" rel="alternate"></link><published>2017-10-01T11:00:00+09:00</published><updated>2017-10-01T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-10-01:/sparse-matrix-conjugate-gradient.html</id><summary type="html">&lt;p&gt;The conjugate gradient method is a commonly used approach to solve linear equations. In this blog I will describe the matrix generalization of this method and provide a toy implementation.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In the previous blog post, I introduced Hotelling's method for computing the inverse of a matrix. In this page, I would like to describe a similar tool: the sparse matrix conjugate gradient. We would like to solve the following equation:&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="Lessons"></category><category term="software"></category></entry><entry><title>Sparse Matrix Conjugate Gradient</title><link href="https://william-dawson.github.io/Test-Website/sparse-matrix-conjugate-gradient.html" rel="alternate"></link><published>2017-10-01T11:00:00+09:00</published><updated>2017-10-01T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-10-01:/Test-Website/sparse-matrix-conjugate-gradient.html</id><summary type="html">&lt;p&gt;The conjugate gradient method is a commonly used approach to solve linear equations. In this blog I will describe the matrix generalization of this method and provide a toy implementation.&lt;/p&gt;</summary><content type="html">&lt;p&gt;In the previous blog post, I introduced Hotelling's method for computing the inverse of a matrix. In this page, I would like to describe a similar tool: the sparse matrix conjugate gradient. We would like to solve the following equation:&lt;/p&gt;
 &lt;p&gt;$$\begin{equation}
 AX = B
 \end{equation}$$&lt;/p&gt;
@@ -3588,7 +3588,7 @@ Ax = b
 &lt;p&gt;[1] https://en.wikipedia.org/wiki/Conjugate_gradient_method&lt;/p&gt;
 &lt;p&gt;[2] Shewchuk, Jonathan Richard. "An introduction to the conjugate gradient
 method without the agonizing pain." (1994).&lt;/p&gt;
-&lt;/blockquote&gt;</content><category term="Lessons"></category><category term="linear algebra"></category></entry><entry><title>Computing The Trace of a Product of Matrices</title><link href="https://william-dawson.github.io/computing-the-trace-of-a-product-of-matrices.html" rel="alternate"></link><published>2017-08-30T11:00:00+09:00</published><updated>2017-08-30T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-08-30:/computing-the-trace-of-a-product-of-matrices.html</id><summary type="html">&lt;p&gt;Frequently in a Quantum Chemistry code one needs to compute the trace of the produce of two symmetric matrices. This post describes a common method to do this without having to perform matrix multiplication.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I'm going to cover a very simple concept here, but it's one that I wish I had learned earlier. In a number of algorithms, we're confronted with the problem of computing the trace of a product of matrices:&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="Lessons"></category><category term="linear algebra"></category></entry><entry><title>Computing The Trace of a Product of Matrices</title><link href="https://william-dawson.github.io/Test-Website/computing-the-trace-of-a-product-of-matrices.html" rel="alternate"></link><published>2017-08-30T11:00:00+09:00</published><updated>2017-08-30T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-08-30:/Test-Website/computing-the-trace-of-a-product-of-matrices.html</id><summary type="html">&lt;p&gt;Frequently in a Quantum Chemistry code one needs to compute the trace of the produce of two symmetric matrices. This post describes a common method to do this without having to perform matrix multiplication.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I'm going to cover a very simple concept here, but it's one that I wish I had learned earlier. In a number of algorithms, we're confronted with the problem of computing the trace of a product of matrices:&lt;/p&gt;
 &lt;p&gt;$$\begin{equation}
 \DeclareMathOperator{\Tr}{Tr}
 \Tr(AB).
@@ -3600,28 +3600,28 @@ method without the agonizing pain." (1994).&lt;/p&gt;
 \end{equation}$$&lt;/p&gt;
 &lt;p&gt;where $\rho$ is the density matrix, and $H$ the hamiltonian.&lt;/p&gt;
 &lt;p&gt;What's the big deal? Well, let's say we're running an algorithm that iteratively computes $\rho$. One way to check if we're converged would be to compute the energy at each update. What is the cost of doing this? Naively, we would need to multiply two matrices, and compute the trace. Unfortunately, those multiplications add up, and can significantly increase the run time. Fortunately, there's a very simple way to avoid this.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;|A|A|A|A|A|.......|B|B|B|B|B|.......|C|C|C|C|C|&lt;/span&gt;
-&lt;span class="err"&gt;|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|C|C|C|C|C|&lt;/span&gt;
-&lt;span class="err"&gt;|A|A|A|A|A|...X...|B|B|B|B|B|.......|C|C|C|C|C|&lt;/span&gt;
-&lt;span class="err"&gt;|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|C|C|C|C|C|&lt;/span&gt;
-&lt;span class="err"&gt;|A|A|A|A|A|.......|B|B|B|B|B|.......|C|C|C|C|C|&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;|A|A|A|A|A|.......|B|B|B|B|B|.......|C|C|C|C|C|
+|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|C|C|C|C|C|
+|A|A|A|A|A|...X...|B|B|B|B|B|.......|C|C|C|C|C|
+|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|C|C|C|C|C|
+|A|A|A|A|A|.......|B|B|B|B|B|.......|C|C|C|C|C|
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;To compute the trace, we only need to compute the diagonal elements of the
 matrix. How do we compute a given diagonal element?&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;|O|O|O|O|O|.......|O|B|O|O|O|.......|O|O|O|O|O|&lt;/span&gt;
-&lt;span class="err"&gt;|A|A|A|A|A|..X.X..|O|B|O|O|O|..===..|O|C|O|O|O|&lt;/span&gt;
-&lt;span class="err"&gt;|O|O|O|O|O|...X...|O|B|O|O|O|.......|O|O|O|O|O|&lt;/span&gt;
-&lt;span class="err"&gt;|O|O|O|O|O|..X.X..|O|B|O|O|O|..===..|O|O|O|O|O|&lt;/span&gt;
-&lt;span class="err"&gt;|O|O|O|O|O|.......|O|B|O|O|O|.......|O|O|O|O|O|&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;|O|O|O|O|O|.......|O|B|O|O|O|.......|O|O|O|O|O|
+|A|A|A|A|A|..X.X..|O|B|O|O|O|..===..|O|C|O|O|O|
+|O|O|O|O|O|...X...|O|B|O|O|O|.......|O|O|O|O|O|
+|O|O|O|O|O|..X.X..|O|B|O|O|O|..===..|O|O|O|O|O|
+|O|O|O|O|O|.......|O|B|O|O|O|.......|O|O|O|O|O|
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;And in the case of symmetric matrices:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;|O|O|O|O|O|.......|O|O|O|O|O|.......|O|O|O|O|O|&lt;/span&gt;
-&lt;span class="err"&gt;|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|O|C|O|O|O|&lt;/span&gt;
-&lt;span class="err"&gt;|O|O|O|O|O|...X...|O|O|O|O|O|.......|O|O|O|O|O|&lt;/span&gt;
-&lt;span class="err"&gt;|O|O|O|O|O|..X.X..|O|O|O|O|O|..===..|O|O|O|O|O|&lt;/span&gt;
-&lt;span class="err"&gt;|O|O|O|O|O|.......|O|O|O|O|O|.......|O|O|O|O|O|&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;|O|O|O|O|O|.......|O|O|O|O|O|.......|O|O|O|O|O|
+|A|A|A|A|A|..X.X..|B|B|B|B|B|..===..|O|C|O|O|O|
+|O|O|O|O|O|...X...|O|O|O|O|O|.......|O|O|O|O|O|
+|O|O|O|O|O|..X.X..|O|O|O|O|O|..===..|O|O|O|O|O|
+|O|O|O|O|O|.......|O|O|O|O|O|.......|O|O|O|O|O|
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;As we can see then, each diagonal element can be computed by just taking the dot product of each row (element-wise multiplication). And for the full trace, we just sum up those dot products. This means not only can we avoid performing the matrix multiplication, but we can even do this perfectly in parallel, and avoid any communication besides the final all-reduce of a single value.&lt;/p&gt;
@@ -3645,7 +3645,7 @@ matrix. How do we compute a given diagonal element?&lt;/p&gt;
 &lt;span class="c1"&gt;# Check Answer&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;check_value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;new_value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Lessons"></category><category term="linear algebra"></category></entry><entry><title>Hotelling's Method</title><link href="https://william-dawson.github.io/hotellings-method.html" rel="alternate"></link><published>2017-08-21T11:00:00+09:00</published><updated>2017-08-21T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-08-21:/hotellings-method.html</id><summary type="html">&lt;p&gt;Hotelling's method is a way to compute the inverse of a matrix. I will introduce the method, present a toy implementation, and describe situations where it might be applicable.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I would like to use this first blog post to introduce Hotelling's method for computing the inverse of a matrix. We'll focus on the symmetric case. First let's begin by asking why we would want to directly compute the inverse of a matrix. After all, one of the first things you'll learn in any numerical linear algebra class is to always avoid explicitly inverting a matrix.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Lessons"></category><category term="linear algebra"></category></entry><entry><title>Hotelling's Method</title><link href="https://william-dawson.github.io/Test-Website/hotellings-method.html" rel="alternate"></link><published>2017-08-21T11:00:00+09:00</published><updated>2017-08-21T11:00:00+09:00</updated><author><name>William Dawson</name></author><id>tag:william-dawson.github.io,2017-08-21:/Test-Website/hotellings-method.html</id><summary type="html">&lt;p&gt;Hotelling's method is a way to compute the inverse of a matrix. I will introduce the method, present a toy implementation, and describe situations where it might be applicable.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I would like to use this first blog post to introduce Hotelling's method for computing the inverse of a matrix. We'll focus on the symmetric case. First let's begin by asking why we would want to directly compute the inverse of a matrix. After all, one of the first things you'll learn in any numerical linear algebra class is to always avoid explicitly inverting a matrix.&lt;/p&gt;
 &lt;p&gt;However, in quantum chemistry it's actually fairly normal to compute a matrix inverse. In particular, when solving the generalized eigenvalue problem:&lt;/p&gt;
 &lt;p&gt;$$\begin{equation}H\phi = \lambda S \phi.\end{equation}$$&lt;/p&gt;
 &lt;p&gt;We can reduce this generalized eigenvalue problem to the standard eigenvalue problem using the inverse square root of the overlap matrix:&lt;/p&gt;

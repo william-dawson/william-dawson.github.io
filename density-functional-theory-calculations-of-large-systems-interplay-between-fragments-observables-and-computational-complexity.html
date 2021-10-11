@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Personal Blog" />
+    <meta property="article:published_time" content="2021-10-10" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity"/>
+    <meta property="og:description" content="I announce a new publication which explores the potential of linear scaling DFT for practical calculations."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/density-functional-theory-calculations-of-large-systems-interplay-between-fragments-observables-and-computational-complexity.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity">
+    <meta name="twitter:description" content="I announce a new publication which explores the potential of linear scaling DFT for practical calculations.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/density-functional-theory-calculations-of-large-systems-interplay-between-fragments-observables-and-computational-complexity.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2021-10-10T17:39:38+09:00">Sun 10 October 2021</time> in <a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html" title="All articles in category Personal Blog">Personal Blog</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>I am happy to announce a new publication available in WIREs Computational 
+Molecular Science entitled
+<a href="https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1574">Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity</a>.</p>
+<p>For many years now, it has been possible to use our <a href="https://bigdft.org/">BigDFT</a> 
+code to perform DFT calculations on systems composed of many thousands of 
+atoms. As someone who is primarily interested in the computational side of
+things, this felt like a clear win. Nonetheless, for a code to be really useful
+it has to prove its worth in actual studies. For this review, we wanted to look
+at what kind of real DFT studies are being performed on large systems in hopes
+that we would gain insight for future research directions.</p>
+<p>Surprisingly, there are fewer application papers than one would expect given
+the capabilities of existing DFT codes. One challenge is that larger systems 
+are more complex, so it is even harder to go from a single point calculation to 
+actual rational insight. Therefore calculations on large systems must be 
+conceived quite differently than when working on small, model systems.</p>
+<p>To address this issues, we defined a framework of study based on the concept
+of a "quasiobservable". In a standard quantum mechanical investigation, we 
+treat the full system as one coherent unit, and compute observables of the
+entire system. At a large scale, however, it becomes possible to break down
+a system into a set of well defined fragments, which are mutually entangled.
+Then, we can define quasiobservables which are associated with each fragment 
+(or sets of fragments). These quasiobservables become localized descriptors
+of a system which can be more easily turned into insight about emergent
+properties.</p>
+<p>While the way we described our framework is new, we found many excellent
+studies which are already using such an approach. I hope that our review can
+highlight these new types of studies and that it will inspire you towards 
+new research projects.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/density-functional-theory-calculations-of-large-systems-interplay-between-fragments-observables-and-computational-complexity.html&amp;t=william-dawson.github.io%3A%20Density%20functional%20theory%20calculations%20of%20large%20systems%3A%20Interplay%20between%20fragments%2C%20observables%2C%20and%20computational%20complexity" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/density-functional-theory-calculations-of-large-systems-interplay-between-fragments-observables-and-computational-complexity.html&amp;text=william-dawson.github.io%3A%20Density%20functional%20theory%20calculations%20of%20large%20systems%3A%20Interplay%20between%20fragments%2C%20observables%2C%20and%20computational%20complexity" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/density-functional-theory-calculations-of-large-systems-interplay-between-fragments-observables-and-computational-complexity.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
