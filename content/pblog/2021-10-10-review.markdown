@@ -1,0 +1,38 @@
+Title: Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity
+Date: 2021-10-10 17:39:38
+Category: Personal Blog
+Tags: publication
+Summary: I announce a new publication which explores the potential of linear scaling DFT for practical calculations. 
+
+I am happy to announce a new publication available in WIREs Computational 
+Molecular Science entitled
+[Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity](https://wires.onlinelibrary.wiley.com/doi/full/10.1002/wcms.1574).
+
+For many years now, it has been possible to use our [BigDFT](https://bigdft.org/) 
+code to perform DFT calculations on systems composed of many thousands of 
+atoms. As someone who is primarily interested in the computational side of
+things, this felt like a clear win. Nonetheless, for a code to be really useful
+it has to prove its worth in actual studies. For this review, we wanted to look
+at what kind of real DFT studies are being performed on large systems in hopes
+that we would gain insight for future research directions.
+
+Surprisingly, there are fewer application papers than one would expect given
+the capabilities of existing DFT codes. One challenge is that larger systems 
+are more complex, so it is even harder to go from a single point calculation to 
+actual rational insight. Therefore calculations on large systems must be 
+conceived quite differently than when working on small, model systems.
+
+To address this issues, we defined a framework of study based on the concept
+of a "quasiobservable". In a standard quantum mechanical investigation, we 
+treat the full system as one coherent unit, and compute observables of the
+entire system. At a large scale, however, it becomes possible to break down
+a system into a set of well defined fragments, which are mutually entangled.
+Then, we can define quasiobservables which are associated with each fragment 
+(or sets of fragments). These quasiobservables become localized descriptors
+of a system which can be more easily turned into insight about emergent
+properties.
+
+While the way we described our framework is new, we found many excellent
+studies which are already using such an approach. I hope that our review can
+highlight these new types of studies and that it will inspire you towards 
+new research projects.
