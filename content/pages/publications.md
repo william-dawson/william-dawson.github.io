@@ -21,6 +21,8 @@ specialization." Current Opinion in Biotechnology 62 (2020): 98-105.
 
 Complexity Reduction.
 
+- [Dawson, William, Augustin Degomme, Martina Stella, Takahito Nakajima, Laura E. Ratcliff, and Luigi Genovese. "Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity." Wiley Interdisciplinary Reviews: Computational Molecular Science: e1574.](https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wcms.1574)
+
 - [Dawson, William, Stephan Mohr, Laura E. Ratcliff, Takahito Nakajima, 
 and Luigi Genovese. "Complexity Reduction in Density Functional Theory 
 Calculations of Large Systems: System Partitioning and Fragment 
