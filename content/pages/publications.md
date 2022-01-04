@@ -7,6 +7,8 @@ for a chronological listing of papers.
 
 Review Articles.
 
+- [Dawson, William, Augustin Degomme, Martina Stella, Takahito Nakajima, Laura E. Ratcliff, and Luigi Genovese. "Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity." Wiley Interdisciplinary Reviews: Computational Molecular Science (2021): e1574.](https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wcms.1574)
+
 - [Ratcliff, Laura E., William Dawson, Giuseppe Fisicaro, Damien Caliste, 
 Stephan Mohr, Augustin Degomme, Brice Videau et al. "Flexibilities of 
 wavelets as a computational basis set for large-scale electronic structure 
@@ -19,7 +21,9 @@ Laura E. Ratcliff, Takahito Nakajima, Luigi Genovese, and Babak Momeni.
 specialization." Current Opinion in Biotechnology 62 (2020): 98-105.
 ](https://www.sciencedirect.com/science/article/pii/S0958166919300758)
 
-Complexity Reduction.
+Analysis.
+
+- [Chan, Bun, William Dawson, Takahito Nakajima, and Kimihiko Hirao. "Taking Advantage of a Systematic Energy Non-linearity Error in Density Functional Theory for the Calculation of Electronic Energy Levels." The Journal of Physical Chemistry A (2021).](https://pubs.acs.org/doi/abs/10.1021/acs.jpca.1c06723)
 
 - [Dawson, William, Stephan Mohr, Laura E. Ratcliff, Takahito Nakajima, 
 and Luigi Genovese. "Complexity Reduction in Density Functional Theory 
@@ -28,6 +32,8 @@ Embedding." Journal of Chemical Theory and Computation 16, no. 5 (2020):
 2952-2964.](https://pubs.acs.org/doi/10.1021/acs.jctc.9b01152)
 
 Applications.
+
+- [Chan, H. T. H.; Moesser, M. A.; Walters, R. K.; Malla, T. R.; Twidale, R. M.; John, T.; Deeks, H. M.; Johnston-Wood, T.; Mikhailov, V.; Sessions, R. B.; Dawson, W.; Salah, E.; Lukacik, P.; Strain-Damerell, C.; Owen, C. D.; Nakajima, T.; Świderek, K.; Lodola, A.; Moliner, V.; Glowacki, D. R.; Walsh, M. A.; Schofield, C. J.; Genovese, L.; Shoemark, D. K.; Mulholland, A. J.; Duarte, F.; Morris, G. M. Discovery of SARS-CoV-2 Mpro peptide inhibitors from modelling substrate and ligand binding. Chem. Sci. 2021, 12, 13686.](https://pubs.rsc.org/en/content/articlelanding/2021/sc/d1sc03628a)
 
 - [Chan, Bun, Yukio Kawashima, William Dawson, Michio Katouda,
 Takahito Nakajima, and Kimihiko Hirao. "A Simple Model for Relative Energies of
