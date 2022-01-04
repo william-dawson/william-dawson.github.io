@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Taking Advantage of a Systematic Energy Non-linearity Error in Density Functional Theory for the Calculation of Electronic Energy Levels &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2021-12-20" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Taking Advantage of a Systematic Energy Non-linearity Error in Density Functional Theory for the Calculation of Electronic Energy Levels"/>
+    <meta property="og:description" content="I give an overview of a recent publication I worked on which presents a low-cost method to compute electron affinities, ionization potentials, and excitation energies."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/Test-Website/taking-advantage-of-a-systematic-energy-non-linearity-error-in-density-functional-theory-for-the-calculation-of-electronic-energy-levels.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Taking Advantage of a Systematic Energy Non-linearity Error in Density Functional Theory for the Calculation of Electronic Energy Levels">
+    <meta name="twitter:description" content="I give an overview of a recent publication I worked on which presents a low-cost method to compute electron affinities, ionization potentials, and excitation energies.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/Test-Website/taking-advantage-of-a-systematic-energy-non-linearity-error-in-density-functional-theory-for-the-calculation-of-electronic-energy-levels.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/Test-Website/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/Test-Website/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io/Test-Website" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/Test-Website/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Taking Advantage of a Systematic Energy Non-linearity Error in Density Functional Theory for the Calculation of Electronic Energy Levels</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2021-12-20T11:00:00+09:00">Mon 20 December 2021</time> in <a href="https://william-dawson.github.io/Test-Website/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/Test-Website/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>I am happy to anounce a new publication which I worked on along side Bun Chan, Takahito Nakajima, and Kimihiko Hirao available in the <a href="https://pubs.acs.org/doi/10.1021/acs.jpca.1c06723">Journal of Physical Chemistry A</a>. In this paper, we presented a new, low cost scheme for the efficient calculation of electron affinities, ionization potentials, and excitation energies. With this new scheme, even calculations at, say, the BLYP//6-31+G(d) can be sufficient to predict these properties.</p>
+<p>To give you a taste of this scheme, I thought I would go through some calculations using PySCF. We will use ionization potentials as the target (refer to the full manuscript for details of other properties). For our system, we will use H2O, which can be setup as such:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">gto</span>
+<span class="n">sys</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">O 0 0 0.1173 ;</span>
+<span class="s1">H 0 0.7572 -0.4692 ;</span>
+<span class="s1">H 0 -0.7572 -0.4692</span>
+<span class="s1">&#39;&#39;&#39;</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;6-31+G*&quot;</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">nocc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">nelectron</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Hartree-Fock Calculation</h2>
+<p>First let's compute the orbital energies with Hartree-Fock. We can compare those energies to the reference <a href="https://en.wikipedia.org/wiki/Koopmans%27_theorem">ionization potentials</a> found in the Wikipedia article on Koopman's theorem (which will give you more theoertical background): 539.7, 32.2, 18.5, 14.7 and 12.6 eV</p>
+<div class="highlight"><pre><span></span><code><span class="n">reference</span> <span class="o">=</span> <span class="p">[</span><span class="mf">539.7</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">,</span> <span class="mf">14.7</span><span class="p">,</span> <span class="mf">12.6</span><span class="p">]</span>
+<span class="n">h_to_ev</span> <span class="o">=</span> <span class="mf">27.2114</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">scf</span>
+<span class="n">mf_hf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">mf_hf</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">mf_hf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>-76.01625696404005
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">MaxNLocator</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Reference&quot;</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">reference</span><span class="p">:</span>
+    <span class="n">axs</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mf_hf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">]],</span>
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hartree Fock&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (eV)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Ionization Potentials&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/Test-Website/assets/non-linear/output_7_0.png"></p>
+<h2>DFT Calculation</h2>
+<p>The Hartree-Fock values are actually really good. Now, let's compare that to a DFT calculation like one based on BLYP</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">dft</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;BLYP&quot;</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Reference&quot;</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">reference</span><span class="p">:</span>
+    <span class="n">axs</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mf_hf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">]],</span> 
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> 
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hartree Fock&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">]],</span>
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> 
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;DFT (BLYP)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (eV)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Ionization Potentials&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/Test-Website/assets/non-linear/output_10_0.png"></p>
+<p>The DFT result is significantly worse than the Hartree-Fock one. Narrowing in, we can look at our accuracy of the first ionization potential</p>
+<div class="highlight"><pre><span></span><code><span class="n">estimate_hf</span> <span class="o">=</span> <span class="p">(</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">mf_hf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="n">nocc</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">estimate_dft</span> <span class="o">=</span> <span class="p">(</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="n">nocc</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="s2">&quot;Estimate&quot;</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hartree-Fock:&quot;</span><span class="p">,</span> <span class="n">estimate_hf</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_hf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT:&quot;</span><span class="p">,</span> <span class="n">estimate_dft</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dft</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Type Estimate Error
+Hartree-Fock: -13.863945084275324 1.2639450842753241
+DFT: -7.075046911926883 -5.524953088073117
+</code></pre></div>
+
+<p>And see that the magnitude of the error is quite substantial. We can also see visually that the error is not just based on a constant shift. </p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> 
+          <span class="nb">zip</span><span class="p">(</span><span class="n">mf_hf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">],</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">])],</span>
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> 
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy Difference (eV)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;HF vs. BLYP&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/Test-Website/assets/non-linear/output_14_0.png"></p>
+<h2>Cation Calculation</h2>
+<p>One other way to estimate the first ionization potential is to use $ \Delta $SCF. Here we compute H2O+, so that we might compute the energy difference.</p>
+<div class="highlight"><pre><span></span><code><span class="n">sys_p</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">sys_p</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sys_p</span><span class="o">.</span><span class="n">spin</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">sys_p</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">mf_p</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">UKS</span><span class="p">(</span><span class="n">sys_p</span><span class="p">)</span>
+<span class="n">mf_p</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;BLYP&quot;</span>
+<span class="n">mf_p</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">mf_p</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">estimate_dscf</span> <span class="o">=</span> <span class="n">h_to_ev</span> <span class="o">*</span> <span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">e_tot</span> <span class="o">-</span> <span class="n">mf_p</span><span class="o">.</span><span class="n">e_tot</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="s2">&quot;Estimatate&quot;</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hartree-Fock:&quot;</span><span class="p">,</span> <span class="n">estimate_hf</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_hf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT:&quot;</span><span class="p">,</span> <span class="n">estimate_dft</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dft</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Delta SCF:&quot;</span><span class="p">,</span> <span class="n">estimate_dscf</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dscf</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Type Estimatate Error
+Hartree-Fock: -13.863945084275324 1.2639450842753241
+DFT: -7.075046911926883 -5.524953088073117
+Delta SCF: -12.702624320794662 0.10262432079466244
+</code></pre></div>
+
+<p>That is the most accurate method yet. Now, from the calculation of H2O+, we can also try to estimate the ionization potential by looking at the LUMO.</p>
+<div class="highlight"><pre><span></span><code><span class="n">estimate_p</span> <span class="o">=</span> <span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">mf_p</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">nocc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="s2">&quot;Estimatate&quot;</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hartree-Fock:&quot;</span><span class="p">,</span> <span class="n">estimate_hf</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_hf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT:&quot;</span><span class="p">,</span> <span class="n">estimate_dft</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dft</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Delta SCF:&quot;</span><span class="p">,</span> <span class="n">estimate_dscf</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dscf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT (+):&quot;</span><span class="p">,</span> <span class="n">estimate_p</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_p</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Type Estimatate Error
+Hartree-Fock: -13.863945084275324 1.2639450842753241
+DFT: -7.075046911926883 -5.524953088073117
+Delta SCF: -12.702624320794662 0.10262432079466244
+DFT (+): -18.43253533561162 5.832535335611622
+</code></pre></div>
+
+<p>The calculation of H2O+ gives a similar error to our DFT calculation of H2O. But interestingly, the error has the opposite sign. This suggests that we can combine the estimates to get an accurate result.</p>
+<div class="highlight"><pre><span></span><code><span class="n">combined</span> <span class="o">=</span> <span class="n">estimate_dft</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">estimate_p</span> <span class="o">-</span> <span class="n">estimate_dft</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="s2">&quot;Estimatate&quot;</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hartree-Fock:&quot;</span><span class="p">,</span> <span class="n">estimate_hf</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_hf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT:&quot;</span><span class="p">,</span> <span class="n">estimate_dft</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dft</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Delta SCF:&quot;</span><span class="p">,</span> <span class="n">estimate_dscf</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dscf</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT (+):&quot;</span><span class="p">,</span> <span class="n">estimate_p</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT (Combined):&quot;</span><span class="p">,</span> <span class="n">combined</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">combined</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Type Estimatate Error
+Hartree-Fock: -13.863945084275324 1.2639450842753241
+DFT: -7.075046911926883 -5.524953088073117
+Delta SCF: -12.702624320794662 0.10262432079466244
+DFT (+): -18.43253533561162 5.832535335611622
+DFT (Combined): -12.753791123769252 0.15379112376925264
+</code></pre></div>
+
+<h2>Correction Approach</h2>
+<p>In our approach, this averaging leads to a correction term, which can then be applied to other orbitals. Let's see how this approach fares.</p>
+<div class="highlight"><pre><span></span><code><span class="n">correction</span> <span class="o">=</span> <span class="n">combined</span> <span class="o">-</span> <span class="n">estimate_dft</span>
+<span class="n">corrected</span> <span class="o">=</span> <span class="p">[</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">correction</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Reference&quot;</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">reference</span><span class="p">:</span>
+    <span class="n">axs</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mf_hf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">]],</span> 
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hartree Fock&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">]],</span> 
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> 
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;DFT (BLYP)&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">corrected</span><span class="p">[:</span><span class="n">nocc</span><span class="p">]],</span>
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:green&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> 
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Corrected&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (eV)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Ionization Potentials&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/Test-Website/assets/non-linear/output_25_0.png"></p>
+<p>This simple correction has improved our estimate of the ionization energy for all orbitals. Let's look closer at the actual error.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mf_hf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">],</span> <span class="n">reference</span><span class="p">)],</span> 
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hartree-Fock&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">corrected</span><span class="p">[:</span><span class="n">nocc</span><span class="p">],</span> <span class="n">reference</span><span class="p">)],</span> 
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:green&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Corrected&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">nocc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dscf</span><span class="p">,</span>
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Delta SCF&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;(ABS) Error (eV)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Ionization Potential Errors&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/Test-Website/assets/non-linear/output_27_0.png"></p>
+<p>While the error is good, it isn't balanced, with the core orbital having a very big error. So, in this paper we further propose a scaling factor for the correction based on the exchange energy of a given orbital. This scaling factor can be computed using some of the machinery in PySCF.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ni</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">numint</span><span class="o">.</span><span class="n">NumInt</span><span class="p">()</span>
+<span class="n">grids</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">gen_grid</span><span class="o">.</span><span class="n">Grids</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="n">grids</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">grids</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">outer</span>
+<span class="n">scaling</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nocc</span><span class="p">):</span>
+    <span class="n">mo</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_coeff</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">outer</span><span class="p">(</span><span class="n">mo</span><span class="p">,</span> <span class="n">mo</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ni</span><span class="o">.</span><span class="n">nr_rks</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">grids</span><span class="p">,</span> <span class="s1">&#39;lda,&#39;</span><span class="p">,</span> <span class="n">dm</span><span class="p">)</span>
+    <span class="n">scaling</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Then we apply the new correction which scales by this factor.</p>
+<div class="highlight"><pre><span></span><code><span class="n">new_corrected</span> <span class="o">=</span> <span class="p">[</span><span class="n">h_to_ev</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">scaling</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">scaling</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">correction</span> 
+                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">])]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mf_hf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[:</span><span class="n">nocc</span><span class="p">],</span> <span class="n">reference</span><span class="p">)],</span> 
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hartree-Fock&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">corrected</span><span class="p">[:</span><span class="n">nocc</span><span class="p">],</span> <span class="n">reference</span><span class="p">)],</span> 
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:green&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Corrected&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">new_corrected</span><span class="p">[:</span><span class="n">nocc</span><span class="p">],</span> <span class="n">reference</span><span class="p">)],</span> 
+         <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:purple&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span>
+         <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;New Corrected&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">nocc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">estimate_dscf</span><span class="p">,</span>
+         <span class="s1">&#39;yo&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Delta SCF&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;(ABS) Error (eV)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">MaxNLocator</span><span class="p">(</span><span class="n">integer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/Test-Website/assets/non-linear/output_33_0.png"></p>
+<p>The scaled version does seem to improve on a number of orbitals! In the paper, you will find more validation, and a theoretical description of what's actually going on. But I hope that this re-implementation of our analysis using the very friendly API of PySCF gives you a more hands on feel of our results.</p>
+<blockquote>
+<p>Chan, Bun, William Dawson, Takahito Nakajima, and Kimihiko Hirao. "Taking Advantage of a Systematic Energy Non-linearity Error in Density Functional Theory for the Calculation of Electronic Energy Levels." The Journal of Physical Chemistry A (2021).</p>
+</blockquote>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/Test-Website/taking-advantage-of-a-systematic-energy-non-linearity-error-in-density-functional-theory-for-the-calculation-of-electronic-energy-levels.html&amp;t=william-dawson.github.io%3A%20Taking%20Advantage%20of%20a%20Systematic%20Energy%20Non-linearity%20Error%20in%20Density%20Functional%20Theory%20for%20the%20Calculation%20of%20Electronic%20Energy%20Levels" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/Test-Website/taking-advantage-of-a-systematic-energy-non-linearity-error-in-density-functional-theory-for-the-calculation-of-electronic-energy-levels.html&amp;text=william-dawson.github.io%3A%20Taking%20Advantage%20of%20a%20Systematic%20Energy%20Non-linearity%20Error%20in%20Density%20Functional%20Theory%20for%20the%20Calculation%20of%20Electronic%20Energy%20Levels" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/Test-Website/taking-advantage-of-a-systematic-energy-non-linearity-error-in-density-functional-theory-for-the-calculation-of-electronic-energy-levels.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/Test-Website/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
