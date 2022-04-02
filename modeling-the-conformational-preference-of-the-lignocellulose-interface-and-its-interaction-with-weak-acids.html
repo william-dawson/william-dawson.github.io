@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Modeling the Conformational Preference of the Lignocellulose Interface and Its Interaction with Weak Acids &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2022-03-31" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Modeling the Conformational Preference of the Lignocellulose Interface and Its Interaction with Weak Acids"/>
+    <meta property="og:description" content="I announce a recent publication I worked on which examines the interactions between the sugar and lignin components of lignocellulose and offer some praise of the OpenBabel toolkit."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/modeling-the-conformational-preference-of-the-lignocellulose-interface-and-its-interaction-with-weak-acids.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Modeling the Conformational Preference of the Lignocellulose Interface and Its Interaction with Weak Acids">
+    <meta name="twitter:description" content="I announce a recent publication I worked on which examines the interactions between the sugar and lignin components of lignocellulose and offer some praise of the OpenBabel toolkit.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/modeling-the-conformational-preference-of-the-lignocellulose-interface-and-its-interaction-with-weak-acids.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Modeling the Conformational Preference of the Lignocellulose Interface and Its Interaction with Weak Acids</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2022-03-31T11:00:00+09:00">Thu 31 March 2022</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>I am happy to anounce a new publication which I worked on alongside Bun Chan and Takahito Nakajima available in the <a href="https://pubs.acs.org/doi/10.1021/acs.jpca.2c00308">Journal of Physical Chemistry A</a>. This paper is a study of various conformers of model systems of lignin. The conformers were generated by a thorough screening process which went all the way from forcefields down to an approximation for CCSD(T)/CBS. I think studies like this can be performed for many different types of systems so I hope our detailed description of the screening procedure is of use especially to novices in the field.</p>
+<p>One of the tools I found very useful when we did our study is <a href="http://openbabel.org/wiki/Main_Page">OpenBabel</a>. Many people think of OpenBabel as just a tool for converting molecular file formats, but is is so much more. The best way to see this is to look at the <a href="https://openbabel.org/dev-api/index.shtml">Developer Documentation</a>. All of these classes can be accessed by your own driver program. And since they use Swig, they can be accessed not just from C++ but also from Python.</p>
+<div class="highlight"><pre><span></span><code><span class="n">istr</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;24</span>
+
+<span class="s2">O          0.47000        2.56880        0.00060</span>
+<span class="s2">O         -3.12710       -0.44360       -0.00030</span>
+<span class="s2">N         -0.96860       -1.31250        0.00000</span>
+<span class="s2">N          2.21820        0.14120       -0.00030</span>
+<span class="s2">N         -1.34770        1.07970       -0.00010</span>
+<span class="s2">N          1.41190       -1.93720        0.00020</span>
+<span class="s2">C          0.85790        0.25920       -0.00080</span>
+<span class="s2">C          0.38970       -1.02640       -0.00040</span>
+<span class="s2">C          0.03070        1.42200       -0.00060</span>
+<span class="s2">C         -1.90610       -0.24950       -0.00040</span>
+<span class="s2">C          2.50320       -1.19980        0.00030</span>
+<span class="s2">C         -1.42760       -2.69600        0.00080</span>
+<span class="s2">C          3.19260        1.20610        0.00030</span>
+<span class="s2">C         -2.29690        2.18810        0.00070</span>
+<span class="s2">H          3.51630       -1.57870        0.00080</span>
+<span class="s2">H         -1.04510       -3.19730       -0.89370</span>
+<span class="s2">H         -2.51860       -2.75960        0.00110</span>
+<span class="s2">H         -1.04470       -3.19630        0.89570</span>
+<span class="s2">H          4.19920        0.78010        0.00020</span>
+<span class="s2">H          3.04680        1.80920       -0.89920</span>
+<span class="s2">H          3.04660        1.80830        0.90040</span>
+<span class="s2">H         -1.80870        3.16510       -0.00030</span>
+<span class="s2">H         -2.93220        2.10270        0.88810</span>
+<span class="s2">H         -2.93460        2.10210       -0.88490</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openbabel.openbabel</span> <span class="kn">import</span> <span class="n">OBMol</span><span class="p">,</span> <span class="n">OBConversion</span>
+<span class="n">conv</span> <span class="o">=</span> <span class="n">OBConversion</span><span class="p">()</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">OBMol</span><span class="p">()</span>
+<span class="n">conv</span><span class="o">.</span><span class="n">SetInFormat</span><span class="p">(</span><span class="s2">&quot;xyz&quot;</span><span class="p">)</span>
+<span class="n">conv</span><span class="o">.</span><span class="n">ReadString</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">istr</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Iterators are exposed as their own special classes.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openbabel.openbabel</span> <span class="kn">import</span> <span class="n">OBMolAtomIter</span>
+<span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">OBMolAtomIter</span><span class="p">(</span><span class="n">mol</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">GetAtomicMass</span><span class="p">(),</span> <span class="n">at</span><span class="o">.</span><span class="n">GetX</span><span class="p">(),</span> <span class="n">at</span><span class="o">.</span><span class="n">GetY</span><span class="p">(),</span> <span class="n">at</span><span class="o">.</span><span class="n">GetZ</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">15.9994</span><span class="w"> </span><span class="mf">0.47</span><span class="w"> </span><span class="mf">2.5688</span><span class="w"> </span><span class="mf">0.0006</span><span class="w"></span>
+<span class="mf">15.9994</span><span class="w"> </span><span class="o">-</span><span class="mf">3.1271</span><span class="w"> </span><span class="o">-</span><span class="mf">0.4436</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0003</span><span class="w"></span>
+<span class="mf">14.0067</span><span class="w"> </span><span class="o">-</span><span class="mf">0.9686</span><span class="w"> </span><span class="o">-</span><span class="mf">1.3125</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+<span class="mf">14.0067</span><span class="w"> </span><span class="mf">2.2182</span><span class="w"> </span><span class="mf">0.1412</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0003</span><span class="w"></span>
+<span class="mf">14.0067</span><span class="w"> </span><span class="o">-</span><span class="mf">1.3477</span><span class="w"> </span><span class="mf">1.0797</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0001</span><span class="w"></span>
+<span class="mf">14.0067</span><span class="w"> </span><span class="mf">1.4119</span><span class="w"> </span><span class="o">-</span><span class="mf">1.9372</span><span class="w"> </span><span class="mf">0.0002</span><span class="w"></span>
+<span class="mf">12.0107</span><span class="w"> </span><span class="mf">0.8579</span><span class="w"> </span><span class="mf">0.2592</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0008</span><span class="w"></span>
+<span class="mf">12.0107</span><span class="w"> </span><span class="mf">0.3897</span><span class="w"> </span><span class="o">-</span><span class="mf">1.0264</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0004</span><span class="w"></span>
+<span class="mf">12.0107</span><span class="w"> </span><span class="mf">0.0307</span><span class="w"> </span><span class="mf">1.422</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0006</span><span class="w"></span>
+<span class="mf">12.0107</span><span class="w"> </span><span class="o">-</span><span class="mf">1.9061</span><span class="w"> </span><span class="o">-</span><span class="mf">0.2495</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0004</span><span class="w"></span>
+<span class="mf">12.0107</span><span class="w"> </span><span class="mf">2.5032</span><span class="w"> </span><span class="o">-</span><span class="mf">1.1998</span><span class="w"> </span><span class="mf">0.0003</span><span class="w"></span>
+<span class="mf">12.0107</span><span class="w"> </span><span class="o">-</span><span class="mf">1.4276</span><span class="w"> </span><span class="o">-</span><span class="mf">2.696</span><span class="w"> </span><span class="mf">0.0008</span><span class="w"></span>
+<span class="mf">12.0107</span><span class="w"> </span><span class="mf">3.1926</span><span class="w"> </span><span class="mf">1.2061</span><span class="w"> </span><span class="mf">0.0003</span><span class="w"></span>
+<span class="mf">12.0107</span><span class="w"> </span><span class="o">-</span><span class="mf">2.2969</span><span class="w"> </span><span class="mf">2.1881</span><span class="w"> </span><span class="mf">0.0007</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="mf">3.5163</span><span class="w"> </span><span class="o">-</span><span class="mf">1.5787</span><span class="w"> </span><span class="mf">0.0008</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="o">-</span><span class="mf">1.0451</span><span class="w"> </span><span class="o">-</span><span class="mf">3.1973</span><span class="w"> </span><span class="o">-</span><span class="mf">0.8937</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="o">-</span><span class="mf">2.5186</span><span class="w"> </span><span class="o">-</span><span class="mf">2.7596</span><span class="w"> </span><span class="mf">0.0011</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="o">-</span><span class="mf">1.0447</span><span class="w"> </span><span class="o">-</span><span class="mf">3.1963</span><span class="w"> </span><span class="mf">0.8957</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="mf">4.1992</span><span class="w"> </span><span class="mf">0.7801</span><span class="w"> </span><span class="mf">0.0002</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="mf">3.0468</span><span class="w"> </span><span class="mf">1.8092</span><span class="w"> </span><span class="o">-</span><span class="mf">0.8992</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="mf">3.0466</span><span class="w"> </span><span class="mf">1.8083</span><span class="w"> </span><span class="mf">0.9004</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="o">-</span><span class="mf">1.8087</span><span class="w"> </span><span class="mf">3.1651</span><span class="w"> </span><span class="o">-</span><span class="mf">0.0003</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="o">-</span><span class="mf">2.9322</span><span class="w"> </span><span class="mf">2.1027</span><span class="w"> </span><span class="mf">0.8881</span><span class="w"></span>
+<span class="mf">1.00794</span><span class="w"> </span><span class="o">-</span><span class="mf">2.9346</span><span class="w"> </span><span class="mf">2.1021</span><span class="w"> </span><span class="o">-</span><span class="mf">0.8849</span><span class="w"></span>
+</code></pre></div>
+
+<p>OpenBabel will give you access to some forcefields, so you can do things like geometry optimization.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openbabel.openbabel</span> <span class="kn">import</span> <span class="n">OBForceField</span>
+<span class="n">opt_mol</span> <span class="o">=</span> <span class="n">OBMol</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">ff</span> <span class="o">=</span> <span class="n">OBForceField</span><span class="o">.</span><span class="n">FindForceField</span><span class="p">(</span><span class="s2">&quot;mmff94&quot;</span><span class="p">)</span>
+<span class="n">ff</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">ff</span><span class="o">.</span><span class="n">SteepestDescent</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">)</span>
+<span class="n">ff</span><span class="o">.</span><span class="n">GetCoordinates</span><span class="p">(</span><span class="n">opt_mol</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ff</span><span class="o">.</span><span class="n">Energy</span><span class="p">(),</span> <span class="n">ff</span><span class="o">.</span><span class="n">GetUnit</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>-122.52811655381508 kcal/mol
+</code></pre></div>
+
+<p>And it has some useful routines for aligning molecules, for when you're trying to screen out duplicates.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openbabel.openbabel</span> <span class="kn">import</span> <span class="n">OBAlign</span>
+<span class="n">align</span> <span class="o">=</span> <span class="n">OBAlign</span><span class="p">()</span>
+<span class="n">align</span><span class="o">.</span><span class="n">SetRefMol</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">align</span><span class="o">.</span><span class="n">SetTargetMol</span><span class="p">(</span><span class="n">opt_mol</span><span class="p">)</span>
+<span class="n">align</span><span class="o">.</span><span class="n">Align</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">align</span><span class="o">.</span><span class="n">GetRMSD</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">0.02329795381669716</span><span class="w"></span>
+</code></pre></div>
+
+<p>One other thing we can do with openbabel is a conformer search. Let's start with a smiles rep.</p>
+<div class="highlight"><pre><span></span><code><span class="n">istr</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;C(C(C(=O)O)N)S&quot;&quot;&quot;</span>
+<span class="n">conv</span> <span class="o">=</span> <span class="n">OBConversion</span><span class="p">()</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">OBMol</span><span class="p">()</span>
+<span class="n">conv</span><span class="o">.</span><span class="n">SetInFormat</span><span class="p">(</span><span class="s2">&quot;can&quot;</span><span class="p">)</span>
+<span class="n">conv</span><span class="o">.</span><span class="n">ReadString</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">istr</span><span class="p">)</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">AddHydrogens</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Generate a 3D representation.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openbabel.openbabel</span> <span class="kn">import</span> <span class="n">OBBuilder</span>
+<span class="n">builder</span> <span class="o">=</span> <span class="n">OBBuilder</span><span class="p">()</span>
+<span class="n">builder</span><span class="o">.</span><span class="n">Build</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Now do the search.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openbabel.openbabel</span> <span class="kn">import</span> <span class="n">OBConformerSearch</span>
+<span class="n">conf</span> <span class="o">=</span> <span class="n">OBConformerSearch</span><span class="p">()</span>
+<span class="n">conf</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">conf</span><span class="o">.</span><span class="n">Search</span><span class="p">()</span>
+<span class="n">conf</span><span class="o">.</span><span class="n">GetConformers</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">30</span><span class="w"></span>
+</code></pre></div>
+
+<p>Let's rescore the conformers with a forcefield and optimize.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ff</span> <span class="o">=</span> <span class="n">OBForceField</span><span class="o">.</span><span class="n">FindForceField</span><span class="p">(</span><span class="s2">&quot;gaff&quot;</span><span class="p">)</span>
+<span class="n">energies</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">opt_energies</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">()):</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">SetConformer</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">ff</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+    <span class="n">energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ff</span><span class="o">.</span><span class="n">Energy</span><span class="p">())</span>
+    <span class="n">ff</span><span class="o">.</span><span class="n">SteepestDescent</span><span class="p">(</span><span class="mi">10000</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">)</span>
+    <span class="n">ff</span><span class="o">.</span><span class="n">GetCoordinates</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+    <span class="n">opt_energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ff</span><span class="o">.</span><span class="n">Energy</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">energies</span><span class="p">,</span> <span class="s1">&#39;kx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Conformer Energy&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">opt_energies</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Optimized Energy&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (&quot;</span> <span class="o">+</span> <span class="n">ff</span><span class="o">.</span><span class="n">GetUnit</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Conformer ID&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/assets/lignin/output_18_1.png"></p>
+<p>Interestingly, we notice that there are a number of conformers with very similar energy values after optimization. Of course the goal of the conformer search is to identify a diverse set of possible structures, and optimization can destroy that diversity. Let's verify if that's what happened by looking at the RMSD between optimized structures.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">(),</span> <span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">()))</span>
+<span class="n">align</span> <span class="o">=</span> <span class="n">OBAlign</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">()):</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">SetConformer</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">align</span><span class="o">.</span><span class="n">SetRefMol</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">()):</span>
+        <span class="n">mol</span><span class="o">.</span><span class="n">SetConformer</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+        <span class="n">align</span><span class="o">.</span><span class="n">SetTargetMol</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+        <span class="n">align</span><span class="o">.</span><span class="n">Align</span><span class="p">()</span>
+        <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">align</span><span class="o">.</span><span class="n">GetRMSD</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;RMSD&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/assets/lignin/output_21_0.png"></p>
+<p>That's a lot of white. So let's try removing the duplicates.</p>
+<div class="highlight"><pre><span></span><code><span class="n">duplicates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">()):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">1e-1</span><span class="p">:</span>
+            <span class="n">duplicates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<span class="n">duplicates</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">duplicates</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">duplicates</span><span class="p">:</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">DeleteConformer</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">8</span><span class="w"></span>
+</code></pre></div>
+
+<p>We've made it this far, so let's finish with a higher level energy estimate using PySCF and density functional theory.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf.gto</span> <span class="kn">import</span> <span class="n">Mole</span>
+
+<span class="n">pmols</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">()):</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">SetConformer</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">atlist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">OBMolAtomIter</span><span class="p">(</span><span class="n">mol</span><span class="p">):</span>
+        <span class="n">atlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">GetAtomicNum</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> 
+                      <span class="nb">str</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">GetX</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span>
+                      <span class="nb">str</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">GetY</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> 
+                      <span class="nb">str</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">GetZ</span><span class="p">()))</span>
+    <span class="n">pmols</span> <span class="o">+=</span> <span class="p">[</span><span class="n">Mole</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">atlist</span><span class="p">),</span> <span class="n">basis</span><span class="o">=</span><span class="s2">&quot;6-31G*&quot;</span><span class="p">)]</span>
+    <span class="n">pmols</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">dft</span>
+<span class="n">dft_energy</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">pmols</span><span class="p">:</span>
+    <span class="n">rks</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">rks</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;B3LYP&quot;</span>
+    <span class="n">rks</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">dft_energy</span> <span class="o">+=</span> <span class="p">[</span><span class="n">rks</span><span class="o">.</span><span class="n">kernel</span><span class="p">()]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ff_energy</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">NumConformers</span><span class="p">()):</span>
+    <span class="n">mol</span><span class="o">.</span><span class="n">SetConformer</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">ff</span><span class="o">.</span><span class="n">Setup</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+    <span class="n">ff_energy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ff</span><span class="o">.</span><span class="n">Energy</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">ff_energy</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ff_energy</span><span class="p">],</span> 
+         <span class="p">[(</span><span class="n">x</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">dft_energy</span><span class="p">))</span><span class="o">*</span><span class="mi">2600</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dft_energy</span><span class="p">],</span> <span class="s1">&#39;kx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">ticklabel_format</span><span class="p">(</span><span class="n">useOffset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;(Relative) Forcefield Energy (&quot;</span> <span class="o">+</span> <span class="n">ff</span><span class="o">.</span><span class="n">GetUnit</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;(Realtive) DFT Energy (kJ/mol)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/assets/lignin/output_30_1.png"></p>
+<p>Of course, no screeing procedure should end at B3LYP/6-31G*! But I hope this post has shown to you that OpenBabel can serve as a useful toolkit for building your next study.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/modeling-the-conformational-preference-of-the-lignocellulose-interface-and-its-interaction-with-weak-acids.html&amp;t=william-dawson.github.io%3A%20Modeling%20the%20Conformational%20Preference%20of%20the%20Lignocellulose%20Interface%20and%20Its%20Interaction%20with%20Weak%20Acids" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/modeling-the-conformational-preference-of-the-lignocellulose-interface-and-its-interaction-with-weak-acids.html&amp;text=william-dawson.github.io%3A%20Modeling%20the%20Conformational%20Preference%20of%20the%20Lignocellulose%20Interface%20and%20Its%20Interaction%20with%20Weak%20Acids" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/modeling-the-conformational-preference-of-the-lignocellulose-interface-and-its-interaction-with-weak-acids.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
