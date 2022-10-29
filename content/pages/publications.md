@@ -33,6 +33,10 @@ Embedding." Journal of Chemical Theory and Computation 16, no. 5 (2020):
 
 Applications.
 
+- [Fernando, Nathalie K., Martina Stella, William Dawson, Takahito Nakajima, Luigi Genovese, Anna Regoutz, and Laura E. Ratcliff. "Probing disorder in 2CzPN using core and valence states." Physical Chemistry Chemical Physics 24, no. 38 (2022): 23329-23339.](https://doi.org/10.1039/D2CP02638D)
+
+- [Chan, Bun, William Dawson, and Takahito Nakajima. "Modeling the Conformational Preference of the Lignocellulose Interface and Its Interaction with Weak Acids." The Journal of Physical Chemistry A 126, no. 13 (2022): 2119-2126.](https://doi.org/10.1021/acs.jpca.2c00308)
+
 - [Chan, H. T. H.; Moesser, M. A.; Walters, R. K.; Malla, T. R.; Twidale, R. M.; John, T.; Deeks, H. M.; Johnston-Wood, T.; Mikhailov, V.; Sessions, R. B.; Dawson, W.; Salah, E.; Lukacik, P.; Strain-Damerell, C.; Owen, C. D.; Nakajima, T.; Świderek, K.; Lodola, A.; Moliner, V.; Glowacki, D. R.; Walsh, M. A.; Schofield, C. J.; Genovese, L.; Shoemark, D. K.; Mulholland, A. J.; Duarte, F.; Morris, G. M. Discovery of SARS-CoV-2 Mpro peptide inhibitors from modelling substrate and ligand binding. Chem. Sci. 2021, 12, 13686.](https://pubs.rsc.org/en/content/articlelanding/2021/sc/d1sc03628a)
 
 - [Chan, Bun, Yukio Kawashima, William Dawson, Michio Katouda,
