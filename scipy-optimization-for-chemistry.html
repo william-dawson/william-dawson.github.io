@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Scipy Optimization for Chemistry &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2022-10-30" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Scipy Optimization for Chemistry"/>
+    <meta property="og:description" content="In this post, we explore how useful Scipy&#39;s optimization routines are for chemistry applications."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/scipy-optimization-for-chemistry.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Scipy Optimization for Chemistry">
+    <meta name="twitter:description" content="In this post, we explore how useful Scipy&#39;s optimization routines are for chemistry applications.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/scipy-optimization-for-chemistry.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Scipy Optimization for Chemistry</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2022-10-30T11:00:00+09:00">Sun 30 October 2022</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/computational-chemistry.html" title="All articles with Computational Chemistry tag">#computational chemistry</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <h2>PSI-K Conference</h2>
+<p>Last month I participated in the <a href="https://www.psik2022.net/">PSI-K 2022 Conferece</a>. It was great to travel outside of Japan after three years of COVID-19 restrictions. I got some pretty neat goodies while there:</p>
+<p><img alt="jpg" src="https://william-dawson.github.io/assets/scipy_opt/IMG_9056.jpg"></p>
+<p>in addition to enjoying the great Swiss summer weather. Some of the talks got me thinking about optimization, which I thought I'd explore in this notebook.</p>
+<h2>Optimization</h2>
+<p>In this post, I want to see how useful the built in scipy optimizers are for quantum chemistry calculations. We'll employ them as black boxes for computing various properties. We will use PySCF as our QM driver and Benzene as a reference molecule.</p>
+<div class="highlight"><pre><span></span><code><span class="n">h_to_eV</span> <span class="o">=</span> <span class="mf">27.2114</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">cat</span> <span class="n">Benzene</span><span class="o">.</span><span class="n">xyz</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">12</span><span class="w"></span>
+
+<span class="n">C</span><span class="w">         </span><span class="o">-</span><span class="mf">1.21310</span><span class="w">       </span><span class="o">-</span><span class="mf">0.68840</span><span class="w">        </span><span class="mf">0.00000</span><span class="w"></span>
+<span class="n">C</span><span class="w">         </span><span class="o">-</span><span class="mf">1.20280</span><span class="w">        </span><span class="mf">0.70640</span><span class="w">        </span><span class="mf">0.00010</span><span class="w"></span>
+<span class="n">C</span><span class="w">         </span><span class="o">-</span><span class="mf">0.01030</span><span class="w">       </span><span class="o">-</span><span class="mf">1.39480</span><span class="w">        </span><span class="mf">0.00000</span><span class="w"></span>
+<span class="n">C</span><span class="w">          </span><span class="mf">0.01040</span><span class="w">        </span><span class="mf">1.39480</span><span class="w">       </span><span class="o">-</span><span class="mf">0.00010</span><span class="w"></span>
+<span class="n">C</span><span class="w">          </span><span class="mf">1.20280</span><span class="w">       </span><span class="o">-</span><span class="mf">0.70630</span><span class="w">        </span><span class="mf">0.00000</span><span class="w"></span>
+<span class="n">C</span><span class="w">          </span><span class="mf">1.21310</span><span class="w">        </span><span class="mf">0.68840</span><span class="w">        </span><span class="mf">0.00000</span><span class="w"></span>
+<span class="n">H</span><span class="w">         </span><span class="o">-</span><span class="mf">2.15770</span><span class="w">       </span><span class="o">-</span><span class="mf">1.22440</span><span class="w">        </span><span class="mf">0.00000</span><span class="w"></span>
+<span class="n">H</span><span class="w">         </span><span class="o">-</span><span class="mf">2.13930</span><span class="w">        </span><span class="mf">1.25640</span><span class="w">        </span><span class="mf">0.00010</span><span class="w"></span>
+<span class="n">H</span><span class="w">         </span><span class="o">-</span><span class="mf">0.01840</span><span class="w">       </span><span class="o">-</span><span class="mf">2.48090</span><span class="w">       </span><span class="o">-</span><span class="mf">0.00010</span><span class="w"></span>
+<span class="n">H</span><span class="w">          </span><span class="mf">0.01840</span><span class="w">        </span><span class="mf">2.48080</span><span class="w">        </span><span class="mf">0.00000</span><span class="w"></span>
+<span class="n">H</span><span class="w">          </span><span class="mf">2.13940</span><span class="w">       </span><span class="o">-</span><span class="mf">1.25630</span><span class="w">        </span><span class="mf">0.00010</span><span class="w"></span>
+<span class="n">H</span><span class="w">          </span><span class="mf">2.15770</span><span class="w">        </span><span class="mf">1.22450</span><span class="w">        </span><span class="mf">0.00000</span><span class="w"></span>
+</code></pre></div>
+
+<p>I had some strange issues with PySCF's xyz reader (maybe a buggy version), so I read the molecule in manually.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">read_geom</span><span class="p">(</span><span class="n">iname</span><span class="p">):</span>
+    <span class="n">atom</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">iname</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">ifile</span><span class="p">:</span>
+            <span class="n">split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">atom</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]])</span>
+    <span class="k">return</span> <span class="n">atom</span>
+</code></pre></div>
+
+<p>And build.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">gto</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;6-31G*&quot;</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="n">read_geom</span><span class="p">(</span><span class="s2">&quot;Benzene.xyz&quot;</span><span class="p">)</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</code></pre></div>
+
+<h2>Example 1: Functional Optimization</h2>
+<p>As a first example, let's try optimizing the ratio of exact exchange in the PBE0 functional for a given molecule. The goal will be to match the homo-lumo gap of a system. First, we need a reference value, for which we will use $\Delta$SCF.</p>
+<div class="highlight"><pre><span></span><code><span class="n">cat</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">cat</span><span class="o">.</span><span class="n">spin</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">dft</span>
+<span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;PBE0&quot;</span>
+<span class="n">ene</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+
+<span class="n">mf_cat</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<span class="n">mf_cat</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;PBE0&quot;</span>
+<span class="n">ene_cat</span> <span class="o">=</span> <span class="n">mf_cat</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+</code></pre></div>
+
+<p>And so the target homo-lumo band gap is:</p>
+<div class="highlight"><pre><span></span><code><span class="n">target_gap</span> <span class="o">=</span> <span class="n">ene_cat</span> <span class="o">-</span> <span class="n">ene</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">target_gap</span> <span class="o">*</span> <span class="n">h_to_eV</span><span class="p">,</span> <span class="s2">&quot;eV&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">9.143932978023763</span><span class="w"> </span><span class="n">eV</span><span class="w"></span>
+</code></pre></div>
+
+<p>But simply using Koopman's theorem we would haven found a value of</p>
+<div class="highlight"><pre><span></span><code><span class="n">hidx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">nelec</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">h_to_eV</span> <span class="o">*</span> <span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="n">hidx</span><span class="p">]</span> <span class="o">-</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="n">hidx</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="s2">&quot;eV&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">7.237101946475208</span><span class="w"> </span><span class="n">eV</span><span class="w"></span>
+</code></pre></div>
+
+<p>We can write a function which returns the error of computing the gap with Koopman's theorem using given a fixed amount of exchange.</p>
+<div class="highlight"><pre><span></span><code><span class="n">tested_x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">tested_y</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">mix</span><span class="p">):</span>
+    <span class="c1"># Use the LIBXC Codes for PBE_X and PBE_C</span>
+    <span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mix</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; * HF + &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">mix</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; * 101 + 130&quot;</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="n">hidx</span><span class="p">]</span> <span class="o">-</span> <span class="n">mf</span><span class="o">.</span><span class="n">mo_energy</span><span class="p">[</span><span class="n">hidx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">gap</span> <span class="o">-</span> <span class="n">target_gap</span><span class="p">)</span> <span class="o">*</span> <span class="n">h_to_eV</span>
+    <span class="n">tested_x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mix</span><span class="p">)</span>
+    <span class="n">tested_y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">err</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mf">0.25</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">1.9068310315485535</span><span class="w"></span>
+</code></pre></div>
+
+<p>Scipy has an optimizer which seems specialized for a single variable, so let's give it a spin.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize_scalar</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">),</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tested_x</span><span class="p">,</span> <span class="n">tested_y</span><span class="p">,</span> <span class="s1">&#39;kx&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Error (eV)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Ratio&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/assets/scipy_opt/output_19_1.png"></p>
+<p>And it looks like the winner is the classic half and half mix. It is a shame that the bounds are violated so severely though, but for it worked for our purposes.</p>
+<h2>Example 2: Geometry Optimization</h2>
+<p>As a second example, we will try performing some geometry optimization. Note that PySCF has some extra features for geometry optimization, in particular the scanner mode. But we will do things manually for illustration purposes. We will also use a smaller basis set just to keep the notebook run-time manageable.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;STO-3G&quot;</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="n">read_geom</span><span class="p">(</span><span class="s2">&quot;Benzene.xyz&quot;</span><span class="p">)</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OptTarget</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mol</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energies</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store computed energies</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+        <span class="n">nat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">atom</span><span class="p">)</span>
+
+        <span class="c1"># Reshape the position variable to a per atom</span>
+        <span class="n">rpos</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nat</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># Update the positions</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nat</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">atom</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+        <span class="c1"># Compute the energy</span>
+        <span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="p">)</span>
+        <span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;PBE0&quot;</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">e</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;CG&quot;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">energies</span><span class="p">,</span> <span class="s1">&#39;kx--&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (a.u.)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">229.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">226</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/assets/scipy_opt/output_25_1.png"></p>
+<p>With this basic approach the progress is quite slow. This is because the black box minimizer is trying to numerically approximate the gradient. Since we can get the gradient from the pyscf calculation, let's integrate it into the process. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">grad</span>
+<span class="k">class</span> <span class="nc">OptTarget</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mol</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energies</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store the computed energies</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad_norm</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store the norm of the computed gradients</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+        <span class="n">nat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">atom</span><span class="p">)</span>
+
+        <span class="c1"># Reshape the position variable to a per atom</span>
+        <span class="n">rpos</span> <span class="o">=</span> <span class="n">pos</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">nat</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># Update the positions</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nat</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">atom</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">rpos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+        <span class="c1"># Compute the energy</span>
+        <span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="p">)</span>
+        <span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;PBE0&quot;</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="c1"># Compute the gradient</span>
+        <span class="n">mf</span> <span class="o">=</span> <span class="n">grad</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad_norm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;CG&quot;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">energies</span><span class="p">,</span> <span class="s1">&#39;kx--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Energy&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (a.u.)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">229.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">226</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+
+<span class="n">axs2</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">grad_norm</span><span class="p">,</span> <span class="s1">&#39;r+--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Force&quot;</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Gradient Norm (Å)&quot;</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/assets/scipy_opt/output_29_1.png"></p>
+<p>Using the gradient information, convergence is much quicker.</p>
+<h2>Example 3: Contraction Coefficient Optimization</h2>
+<p>Now let's try something really fancy: optimization of the contraction coefficients of our basis set. </p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OptTarget</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mol</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energies</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store the computed energies</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">):</span>
+        <span class="c1"># Build the basis</span>
+        <span class="n">basis</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="n">gto</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;STO-3G&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">),</span>
+                 <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">gto</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;STO-3G&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)}</span>
+
+        <span class="c1"># Update with the new coefficients</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">basis</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">shell</span> <span class="ow">in</span> <span class="n">at</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">shell</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                    <span class="n">coeff</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">coefficients</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="n">basis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+        <span class="c1"># Compute the energy</span>
+        <span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="p">)</span>
+        <span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;PBE0&quot;</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">e</span>
+</code></pre></div>
+
+<p>I'll manually write the starting coefficients of the STO-3G basis set as our initial guess.</p>
+<div class="highlight"><pre><span></span><code><span class="n">t</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">start_coeff</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1543289673E+00</span><span class="p">,</span>  <span class="mf">0.5353281423E+00</span><span class="p">,</span> <span class="mf">0.4446345422E+00</span><span class="p">,</span> <span class="c1">#H 1S</span>
+               <span class="mf">0.1543289673E+00</span><span class="p">,</span>  <span class="mf">0.5353281423E+00</span><span class="p">,</span> <span class="mf">0.4446345422E+00</span><span class="p">,</span> <span class="c1">#C 1S</span>
+               <span class="o">-</span><span class="mf">0.9996722919E-01</span><span class="p">,</span> <span class="mf">0.3995128261E+00</span><span class="p">,</span> <span class="mf">0.7001154689E+00</span><span class="p">,</span> <span class="c1">#C 2S</span>
+               <span class="mf">0.1559162750E+00</span><span class="p">,</span>  <span class="mf">0.6076837186E+00</span><span class="p">,</span> <span class="mf">0.3919573931E+00</span><span class="p">]</span> <span class="c1">#C 2p</span>
+</code></pre></div>
+
+<p>Optimize and plot. This time the TNC method is used because we are constraining the contraction coefficients to be between -1 and 1. In practice we probably would want to impose more sophisticated constraints.</p>
+<div class="highlight"><pre><span></span><code><span class="n">opt</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">start_coeff</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">start_coeff</span><span class="p">],</span>
+               <span class="n">method</span><span class="o">=</span><span class="s2">&quot;TNC&quot;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">energies</span><span class="p">,</span> <span class="s1">&#39;kx--&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (a.u.)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Iteration&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">229.4</span><span class="p">,</span> <span class="o">-</span><span class="mi">229</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="https://william-dawson.github.io/assets/scipy_opt/output_36_1.png"></p>
+<p>The end result is that we could bring the energy down. Optimizing a basis set is a dangerous game of course, you potentially lose out on a lot of error cancellation and other properties might be negatively affected. How about the band gap?</p>
+<div class="highlight"><pre><span></span><code><span class="n">tn</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">tcat</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial Basis:&quot;</span><span class="p">,</span> <span class="n">h_to_eV</span><span class="o">*</span><span class="p">(</span><span class="n">tn</span><span class="p">(</span><span class="n">start_coeff</span><span class="p">)</span> <span class="o">-</span> <span class="n">tcat</span><span class="p">(</span><span class="n">start_coeff</span><span class="p">)),</span> <span class="s2">&quot;eV&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Initial Basis: -8.095511667441343 eV
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">tn</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">tcat</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Optimized Basis:&quot;</span><span class="p">,</span> <span class="n">h_to_eV</span><span class="o">*</span><span class="p">(</span><span class="n">tn</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">tcat</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">x</span><span class="p">)),</span> <span class="s2">&quot;eV&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Optimized Basis: -8.859976551095974 eV
+</code></pre></div>
+
+<p>Not bad, in this case our new basis was able to improve things slightly. There is more to the subject of basis set optimization, such as trying to keep the overlap matrix well conditioned or generation of the gradient, but that will have to be a subject of a future blog post.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/scipy-optimization-for-chemistry.html&amp;t=william-dawson.github.io%3A%20Scipy%20Optimization%20for%20Chemistry" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/scipy-optimization-for-chemistry.html&amp;text=william-dawson.github.io%3A%20Scipy%20Optimization%20for%20Chemistry" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/scipy-optimization-for-chemistry.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
