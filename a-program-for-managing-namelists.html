@@ -103,57 +103,57 @@
 <a href="https://github.com/william-dawson/NameListManager">NameListManager</a> on github. Fortran lacks a standard library with  many built in features that users of other languages have come to expect, but surprisingly it comes with a very easy to use I/O routines for a specific type of file.</p>
 <p>My group's code uses these files to specify the assortment of parameters needed by our quantum chemistry program. However, I noticed a real problem with this approach. Each developer would add new parameters to the code, and have to hardcode the default values inside the reader routines. This meant you had to look at the source code every time you wanted to know how an input parameter works.</p>
 <p>Of course, documenting the code with doxygen would help. You would automatically get a website with a description of all the variables according to your in code comments. But consider this stub program for reading a namelist:</p>
-<div class="highlight"><pre><span></span><code><span class="k">MODULE </span><span class="n">InModule</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="k">MODULE </span><span class="n">InModule</span>
 <span class="w"> </span><span class="k">IMPLICIT NONE</span>
 <span class="k"> </span><span class="kt">REAL</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">converge_tol</span><span class="w"> </span><span class="c">!&lt; The maximum iterations to perform.</span>
 <span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">max_steps</span><span class="w"> </span><span class="c">!&lt; Tolerance to determine if a calculation converged.</span>
 <span class="k">CONTAINS</span>
-<span class="k"> SUBROUTINE </span><span class="n">ReadIn</span><span class="w"></span>
-<span class="w">   </span><span class="kt">INTEGER</span><span class="p">,</span><span class="w"> </span><span class="k">PARAMETER</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">IO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-<span class="w">   </span><span class="k">NAMELIST</span><span class="w"> </span><span class="o">/</span><span class="n">INPUT</span><span class="o">/</span><span class="w"> </span><span class="n">converge_tol</span><span class="p">,</span><span class="w"> </span><span class="n">max_steps</span><span class="w"></span>
-<span class="w">   </span><span class="n">converge_tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0D-10</span><span class="w"></span>
-<span class="w">   </span><span class="n">max_steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="w"></span>
-<span class="w">   </span><span class="k">OPEN</span><span class="p">(</span><span class="n">UNIT</span><span class="o">=</span><span class="n">IO</span><span class="p">,</span><span class="w"> </span><span class="k">FILE</span><span class="o">=</span><span class="s2">&quot;INPUT&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">STATUS</span><span class="o">=</span><span class="s1">&#39;OLD&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">ACCESS</span><span class="o">=</span><span class="s1">&#39;SEQUENTIAL&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="k">READ</span><span class="p">(</span><span class="n">IO</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="k">CLOSE</span><span class="p">(</span><span class="n">IO</span><span class="p">)</span><span class="w"></span>
+<span class="k"> SUBROUTINE </span><span class="n">ReadIn</span>
+<span class="w">   </span><span class="kt">INTEGER</span><span class="p">,</span><span class="w"> </span><span class="k">PARAMETER</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">IO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">   </span><span class="k">NAMELIST</span><span class="w"> </span><span class="o">/</span><span class="n">INPUT</span><span class="o">/</span><span class="w"> </span><span class="n">converge_tol</span><span class="p">,</span><span class="w"> </span><span class="n">max_steps</span>
+<span class="w">   </span><span class="n">converge_tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0D-10</span>
+<span class="w">   </span><span class="n">max_steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>
+<span class="w">   </span><span class="k">OPEN</span><span class="p">(</span><span class="n">UNIT</span><span class="o">=</span><span class="n">IO</span><span class="p">,</span><span class="w"> </span><span class="k">FILE</span><span class="o">=</span><span class="s2">&quot;INPUT&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">STATUS</span><span class="o">=</span><span class="s1">&#39;OLD&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">ACCESS</span><span class="o">=</span><span class="s1">&#39;SEQUENTIAL&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">READ</span><span class="p">(</span><span class="n">IO</span><span class="p">,</span><span class="w"> </span><span class="n">INPUT</span><span class="p">)</span>
+<span class="w">   </span><span class="k">CLOSE</span><span class="p">(</span><span class="n">IO</span><span class="p">)</span>
 <span class="w"> </span><span class="k">END SUBROUTINE</span>
-<span class="k">END MODULE </span><span class="n">InModule</span><span class="w"></span>
+<span class="k">END MODULE </span><span class="n">InModule</span>
 </code></pre></div>
 
 <p>Now naturally we have documented the variables <code>converge_tol</code> and <code>max_steps</code> by writing some doxygen style comments beside them. But notice the problem with this approach. The initialization is separated from the documentation, which means you might end up with inconsistent default values. If you set the default values at the start:</p>
-<div class="highlight"><pre><span></span><code><span class="kt">REAL</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">converge_tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0D-10</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kt">REAL</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">converge_tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0D-10</span>
 </code></pre></div>
 
 <p>Subsequent calls to <code>ReadIn</code> won't reinitialize the default value. So naturally I overreacted to this problem and decided to build an entire package to manage this. <code>NameListManager</code> solves this problem in two steps. First, you begin by writing an XML file which describes the valid input parameters.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">name=</span><span class="s">&quot;example&quot;</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">mpi=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;group</span> <span class="na">name=</span><span class="s">&quot;input&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;description_list&gt;</span>
-      <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-        A module for storing the input parameters.
-      <span class="nt">&lt;/description&gt;</span>
-    <span class="nt">&lt;/description_list&gt;</span>
-    <span class="nt">&lt;element_list&gt;</span>
-      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">&quot;max_steps&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;datatype&gt;</span>integer<span class="nt">&lt;/datatype&gt;</span>
-        <span class="nt">&lt;description_list&gt;</span>
-          <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-            The maximum iterations to perform
-          <span class="nt">&lt;/description&gt;</span>
-        <span class="nt">&lt;/description_list&gt;</span>
-        <span class="nt">&lt;default&gt;</span>100<span class="nt">&lt;/default&gt;</span>
-      <span class="nt">&lt;/element&gt;</span>
-      <span class="nt">&lt;element</span> <span class="na">name=</span><span class="s">&quot;converge_tol&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;datatype&gt;</span>real(8)<span class="nt">&lt;/datatype&gt;</span>
-        <span class="nt">&lt;description_list&gt;</span>
-          <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
-            Tolerance to determine if a calculation converged.
-          <span class="nt">&lt;/description&gt;</span>
-        <span class="nt">&lt;/description_list&gt;</span>
-        <span class="nt">&lt;default&gt;</span>1.0D-10<span class="nt">&lt;/default&gt;</span>
-      <span class="nt">&lt;/element&gt;</span>
-    <span class="nt">&lt;/element_list&gt;</span>
-  <span class="nt">&lt;/group&gt;</span>
+<span class="nt">&lt;input</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;example&quot;</span><span class="w"> </span><span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="w"> </span><span class="na">mpi=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;group</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;input&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;description_list&gt;</span>
+<span class="w">      </span><span class="nt">&lt;description</span><span class="w"> </span><span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>A<span class="w"> </span>module<span class="w"> </span>for<span class="w"> </span>storing<span class="w"> </span>the<span class="w"> </span>input<span class="w"> </span>parameters.
+<span class="w">      </span><span class="nt">&lt;/description&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/description_list&gt;</span>
+<span class="w">    </span><span class="nt">&lt;element_list&gt;</span>
+<span class="w">      </span><span class="nt">&lt;element</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;max_steps&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;datatype&gt;</span>integer<span class="nt">&lt;/datatype&gt;</span>
+<span class="w">        </span><span class="nt">&lt;description_list&gt;</span>
+<span class="w">          </span><span class="nt">&lt;description</span><span class="w"> </span><span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span>The<span class="w"> </span>maximum<span class="w"> </span>iterations<span class="w"> </span>to<span class="w"> </span>perform
+<span class="w">          </span><span class="nt">&lt;/description&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/description_list&gt;</span>
+<span class="w">        </span><span class="nt">&lt;default&gt;</span>100<span class="nt">&lt;/default&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/element&gt;</span>
+<span class="w">      </span><span class="nt">&lt;element</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;converge_tol&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;datatype&gt;</span>real(8)<span class="nt">&lt;/datatype&gt;</span>
+<span class="w">        </span><span class="nt">&lt;description_list&gt;</span>
+<span class="w">          </span><span class="nt">&lt;description</span><span class="w"> </span><span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span>Tolerance<span class="w"> </span>to<span class="w"> </span>determine<span class="w"> </span>if<span class="w"> </span>a<span class="w"> </span>calculation<span class="w"> </span>converged.
+<span class="w">          </span><span class="nt">&lt;/description&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/description_list&gt;</span>
+<span class="w">        </span><span class="nt">&lt;default&gt;</span>1.0D-10<span class="nt">&lt;/default&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/element&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/element_list&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/group&gt;</span>
 <span class="nt">&lt;/input&gt;</span>
 </code></pre></div>
 

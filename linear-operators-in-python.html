@@ -102,7 +102,7 @@
 <p>In the previous post, we represented our operators (Kinetic Energy and Potential Energy) as sparse matrices. This worked well, but we spent a lot of effort dealing with matrix indexing. What we would prefer would be to write a function that simply takes an input vector (the wavefunction), and computes how it is transformed by a given operator. This can in fact be done, using scipy's feature of linear operators[1].</p>
 <p>Let's begin by considering the potential. What is the simplest way to describe a potential? Well, as a vector, where we write the potential at each point in space. Our goal then is to write the potential like this:  </p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Hydrogen potential well</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="p">[</span><span class="mf">1.0</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_values</span><span class="p">]</span>
@@ -110,7 +110,7 @@
 
 <p>Beyond that, we would like to write the action of the potential on a given wavefunction like this:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">wavefunction</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Hydrogen potential well</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">w</span> <span class="o">*</span> <span class="mf">1.0</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">wavefunction</span><span class="p">)]</span>
@@ -118,7 +118,7 @@
 
 <p>And we would like to similarly write the action of the kinetic energy operator as:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">TOperator</span><span class="p">(</span><span class="n">invec</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Five point stencil kinetic energy operator.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span>

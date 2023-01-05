@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Probing the mutational landscape of the SARS-CoV-2 spike protein via quantum mechanical modeling of crystallographic structures &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2022-12-31" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Probing the mutational landscape of the SARS-CoV-2 spike protein via quantum mechanical modeling of crystallographic structures"/>
+    <meta property="og:description" content="I announce a publication I worked on about studying mutations of the SARS-CoV-2 spike protein and describe some tools for studying mutations."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/probing-the-mutational-landscape-of-the-sars-cov-2-spike-protein-via-quantum-mechanical-modeling-of-crystallographic-structures.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Probing the mutational landscape of the SARS-CoV-2 spike protein via quantum mechanical modeling of crystallographic structures">
+    <meta name="twitter:description" content="I announce a publication I worked on about studying mutations of the SARS-CoV-2 spike protein and describe some tools for studying mutations.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/probing-the-mutational-landscape-of-the-sars-cov-2-spike-protein-via-quantum-mechanical-modeling-of-crystallographic-structures.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Probing the mutational landscape of the SARS-CoV-2 spike protein via quantum mechanical modeling of crystallographic structures</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2022-12-31T11:00:00+09:00">Sat 31 December 2022</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>Two straight blog posts based on "Probing" I guess. This time I want to announce a paper called <a href="https://academic.oup.com/pnasnexus/article/1/5/pgac180/6680464">Probing the mutational landscape of the SARS-CoV-2 spike protein via quantum mechanical modeling of crystallographic structures</a>. In this work, we wanted to study the different variants of SARS-CoV-2. We did this by studying how the different mutations impact binding of the spike protein. All calculations were done with <a href="https://aip.scitation.org/doi/full/10.1063/5.0004792">BigDFT</a> and using our <a href="https://pubs.acs.org/doi/full/10.1021/acs.jctc.9b01152">complexity reduction framework</a>, which meant we could use quantum mechanical calculations for unique insight into the evolutionary process.</p>
+<p>With that paper finished, I thought it would be fun to make a simple workflow that plays with the tools we used in this study. </p>
+<h2>PDBFixer and In-Silico Mutations</h2>
+<p>A really nice tool for these kind of studies is <a href="https://github.com/openmm/pdbfixer">PDBFixer</a>. Our focus is on crystal structures, and many of them exist in the <a href="https://www.rcsb.org/">RCSB Database</a>. However, these structures cannot be treated as is, and instead <a href="https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wcms.1574">require some prep work</a> such as fixing missing residues, adding hydrogen atoms, etc. PDBFixer is one tool that can help with this. For example, let's fetch a small protein called <code>5awl</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="err">!</span> <span class="n">pdbfixer</span> <span class="o">--</span><span class="n">pdbid</span><span class="o">=</span><span class="mi">5</span><span class="n">awl</span> <span class="o">--</span><span class="n">output</span><span class="o">=</span><span class="mi">5</span><span class="n">awl</span><span class="o">.</span><span class="n">pdb</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">atoms</span><span class="o">=</span><span class="s2">&quot;none&quot;</span> <span class="o">--</span><span class="n">keep</span><span class="o">-</span><span class="n">heterogens</span><span class="o">=</span><span class="n">none</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span> <span class="n">head</span> <span class="mi">5</span><span class="n">awl</span><span class="o">.</span><span class="n">pdb</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>REMARK   1 PDBFIXER FROM: http://www.rcsb.org/pdb/files/5awl.pdb
+REMARK   1 CREATED WITH OPENMM 7.7, 2023-01-04
+CRYST1   19.246   33.597   11.551  90.00  90.00  90.00 P 1           1 
+ATOM      1  N   TYR A   1      25.824  21.671  10.238  1.00  0.00           N  
+ATOM      2  CA  TYR A   1      24.935  20.652  10.774  1.00  0.00           C  
+ATOM      3  C   TYR A   1      23.729  20.558   9.852  1.00  0.00           C  
+ATOM      4  O   TYR A   1      23.390  21.602   9.289  1.00  0.00           O  
+ATOM      5  CB  TYR A   1      24.425  21.029  12.167  1.00  0.00           C  
+ATOM      6  CG  TYR A   1      25.525  21.526  13.070  1.00  0.00           C  
+ATOM      7  CD1 TYR A   1      25.829  22.870  13.275  1.00  0.00           C
+</code></pre></div>
+
+<p>It's also possible to use PDBFixer through its python API. PDBFixer is related to <a href="http://docs.openmm.org/7.0.0/api-python/index.html">openmm</a> so it has a lot of features.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pdbfixer</span> <span class="kn">import</span> <span class="n">PDBFixer</span>
+<span class="n">fixer</span> <span class="o">=</span> <span class="n">PDBFixer</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;5awl.pdb&#39;</span><span class="p">)</span>
+
+<span class="c1"># Build a list of residues while we&#39;re at it</span>
+<span class="n">rlist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Residues:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">fixer</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">residues</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> -&quot;</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="n">rlist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">res</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Chains:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">fixer</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">chains</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> -&quot;</span><span class="p">,</span> <span class="n">chain</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Residues:
+     - TYR 1
+     - TYR 2
+     - ASP 3
+     - PRO 4
+     - GLU 5
+     - THR 6
+     - GLY 7
+     - THR 8
+     - TRP 9
+     - TYR 10
+Chains:
+     - A
+</code></pre></div>
+
+<p>This is the setup we need if we want to start mutating our system. We create a list of mutations to apply, which are named after the residues and IDs. For example, mutation Gly5 -&gt; Arg</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="n">mutations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GLU-5-ARG&quot;</span><span class="p">]</span>
+<span class="n">mutated</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">fixer</span><span class="p">)</span>
+<span class="n">mutated</span><span class="o">.</span><span class="n">applyMutations</span><span class="p">(</span><span class="n">mutations</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="n">mutated</span><span class="o">.</span><span class="n">findMissingResidues</span><span class="p">()</span>  <span class="c1"># Needed even if there are none.</span>
+<span class="n">mutated</span><span class="o">.</span><span class="n">findMissingAtoms</span><span class="p">()</span>
+<span class="n">mutated</span><span class="o">.</span><span class="n">addMissingAtoms</span><span class="p">()</span>
+<span class="n">mutated</span><span class="o">.</span><span class="n">addMissingHydrogens</span><span class="p">(</span><span class="mf">7.0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">mutated</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">residues</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>- TYR 1
+- TYR 2
+- ASP 3
+- PRO 4
+- ARG 5
+- THR 6
+- GLY 7
+- THR 8
+- TRP 9
+- TYR 10
+</code></pre></div>
+
+<h2>Mutation Generation</h2>
+<p>It could be interesting to use this feature to try out a large library of mutations. A <a href="https://en.wikipedia.org/wiki/Point_accepted_mutation">PAM Matrix</a> is a matrix which describes the probability of various point mutations occuring in nature. One such matrix is called PAM250, and you can download it it from <a href="https://ftp.ncbi.nih.gov/blast/matrices">NIH</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="err">!</span> <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">ncbi</span><span class="o">.</span><span class="n">nih</span><span class="o">.</span><span class="n">gov</span><span class="o">/</span><span class="n">blast</span><span class="o">/</span><span class="n">matrices</span><span class="o">/</span><span class="n">PAM250</span>
+</code></pre></div>
+
+<p>We can process it in fairly simply.</p>
+<div class="highlight"><pre><span></span><code><span class="n">freq</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;PAM250&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
+    <span class="k">while</span> <span class="s2">&quot;#&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">ifile</span><span class="p">:</span>
+        <span class="n">split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">k1</span> <span class="o">=</span> <span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">freq</span><span class="p">[</span><span class="n">k1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k2</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">split</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="n">freq</span><span class="p">[</span><span class="n">k1</span><span class="p">][</span><span class="n">k2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</code></pre></div>
+
+<p>These are log probabilities based on the letter representations of amino acids.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">freq</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">][</span><span class="s2">&quot;C&quot;</span><span class="p">])</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>-2.0
+</code></pre></div>
+
+<p>The only problem is that the letter codes are not compatability with our API. Fortunately BioPython has a utility for this.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">Bio.PDB.Polypeptide</span> <span class="kn">import</span> <span class="n">one_to_three</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">one_to_three</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>TRP
+</code></pre></div>
+
+<p>Let's convert our dictionary. At the same time, we'll toss out the non-standard stuff.</p>
+<div class="highlight"><pre><span></span><code><span class="n">freqn</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">k1</span><span class="p">,</span> <span class="n">inner</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">n1</span> <span class="o">=</span> <span class="n">one_to_three</span><span class="p">(</span><span class="n">k1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="n">freqn</span><span class="p">[</span><span class="n">n1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k2</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inner</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">n2</span> <span class="o">=</span> <span class="n">one_to_three</span><span class="p">(</span><span class="n">k2</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">freqn</span><span class="p">[</span><span class="n">n1</span><span class="p">][</span><span class="n">n2</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">freqn</span><span class="p">[</span><span class="s2">&quot;ALA&quot;</span><span class="p">][</span><span class="s2">&quot;CYS&quot;</span><span class="p">])</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>-2.0
+</code></pre></div>
+
+<p>It is interesting to look at the distribution of off diagonal values.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k1</span><span class="p">,</span> <span class="n">inn</span> <span class="ow">in</span> <span class="n">freqn</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">k2</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inn</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">k1</span> <span class="o">==</span> <span class="n">k2</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">k1</span><span class="p">,</span> <span class="n">k2</span><span class="p">)</span>
+        <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Log Probability&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>PHE TYR
+TYR PHE
+</code></pre></div>
+
+<p><img alt="Distribution" src="https://william-dawson.github.io/assets/pnas/output_20_1.png"></p>
+<h3>Sampling</h3>
+<p>Time to generate a bunch of mutations. Basically, what I wanted to do was just go into a loop, generate a random mutation, roll the dice to see if we should accept it, and if so add it to the list. But that is a major pain with this distribution since we'd need to sample a huge number of times to find something valid. Primarily the pain comes from mutations Phe-&gt;Tyr and back, which are the two outliers on the far right. For this notebook, we'll clip the probablity, essentially, by maxing our random numbers at $10^4$ to speed things up.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">seed</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">uniform</span>
+<span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mutations</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">mutations</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+    <span class="c1"># Get a residue in the middle of the protein (not first or last)</span>
+    <span class="n">amn1</span><span class="p">,</span> <span class="n">idx1</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="n">rlist</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Get something random to change it to</span>
+    <span class="n">amn2</span> <span class="o">=</span> <span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">freqn</span><span class="p">),</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Remove do nothing</span>
+    <span class="k">if</span> <span class="n">amn1</span> <span class="o">==</span> <span class="n">amn2</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="c1"># Form the mutation string</span>
+    <span class="n">mstr</span> <span class="o">=</span> <span class="n">amn1</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">idx1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="n">amn2</span>
+    <span class="k">if</span> <span class="n">mstr</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="c1"># Roll the dice, and see if the mutation should be accepted</span>
+    <span class="n">odds</span> <span class="o">=</span> <span class="n">uniform</span><span class="p">(</span><span class="mf">1e-8</span><span class="p">,</span> <span class="mf">1e4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="mi">10</span><span class="o">**</span><span class="n">freqn</span><span class="p">[</span><span class="n">amn1</span><span class="p">][</span><span class="n">amn2</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">odds</span><span class="p">:</span>
+        <span class="n">mutations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mstr</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Add a base mutation where nothing happens.</p>
+<div class="highlight"><pre><span></span><code><span class="n">bname</span> <span class="o">=</span> <span class="n">rlist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rlist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="n">rlist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mutations</span> <span class="o">=</span> <span class="p">[</span><span class="n">bname</span><span class="p">]</span> <span class="o">+</span> <span class="n">mutations</span>
+</code></pre></div>
+
+<p>The new structures can be generated and saved to disk.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">mkdir</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;structs&quot;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openmm.app</span> <span class="kn">import</span> <span class="n">PDBFile</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
+    <span class="n">msys</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">fixer</span><span class="p">)</span>
+    <span class="n">msys</span><span class="o">.</span><span class="n">applyMutations</span><span class="p">([</span><span class="n">m</span><span class="p">],</span> <span class="s2">&quot;A&quot;</span><span class="p">)</span>
+    <span class="n">msys</span><span class="o">.</span><span class="n">findMissingResidues</span><span class="p">()</span>
+    <span class="n">msys</span><span class="o">.</span><span class="n">findMissingAtoms</span><span class="p">()</span>
+    <span class="n">msys</span><span class="o">.</span><span class="n">addMissingAtoms</span><span class="p">()</span>
+    <span class="n">msys</span><span class="o">.</span><span class="n">addMissingHydrogens</span><span class="p">(</span><span class="mf">7.0</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;structs&quot;</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="s2">&quot;.pdb&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ofile</span><span class="p">:</span>
+        <span class="n">PDBFile</span><span class="o">.</span><span class="n">writeFile</span><span class="p">(</span><span class="n">msys</span><span class="o">.</span><span class="n">topology</span><span class="p">,</span> <span class="n">msys</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span> <span class="n">ofile</span><span class="p">)</span>
+</code></pre></div>
+
+<h2>Mutation Evaluation</h2>
+<p>How do we evaluate the structures we generated? Something simple we might investigate is how soluable they are in water. For this, we can perform a geometry optimization and single point energy calculation using <a href="https://xtb-docs.readthedocs.io/">XTB's GFN-FF</a>, and extract the solvation energy.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">BigDFT.Interop.XTBInterop</span> <span class="kn">import</span> <span class="n">XTBCalculator</span>
+<span class="n">calc</span> <span class="o">=</span> <span class="n">XTBCalculator</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">BigDFT.IO</span> <span class="kn">import</span> <span class="n">read_pdb</span>
+<span class="kn">from</span> <span class="nn">BigDFT.UnitCells</span> <span class="kn">import</span> <span class="n">UnitCell</span>
+
+<span class="n">energies</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;structs&quot;</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="s2">&quot;.pdb&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
+        <span class="n">sys</span> <span class="o">=</span> <span class="n">read_pdb</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">cell</span> <span class="o">=</span> <span class="n">UnitCell</span><span class="p">()</span>  <span class="c1"># Free boundary</span>
+
+    <span class="c1"># Get the net charge of the system. This will work for our </span>
+    <span class="c1"># simple system, but not in general!</span>
+    <span class="n">charge</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">fragid</span> <span class="ow">in</span> <span class="n">sys</span><span class="p">:</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">fragid</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">fname</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ARG&quot;</span><span class="p">,</span> <span class="s2">&quot;LYS&quot;</span><span class="p">]:</span>
+            <span class="n">charge</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">fname</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ASP&quot;</span><span class="p">,</span> <span class="s2">&quot;GLU&quot;</span><span class="p">]:</span>
+            <span class="n">charge</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="c1"># Run the calculation. We need FIRE for optimization to fix</span>
+    <span class="c1"># some of these ugly mutated residues.</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;opt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;engine&quot;</span><span class="p">:</span> <span class="s2">&quot;inertial&quot;</span><span class="p">}</span>
+    <span class="n">log</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">sys</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">opt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">gfnff</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">inp</span><span class="o">=</span><span class="n">inp</span><span class="p">,</span> <span class="n">alpb</span><span class="o">=</span><span class="s2">&quot;water&quot;</span><span class="p">,</span> <span class="n">chrg</span><span class="o">=</span><span class="n">charge</span><span class="p">,</span> <span class="n">run_dir</span><span class="o">=</span><span class="s2">&quot;work&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get the solvation energy, keep looping to the last</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">log</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;-&gt; Gsolv&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">energies</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="mi">630</span><span class="o">*</span><span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span>
+</code></pre></div>
+
+<p>Visualize the results.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">energies</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="s1">&#39;kx&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Solvation Energy (kcal/mol)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Mutation&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axs</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mutations</span><span class="p">))))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mutations</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="Mutation Scores" src="https://william-dawson.github.io/assets/pnas/output_32_0.png"></p>
+<p>The baseline is the entry on the far left (<code>TYR-1-TYR</code>). Indeed the solvation energy is affected by various mutations. Negatively charged amino acids improve solubility (<code>GLY-7-ASP</code>); don't get rid of them (<code>GLU-5-HIS</code>). The smaller improvements such as <code>PRO-4-ASN</code> are maybe the more interesting results. Overall, PDBFixer makes it very easy for us to modify the amino-acid sequence of proteins, so I recommend you give it a try.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/probing-the-mutational-landscape-of-the-sars-cov-2-spike-protein-via-quantum-mechanical-modeling-of-crystallographic-structures.html&amp;t=william-dawson.github.io%3A%20Probing%20the%20mutational%20landscape%20of%20the%20SARS-CoV-2%20spike%20protein%20via%20quantum%20mechanical%20modeling%20of%20crystallographic%20structures" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/probing-the-mutational-landscape-of-the-sars-cov-2-spike-protein-via-quantum-mechanical-modeling-of-crystallographic-structures.html&amp;text=william-dawson.github.io%3A%20Probing%20the%20mutational%20landscape%20of%20the%20SARS-CoV-2%20spike%20protein%20via%20quantum%20mechanical%20modeling%20of%20crystallographic%20structures" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/probing-the-mutational-landscape-of-the-sars-cov-2-spike-protein-via-quantum-mechanical-modeling-of-crystallographic-structures.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
