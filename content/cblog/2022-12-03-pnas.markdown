@@ -1,5 +1,5 @@
 Title: Probing the mutational landscape of the SARS-CoV-2 spike protein via quantum mechanical modeling of crystallographic structures 
-Date: 2022-12-03 11:00:00 +0900
+Date: 2022-12-31 11:00:00 +0900
 Category: Lessons
 Tags: publication
 Summary: I announce a publication I worked on about studying mutations of the SARS-CoV-2 spike protein and describe some tools for studying mutations.
@@ -9,7 +9,7 @@ Two straight blog posts based on "Probing" I guess. This time I want to announce
 With that paper finished, I thought it would be fun to make a simple workflow that plays with the tools we used in this study. 
 
 ## PDBFixer and In-Silico Mutations
-A really nice tool for these kind of studies is [PDBFixer](https://github.com/openmm/pdbfixer). Our focus is on crystal structures, and many of them exist in the [RCSB Database](https://www.rcsb.org/). However, these structures cannot be treated as is, and instead [require some prep work](https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wcms.1574) such as fixing missing residues, adding hydrogen atoms, etc. PDBFixer is one tool that can help with this. For example, let's fetch a small protein called `1L2Y`.
+A really nice tool for these kind of studies is [PDBFixer](https://github.com/openmm/pdbfixer). Our focus is on crystal structures, and many of them exist in the [RCSB Database](https://www.rcsb.org/). However, these structures cannot be treated as is, and instead [require some prep work](https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wcms.1574) such as fixing missing residues, adding hydrogen atoms, etc. PDBFixer is one tool that can help with this. For example, let's fetch a small protein called `5awl`.
 
 
 ```python
@@ -199,7 +199,7 @@ _ = axs.set_ylabel("Log Probability", fontsize=12)
 
 
 ### Sampling
-Ok, let's generate a bunch of mutations. Basically, what I wanted to do was just go into a loop, generate a random mutation, roll the dice to see if we should accept it, and if so add it to the list. But that is a huge pain with this distribution since we'd need to sample a huge number of times to find something valid. Primarily the pain comes from mutations Phe->Tyr and back, which are the two outliers on the far right. For this notebook, we'll clip the probablity, essentially, by maxing our random numbers at $10^4$ to speed things up.
+Time to generate a bunch of mutations. Basically, what I wanted to do was just go into a loop, generate a random mutation, roll the dice to see if we should accept it, and if so add it to the list. But that is a major pain with this distribution since we'd need to sample a huge number of times to find something valid. Primarily the pain comes from mutations Phe->Tyr and back, which are the two outliers on the far right. For this notebook, we'll clip the probablity, essentially, by maxing our random numbers at $10^4$ to speed things up.
 
 
 ```python
