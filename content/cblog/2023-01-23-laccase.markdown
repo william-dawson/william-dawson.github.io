@@ -1,0 +1,7 @@
+Title: Experimental–theoretical study of laccase as a detoxifier of aflatoxins 
+Date: 2023-01-23 11:00:00 +0900
+Category: Publication
+Tags: publication
+Summary: I share a publication I worked on where we studied the Laccase enzyme for bioremediation application.
+
+Today I'd like to share a recently published work I did with Marco Zaccaria and Babak Momeni of Boston College (among others). The title is [Experimental–theoretical study of laccase as a detoxifier of aflatoxins](https://www.nature.com/articles/s41598-023-27519-1). In this paper, we are interested in developing enzymes which can degrade aflatoxins. Aflatoxin contamination is a major concern for food safety; they can contaminate important crops like maize, and are carcinogenic if ingested. There is great interest in finding ways to break down these toxins, such as using engineered enzymes. Laccase has potential for this task, but has several limitations. In this work, we used both experimental and computational techniques to assess one particular Laccase's ability to break down two toxins: AFB1 and AFG2. The interesting result is that even though they have a very similar structure, the degradation dynamics are dramatically different. 

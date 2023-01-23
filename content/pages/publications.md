@@ -33,6 +33,8 @@ Embedding." Journal of Chemical Theory and Computation 16, no. 5 (2020):
 
 Applications.
 
+- [Zaccaria, Marco, William Dawson, Darius Russel Kish, Massimo Reverberi, Maria Carmela Bonaccorsi di Patti, Marek Domin, Viviana Cristiglio et al. "Experimental–theoretical study of laccase as a detoxifier of aflatoxins." Scientific Reports 13, no. 1 (2023): 860.](https://doi.org/10.1038/s41598-023-27519-1)
+
 - [Zaccaria, Marco, Luigi Genovese, William Dawson, Viviana Cristiglio, Takahito Nakajima, Welkin Johnson, Michael Farzan, and Babak Momeni. "Probing the mutational landscape of the SARS-CoV-2 spike protein via quantum mechanical modeling of crystallographic structures." PNAS Nexus 1, no. 5 (2022): pgac180.](https://doi.org/10.1093/pnasnexus/pgac180)
 
 - [Fernando, Nathalie K., Martina Stella, William Dawson, Takahito Nakajima, Luigi Genovese, Anna Regoutz, and Laura E. Ratcliff. "Probing disorder in 2CzPN using core and valence states." Physical Chemistry Chemical Physics 24, no. 38 (2022): 23329-23339.](https://doi.org/10.1039/D2CP02638D)
