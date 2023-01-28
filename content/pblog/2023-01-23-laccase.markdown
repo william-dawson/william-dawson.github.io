@@ -1,6 +1,6 @@
 Title: Experimental–theoretical study of laccase as a detoxifier of aflatoxins 
 Date: 2023-01-23 11:00:00 +0900
-Category: Lessons
+Category: Personal Blog
 Tags: publication
 Summary: I share a publication I worked on where we studied the Laccase enzyme for bioremediation application.
 
