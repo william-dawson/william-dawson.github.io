@@ -1,0 +1,60 @@
+Title: French Coffee
+Date: 2023-04-01 12:00:00
+Category: Personal Blog
+Tags: travel
+Summary: After my recent trip to France, I have some thoughts and experiments about how to brew a "un café".
+
+For the last few weeks, I have been in France attending various meetings. Thanks to my work, I have been lucky enough to visit several times over the years. One thing that has left an impression on me is the coffee, whether it's enjoyed standing at the bar or lounging on the terrace.
+
+The French typically drink espresso, but it is different from what you would get in Italy or the United States. In fact, on various occasions, I have been asked if I would prefer the coffee French or Italian style. The French drink is long, filling the cup to the top, whereas the Italian drink (often called a ristretto) is short and sweet. I wanted to know the details of these differences so that I could recreate the experience at home.
+
+> WD: What is the usual ratio of coffee in to drink out in a ristretto?
+
+> ChatGPT: A ristretto is a type of espresso shot that is made by using the same amount of coffee as a regular espresso, but with half the amount of water. The usual ratio for a ristretto is about 1:1.
+
+Indeed, I have heard that the ratio for espresso is typically 1:1 or 1:1.5. In Europe, the espresso baskets are usually 14.5 grams for a double shot, but a single shot, which is more commonly consumed, would be around 7-10 grams. On the other hand, in the United States, we prefer our extra large baskets, so it's normal to get a 30-gram double espresso drink.
+
+> WD: What is the usual ratio of coffee in to drink out in French espresso?
+
+> ChatGPT: I'm sorry, but I'm not familiar with a type of espresso called "French espresso."
+
+Don't worry ChatGPT, you're not alone. I've scoured the English-speaking internet and found no solid descriptions. Maybe my blog will be incorporated in a future GPT version, because I intend to answer this question here. To do so, I took the step of ordering espresso served in paper cups at two different cafes, and brought the used cups back to Japan. I committed to memory the amount of coffee in those cups, added water to the invisioned line, and weighed.
+
+<div style="display:flex">
+  <div style="flex:1">
+    <img src="{attach}assets/fcoffee/image1.jpeg" width="80%"/>
+  </div>
+  <div style="flex:1">
+    <img src="{attach}assets/fcoffee/image2.jpeg" width="80%"/>
+  </div>
+</div>
+
+Some online sources I found suggested that a French espresso must be a 'lungo' or a 1:3 ratio, but that's not even close. We need to go up to a 1:7 ratio, which means 50 grams of drink out with just 7 grams of coffee in. This is similar to the trendy 'Turbo Shot' or Scott Rao's 'allongé'. I decided to tighten the recipe up a bit and see if I could pull 2 espressos using 15 grams of coffee in and 90 grams out.
+
+<div style="display:flex">
+  <div style="flex:1">
+    <img src="{attach}assets/fcoffee/image3.jpeg" width="80%"/>
+  </div>
+  <div style="flex:1">
+    <img src="{attach}assets/fcoffee/image4.jpeg" width="80%"/>
+  </div>
+</div> 
+
+Going coarser took a lot of trial and error, but when the I saw the coffee violently flowing out, I was instantly transported back to those Paris cafes. My final attempt came out in 40 seconds, which is probably too slow, but I was happy with what I got. One of the reasons Turbo Shots are popular is that they are forgiving when brewing with coarser grounds, and I think that came through in my shot. It was a lighter drink with no bitterness and a lot of fruity flavors.
+
+<div style="display:flex">
+  <div style="flex:1">
+    <img src="{attach}assets/fcoffee/image5.jpeg" width="80%"/>
+  </div>
+  <div style="flex:1">
+    <img src="{attach}assets/fcoffee/image6.jpeg" width="80%"/>
+  </div>
+</div> 
+
+And I have to say, I was quite happy to enjoy the drink at home during cherry blossom season. 
+
+<div style="display:flex">
+  <div style="flex:1">
+    <img src="{attach}assets/fcoffee/image7.jpeg" width="90%"/>
+  </div>
+</div> 
