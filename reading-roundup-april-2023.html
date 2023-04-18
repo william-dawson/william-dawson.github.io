@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Reading Roundup - April 2023 &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Personal Blog" />
+    <meta property="article:published_time" content="2023-04-17" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Reading Roundup - April 2023"/>
+    <meta property="og:description" content="Some papers and blog posts I recommend."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/reading-roundup-april-2023.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Reading Roundup - April 2023">
+    <meta name="twitter:description" content="Some papers and blog posts I recommend.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/reading-roundup-april-2023.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Reading Roundup - April 2023</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2023-04-17T11:00:00+09:00">Mon 17 April 2023</time> in <a href="https://william-dawson.github.io/category/personal-blog.html" title="All articles in category Personal Blog">Personal Blog</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/recommendations.html" title="All articles with Recommendations tag">#recommendations</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <h2>Myths and Legends in High-Performance Computing</h2>
+<p>The director of my institute and some of my colleagues have written a very interesting paper surveying the future of HPC. They break down a number of topics such as accelerators, quantum computing, cloud computing, etc. A couple of their opinions on things like memory bandwidth are particularly worth paying attention to.</p>
+<p><a href="https://arxiv.org/abs/2301.02432">https://arxiv.org/abs/2301.02432</a></p>
+<h2>Linear-scaling implementation of molecular electronic self-consistent field theory</h2>
+<p>Recently I'm getting interested in the minimization approach for O(N) DFT. This paper is based on the exponential paramterization of the density matrix $D(X) = exp[-P(X)S]Dexp[SP(X)]$, where the exponential is used to keep the density matrix idempotent. One of the nice features of this paper is that they consider simultaneously minimization for a fixed Hamiltonian and for the self-consistent Hamiltonian. </p>
+<p><a href="https://aip.scitation.org/doi/full/10.1063/1.2464111">https://aip.scitation.org/doi/full/10.1063/1.2464111</a></p>
+<h2>Generating accurate density matrices on the tangent space of a Grassmann manifold</h2>
+<p>On a related note, starting from a given good density matrix, how do you predict a better one for a new potential or set of atomic coordinates, given the constraints (idempotency, trace)? This is a topic that been addressed recently using the (at least obscure to me) framework of Grassmann mainfolds. This recent work by Tan and Lao show that you can even use this extrapolation technique for constructing potential energy surfaces.</p>
+<p><a href="https://aip.scitation.org/doi/full/10.1063/5.0137775">https://aip.scitation.org/doi/full/10.1063/5.0137775</a></p>
+<h2>Mistakes in Fortran 90 Programs That Might Surprise You</h2>
+<p>This one is as advertised, I definitely made several of these mistakes when first getting used to Fortran.</p>
+<p><a href="https://www.cs.rpi.edu/~szymansk/OOF90/bugs.html">https://www.cs.rpi.edu/~szymansk/OOF90/bugs.html</a></p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/reading-roundup-april-2023.html&amp;t=william-dawson.github.io%3A%20Reading%20Roundup%20-%20April%202023" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/reading-roundup-april-2023.html&amp;text=william-dawson.github.io%3A%20Reading%20Roundup%20-%20April%202023" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/reading-roundup-april-2023.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
