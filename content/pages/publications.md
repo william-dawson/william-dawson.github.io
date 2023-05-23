@@ -23,6 +23,8 @@ specialization." Current Opinion in Biotechnology 62 (2020): 98-105.
 
 Analysis.
 
+- [William Dawson, Eisuke Kawashima, Laura E. Ratcliff, Muneaki Kamiya, Luigi Genovese, and Takahito Nakajima. "Complexity reduction in density functional theory: Locality in space and energy." The Journal of chemical physics 158, no. 16 (2023): 164114.](https://doi.org/10.1063/5.0142652)
+
 - [Chan, Bun, William Dawson, Takahito Nakajima, and Kimihiko Hirao. "Taking Advantage of a Systematic Energy Non-linearity Error in Density Functional Theory for the Calculation of Electronic Energy Levels." The Journal of Physical Chemistry A (2021).](https://doi.org/10.1021/acs.jpca.1c06723)
 
 - [Dawson, William, Stephan Mohr, Laura E. Ratcliff, Takahito Nakajima, 
