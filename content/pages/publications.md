@@ -35,6 +35,8 @@ Embedding." Journal of Chemical Theory and Computation 16, no. 5 (2020):
 
 Applications.
 
+- [Genovese, Luigi, William Dawson, Takahito Nakajima, Viviana Cristiglio, Valérie Vallet, and Michel Masella. "Protein–ligand interactions from a quantum fragmentation perspective: The case of the SARS-CoV-2 main protease interacting with α-ketoamide inhibitors." The Journal of Chemical Physics 158, no. 21 (2023).](https://doi.org/10.1063/5.0148064)
+
 - [Zaccaria, Marco, William Dawson, Darius Russel Kish, Massimo Reverberi, Maria Carmela Bonaccorsi di Patti, Marek Domin, Viviana Cristiglio et al. "Experimental–theoretical study of laccase as a detoxifier of aflatoxins." Scientific Reports 13, no. 1 (2023): 860.](https://doi.org/10.1038/s41598-023-27519-1)
 
 - [Zaccaria, Marco, Luigi Genovese, William Dawson, Viviana Cristiglio, Takahito Nakajima, Welkin Johnson, Michael Farzan, and Babak Momeni. "Probing the mutational landscape of the SARS-CoV-2 spike protein via quantum mechanical modeling of crystallographic structures." PNAS Nexus 1, no. 5 (2022): pgac180.](https://doi.org/10.1093/pnasnexus/pgac180)
