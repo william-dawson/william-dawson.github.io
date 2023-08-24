@@ -1,0 +1,198 @@
+Title: BLAS Pitfalls with Mac OSX Accelerate Framework
+Date: 2023-08-24 11:00:00 +0900
+Category: Lessons
+Tags: Fortran, BLAS, Accelerate, Mac OSX
+Summary: Mac OSX comes with the Accelerate framework that contains BLAS, which is useful for us computational scientists. But there are some pitfalls to using it, which I discuss here with the help of f2py.
+
+Today I'm going to talk about bugs you can encounter when using the Apple (i.e. Mac OSX) Accelerate framework and BLAS functions like dot product, norm, and sum. I hope that describing these bugs here saves you a headache in the future. This will also be a fun chance to use f2py and the [fortran_magic Jupyter extension](https://github.com/mgaitan/fortran_magic).
+
+
+```python
+%load_ext fortranmagic
+```
+
+
+
+Let's start with a very simple routine written in Fortran to see how
+`fortran_magic` works.
+
+
+```python
+%%fortran
+subroutine f(x, y, z)
+  real(4), intent(in) :: x, y
+  real(4), intent(out) :: z
+  z = x + y
+end subroutine f
+```
+
+
+```python
+print(f(1, 2))
+```
+
+    3.0
+
+
+We can also work with arrays.
+
+
+```python
+%%fortran
+subroutine fa(x, y, z, N)
+  integer, intent(in) :: N
+  real(4), dimension(n), intent(in) :: x, y
+  real(4), dimension(n), intent(out) :: z
+  z = x + y
+end subroutine fa
+```
+
+
+```python
+from numpy import array
+a = array([1, 2, 3])
+b = array([4, 5, 6])
+print(fa(a, b))
+```
+
+    [5. 7. 9.]
+
+
+Now we can try rewriting the above function to call BLAS.
+
+
+```python
+%%fortran
+subroutine fb(x, y, z, n)
+  integer, intent(in) :: n
+  real(4), dimension(n), intent(in) :: x, y
+  real(4), dimension(n), intent(out) :: z
+  real(4), parameter :: fac = 1.0
+  call scopy(n, x, 1, z, 1)
+  call saxpy(n, fac, y, 1, z, 1)
+end subroutine fb
+```
+
+
+```python
+print(fb(a, b))
+```
+
+    [5. 7. 9.]
+
+
+BLAS has functions, in addition to subroutines. For example, to compute the dot product.
+
+
+```python
+%%fortran
+subroutine fc(x, y, res, n)
+  integer, intent(in) :: n
+  real(4), dimension(n), intent(in) :: x, y
+  real(4), intent(out) :: res
+  res = sdot(n, x, 1, y, 1)
+end subroutine fc
+```
+
+
+```python
+print(fc(a, b))
+```
+
+    0.0
+
+
+It seems like something has gone wrong. Did I make a mistake in my fortran routine? Maybe we should debug a little.
+
+
+```python
+%%fortran
+subroutine fc(x, y, res, n)
+  integer, intent(in) :: n
+  real(4), dimension(n), intent(in) :: x, y
+  real(4), intent(out) :: res
+  write(*, *) x
+  write(*, *) y
+  write(*, *) dot_product(x, y)
+  res = sdot(n, x, 1, y, 1)
+  write(*, *) res
+end subroutine fc
+```
+
+
+```python
+print(fc(a, b))
+```
+
+    0.0   1.00000000       2.00000000       3.00000000    
+       4.00000000       5.00000000       6.00000000    
+       32.0000000    
+       0.00000000    
+    
+
+
+Nothing seems wrong with the code. What is worse, the intrinsic `dot_product` works, but BLAS doesn't! There is a trick to fix this though.
+
+
+```python
+%%fortran
+subroutine fc(x, y, res, n)
+  real(8), external :: sdot
+  integer, intent(in) :: n
+  real(4), dimension(n), intent(in) :: x, y
+  real(8), intent(out) :: res
+  res = sdot(n, x, 1, y, 1)
+end subroutine fc
+```
+
+
+```python
+print(fc(a, b))
+```
+
+    32.0
+
+
+It seems I had to coach my Fortran routine to believe that the returned value is double precision. Yet, it's sdot, and if we look at the [documentation](https://www.netlib.org/lapack/explore-html/df/d28/group__single__blas__level1_ga37a14d8598319955b711af0d64a6f56e.html) it should definitely return a single precision floating point number. Let's try some other routines.
+
+
+```python
+%%fortran
+subroutine fd(x, res, n)
+  real(8), external :: snrm2
+  integer, intent(in) :: n
+  real(4), dimension(n), intent(in) :: x
+  real(8), intent(out) :: res
+  res = snrm2(n, x, 1)
+end subroutine fd
+```
+
+
+```python
+print(fd(a))
+```
+
+    3.7416574954986572
+
+
+Indeed, for any of the functions in BLAS LEVEL-1, I think you will suffer through this. As I mentioned before though, this is a problem specific to Apple's Accelerate framework. Let's try linking against openblas instead.
+
+
+```python
+%%fortran --extra '/Users/wddawson/miniconda3/envs/fmagic/lib/libopenblas.0.dylib'
+subroutine fe(x, res, n)
+  integer, intent(in) :: n
+  real(4), dimension(n), intent(in) :: x
+  real(4), intent(out) :: res
+  res = snrm2(n, x, 1)
+end subroutine fe
+```
+
+
+```python
+print(fe(a))
+```
+
+    3.7416574954986572
+
+If you find yourself calling BLAS directly, you might want to take some care to provide a backup plan if your code is being compiled and executed on a Mac.
