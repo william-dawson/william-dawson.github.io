@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>BLAS Pitfalls with Mac OSX Accelerate Framework &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2023-08-24" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="BLAS Pitfalls with Mac OSX Accelerate Framework"/>
+    <meta property="og:description" content="Mac OSX comes with the Accelerate framework that contains BLAS, which is useful for us computational scientists. But there are some pitfalls to using it, which I discuss here with the help of f2py."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/blas-pitfalls-with-mac-osx-accelerate-framework.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="BLAS Pitfalls with Mac OSX Accelerate Framework">
+    <meta name="twitter:description" content="Mac OSX comes with the Accelerate framework that contains BLAS, which is useful for us computational scientists. But there are some pitfalls to using it, which I discuss here with the help of f2py.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/blas-pitfalls-with-mac-osx-accelerate-framework.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>BLAS Pitfalls with Mac OSX Accelerate Framework</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2023-08-24T11:00:00+09:00">Thu 24 August 2023</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/fortran.html" title="All articles with Fortran tag">#Fortran</a>
+            </span>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/blas.html" title="All articles with Blas tag">#BLAS</a>
+            </span>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/accelerate.html" title="All articles with Accelerate tag">#Accelerate</a>
+            </span>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/mac-osx.html" title="All articles with Mac Osx tag">#Mac OSX</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>Today I'm going to talk about bugs you can encounter when using the Apple (i.e. Mac OSX) Accelerate framework and BLAS functions like dot product, norm, and sum. I hope that describing these bugs here saves you a headache in the future. This will also be a fun chance to use f2py and the <a href="https://github.com/mgaitan/fortran_magic">fortran_magic Jupyter extension</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">load_ext</span> <span class="n">fortranmagic</span>
+</code></pre></div>
+
+<p>Let's start with a very simple routine written in Fortran to see how
+<code>fortran_magic</code> works.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">fortran</span>
+<span class="n">subroutine</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">::</span> <span class="n">z</span>
+  <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="n">end</span> <span class="n">subroutine</span> <span class="n">f</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">3.0</span>
+</code></pre></div>
+
+<p>We can also work with arrays.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">fortran</span>
+<span class="n">subroutine</span> <span class="n">fa</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+  <span class="n">integer</span><span class="p">,</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">N</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">::</span> <span class="n">z</span>
+  <span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="n">end</span> <span class="n">subroutine</span> <span class="n">fa</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fa</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[5. 7. 9.]
+</code></pre></div>
+
+<p>Now we can try rewriting the above function to call BLAS.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">fortran</span>
+<span class="n">subroutine</span> <span class="n">fb</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+  <span class="n">integer</span><span class="p">,</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">n</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">::</span> <span class="n">z</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">parameter</span> <span class="p">::</span> <span class="n">fac</span> <span class="o">=</span> <span class="mf">1.0</span>
+  <span class="n">call</span> <span class="n">scopy</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">call</span> <span class="n">saxpy</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">fac</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end</span> <span class="n">subroutine</span> <span class="n">fb</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">fb</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[5. 7. 9.]
+</code></pre></div>
+
+<p>BLAS has functions, in addition to subroutines. For example, to compute the dot product.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">fortran</span>
+<span class="n">subroutine</span> <span class="n">fc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+  <span class="n">integer</span><span class="p">,</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">n</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">::</span> <span class="n">res</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="n">sdot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end</span> <span class="n">subroutine</span> <span class="n">fc</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">fc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">0.0</span>
+</code></pre></div>
+
+<p>It seems like something has gone wrong. Did I make a mistake in my fortran routine? Maybe we should debug a little.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">fortran</span>
+<span class="n">subroutine</span> <span class="n">fc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+  <span class="n">integer</span><span class="p">,</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">n</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">::</span> <span class="n">res</span>
+  <span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">x</span>
+  <span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">y</span>
+  <span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">dot_product</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="n">sdot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">res</span>
+<span class="n">end</span> <span class="n">subroutine</span> <span class="n">fc</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">fc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">0.0</span><span class="w">   </span><span class="mf">1.00000000</span><span class="w">       </span><span class="mf">2.00000000</span><span class="w">       </span><span class="mf">3.00000000</span><span class="w">    </span>
+<span class="w">   </span><span class="mf">4.00000000</span><span class="w">       </span><span class="mf">5.00000000</span><span class="w">       </span><span class="mf">6.00000000</span><span class="w">    </span>
+<span class="w">   </span><span class="mf">32.0000000</span><span class="w">    </span>
+<span class="w">   </span><span class="mf">0.00000000</span>
+</code></pre></div>
+
+<p>Nothing seems wrong with the code. What is worse, the intrinsic <code>dot_product</code> works, but BLAS doesn't! There is a trick to fix this though.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">fortran</span>
+<span class="n">subroutine</span> <span class="n">fc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">external</span> <span class="p">::</span> <span class="n">sdot</span>
+  <span class="n">integer</span><span class="p">,</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">n</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">::</span> <span class="n">res</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="n">sdot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end</span> <span class="n">subroutine</span> <span class="n">fc</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">fc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">32.0</span>
+</code></pre></div>
+
+<p>It seems I had to coach my Fortran routine to believe that the returned value is double precision. Yet, it's sdot, and if we look at the <a href="https://www.netlib.org/lapack/explore-html/df/d28/group__single__blas__level1_ga37a14d8598319955b711af0d64a6f56e.html">documentation</a> it should definitely return a single precision floating point number. Let's try some other routines.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">fortran</span>
+<span class="n">subroutine</span> <span class="n">fd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">external</span> <span class="p">::</span> <span class="n">snrm2</span>
+  <span class="n">integer</span><span class="p">,</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">n</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">x</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">::</span> <span class="n">res</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="n">snrm2</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end</span> <span class="n">subroutine</span> <span class="n">fd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">fd</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">3.7416574954986572</span>
+</code></pre></div>
+
+<p>Indeed, for any of the functions in BLAS LEVEL-1, I think you will suffer through this. As I mentioned before though, this is a problem specific to Apple's Accelerate framework. Let's try linking against openblas instead.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">fortran</span> <span class="o">--</span><span class="n">extra</span> <span class="s1">&#39;/Users/wddawson/miniconda3/envs/fmagic/lib/libopenblas.0.dylib&#39;</span>
+<span class="n">subroutine</span> <span class="n">fe</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+  <span class="n">integer</span><span class="p">,</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">n</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span> <span class="p">::</span> <span class="n">x</span>
+  <span class="n">real</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="p">::</span> <span class="n">res</span>
+  <span class="n">res</span> <span class="o">=</span> <span class="n">snrm2</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end</span> <span class="n">subroutine</span> <span class="n">fe</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">fe</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">3.7416574954986572</span>
+</code></pre></div>
+
+<p>If you find yourself calling BLAS directly, you might want to take some care to provide a backup plan if your code is being compiled and executed on a Mac.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/blas-pitfalls-with-mac-osx-accelerate-framework.html&amp;t=william-dawson.github.io%3A%20BLAS%20Pitfalls%20with%20Mac%20OSX%20Accelerate%20Framework" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/blas-pitfalls-with-mac-osx-accelerate-framework.html&amp;text=william-dawson.github.io%3A%20BLAS%20Pitfalls%20with%20Mac%20OSX%20Accelerate%20Framework" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/blas-pitfalls-with-mac-osx-accelerate-framework.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
