@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Roadmap on Electronic Structure Codes in the Exascale Era &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2023-09-25" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Roadmap on Electronic Structure Codes in the Exascale Era"/>
+    <meta property="og:description" content="I share a recent publication I participated in that provides some insight on the future of electronic structure packages in the exascale era."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/roadmap-on-electronic-structure-codes-in-the-exascale-era.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Roadmap on Electronic Structure Codes in the Exascale Era">
+    <meta name="twitter:description" content="I share a recent publication I participated in that provides some insight on the future of electronic structure packages in the exascale era.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/roadmap-on-electronic-structure-codes-in-the-exascale-era.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Roadmap on Electronic Structure Codes in the Exascale Era</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2023-09-25T11:00:00+09:00">Mon 25 September 2023</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>Today I want to share with you a recent paper I helped write that gives different perspectives from various electronic structure code developers on priorities and directions in the exascale era. The paper is called <a href="https://doi.org/10.1088/1361-651X/acdf06">Roadmap on electronic structure codes in the exascale era</a> and it is available open access in "Modelling and Simulation in Materials Science and Engineering". </p>
+<p><strong>Represented Codes:</strong> Abinit, BigDFT, Conquest, CP2K, DFT-FE, exciting, FHI-aims, NWChemEx, PARSEC, Qbox, Q-Chem, Quantum Espresso, SPARC, and WEST.</p>
+<p>You can see that there is a nice mixture of codes aimed at materials / molecules and excited / ground state calculations. I helped with the BigDFT part, where we primarily talk about our work on calculating large systems.</p>
+<p>There are a lot of different perspectives in this article. I particularly enjoyed reading the Q-Chem section; in it, John M Herbert argues forcefully about the need for single node performance and how that can unlock large systems using fragment methods or QM/MM, as well as the generation of large datasets. </p>
+<blockquote>
+<p>The parallelization strategy to be pursued is a conservative one, however, designed to avoid sacrificing Q-Chem's excellent single-node performance. This may limit the scalability but will preserve Q-Chem's outstanding price-to-performance ratio that makes large systems accessible without the need for supercomputer centers or leadership-class computing resources. (p. 61)</p>
+</blockquote>
+<p>Another really interesting part was a discussion by the Abinit developers about numerical stability and desynchronization that can happen in parallel codes. This is the kind of interesting development priority that can emerge from a mature and widely used code like Abinit.</p>
+<blockquote>
+<p>In other words, different cores operating on the same input values may produce slightly different results and this inconsistency may propagate through the parallel algorithm without (expensive) explicit synchronization operations. (p. 11) </p>
+</blockquote>
+<p>One last section I will highlight is the NWChemEx section, which really dives deep into software engineering methodologies. I am hopeful that the lessons learned from that project will have a big impact on the broader community.</p>
+<blockquote>
+<p>The vast majority of objects in NWX rely on the 'Pointer to implementation' (PIMPL) idiom. The PIMPL idiom, combined with clever design, allows the API of an object to be largely decoupled from how the operations are actually implemented. For example, the parallel environment is an abstraction that provides the same API, despite having multiple parallel paradigms underlying it, such as MPI and/or threads on CPUs and GPUs. (p. 47)</p>
+</blockquote>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/roadmap-on-electronic-structure-codes-in-the-exascale-era.html&amp;t=william-dawson.github.io%3A%20Roadmap%20on%20Electronic%20Structure%20Codes%20in%20the%20Exascale%20Era" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/roadmap-on-electronic-structure-codes-in-the-exascale-era.html&amp;text=william-dawson.github.io%3A%20Roadmap%20on%20Electronic%20Structure%20Codes%20in%20the%20Exascale%20Era" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/roadmap-on-electronic-structure-codes-in-the-exascale-era.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
