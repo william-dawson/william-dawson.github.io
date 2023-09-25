@@ -1,0 +1,23 @@
+Title: Roadmap on Electronic Structure Codes in the Exascale Era
+Date: 2023-09-25 11:00:00 +0900
+Category: Lessons
+Tags: publication
+Summary: I share a recent publication I participated in that provides some insight on the future of electronic structure packages in the exascale era.
+
+Today I want to share with you a recent paper I helped write that gives different perspectives from various electronic structure code developers on priorities and directions in the exascale era. The paper is called [Roadmap on electronic structure codes in the exascale era](https://doi.org/10.1088/1361-651X/acdf06) and it is available open access in "Modelling and Simulation in Materials Science and Engineering". 
+
+**Represented Codes:** Abinit, BigDFT, Conquest, CP2K, DFT-FE, exciting, FHI-aims, NWChemEx, PARSEC, Qbox, Q-Chem, Quantum Espresso, SPARC, and WEST.
+
+You can see that there is a nice mixture of codes aimed at materials / molecules and excited / ground state calculations. I helped with the BigDFT part, where we primarily talk about our work on calculating large systems.
+
+There are a lot of different perspectives in this article. I particularly enjoyed reading the Q-Chem section; in it, John M Herbert argues forcefully about the need for single node performance and how that can unlock large systems using fragment methods or QM/MM, as well as the generation of large datasets. 
+
+> The parallelization strategy to be pursued is a conservative one, however, designed to avoid sacrificing Q-Chem's excellent single-node performance. This may limit the scalability but will preserve Q-Chem's outstanding price-to-performance ratio that makes large systems accessible without the need for supercomputer centers or leadership-class computing resources. (p. 61)
+
+Another really interesting part was a discussion by the Abinit developers about numerical stability and desynchronization that can happen in parallel codes. This is the kind of interesting development priority that can emerge from a mature and widely used code like Abinit.
+
+> In other words, different cores operating on the same input values may produce slightly different results and this inconsistency may propagate through the parallel algorithm without (expensive) explicit synchronization operations. (p. 11) 
+
+One last section I will highlight is the NWChemEx section, which really dives deep into software engineering methodologies. I am hopeful that the lessons learned from that project will have a big impact on the broader community.
+
+> The vast majority of objects in NWX rely on the 'Pointer to implementation' (PIMPL) idiom. The PIMPL idiom, combined with clever design, allows the API of an object to be largely decoupled from how the operations are actually implemented. For example, the parallel environment is an abstraction that provides the same API, despite having multiple parallel paradigms underlying it, such as MPI and/or threads on CPUs and GPUs. (p. 47)
