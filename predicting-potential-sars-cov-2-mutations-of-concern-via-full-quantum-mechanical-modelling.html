@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Predicting potential SARS-CoV-2 mutations of concern via full quantum mechanical modelling &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Personal Blog" />
+    <meta property="article:published_time" content="2024-02-10" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Predicting potential SARS-CoV-2 mutations of concern via full quantum mechanical modelling"/>
+    <meta property="og:description" content="I share a paper I worked on about predicting virus mutations with Density Functional Theory."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/predicting-potential-sars-cov-2-mutations-of-concern-via-full-quantum-mechanical-modelling.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Predicting potential SARS-CoV-2 mutations of concern via full quantum mechanical modelling">
+    <meta name="twitter:description" content="I share a paper I worked on about predicting virus mutations with Density Functional Theory.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/predicting-potential-sars-cov-2-mutations-of-concern-via-full-quantum-mechanical-modelling.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Predicting potential SARS-CoV-2 mutations of concern via full quantum mechanical modelling</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2024-02-10T11:00:00+09:00">Sat 10 February 2024</time> in <a href="https://william-dawson.github.io/category/personal-blog.html" title="All articles in category Personal Blog">Personal Blog</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>I have another paper to share, this time called <a href="https://doi.org/10.1098/rsif.2023.0614">Predicting potential SARS-CoV-2 mutations of concern via full quantum mechanical modelling</a>. In this paper, we used our BigDFT code to model the binding of SARS-CoV-2's spike protein to the human ACE2 receptor. Based on this analysis, we proposed a mutation (A484K) that might appear in the Omicron strain in the future. Our experimentalist colleagues then validated this prediction (don't worry, they didn't make any real viruses). In fact, this mutation did end up appearing in BA.2.86 while we were going through the peer review process. These results give us confidence that such predictions can be done with a BigDFT workflow going forward.</p>
+<p>In January, we held a <a href="https://molsc.riken.jp/mpqcp2024_ws_en.html">workshop on quantum chemistry</a> at the RIKEN main campus in Wako. I was in charge of making the website, so you might notice some design similarities. As I mention in the about section, I made this blog using the <a href="https://github.com/petrnohejl/MinimalXY">MinimalXY</a> theme for Pelican. This time I wanted to try a new theme, in particular one based on <a href="https://en.wikipedia.org/wiki/Material_Design">material design</a>. But I haven't written CSS or HTML by hand since I was a college student! Fortunately, ChatGPT came to the rescue here, and basically was able to generate the whole thing based on my directions. I was incredibly impressed.</p>
+<p>Since the conference was right after the New Year's holiday, I decided to head up early and explore the area. This time I went to Chiba city. It's a pretty fun city; I visited Chiba Port Tower, Inohana Castle, and the Natural History Museum. On the second day, I hopped on a train that went down the <a href="https://en.wikipedia.org/wiki/B%C5%8Ds%C5%8D_Peninsula">Boso Peninsula</a>. I was hoping to get nice views of the ocean from the train window. I got that and more: it was a clear enough day that I could see distant Mount Fuji the whole time!</p>
+<p><img alt="Photo of Mt. Fuji" src="https://william-dawson.github.io/assets/IMG_0370.jpg"></p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/predicting-potential-sars-cov-2-mutations-of-concern-via-full-quantum-mechanical-modelling.html&amp;t=william-dawson.github.io%3A%20Predicting%20potential%20SARS-CoV-2%20mutations%20of%20concern%20via%20full%20quantum%20mechanical%20modelling" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/predicting-potential-sars-cov-2-mutations-of-concern-via-full-quantum-mechanical-modelling.html&amp;text=william-dawson.github.io%3A%20Predicting%20potential%20SARS-CoV-2%20mutations%20of%20concern%20via%20full%20quantum%20mechanical%20modelling" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/predicting-potential-sars-cov-2-mutations-of-concern-via-full-quantum-mechanical-modelling.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
