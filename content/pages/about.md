@@ -19,4 +19,4 @@ work of an external library, in which case please comply with that license's
 specific rules.
 
 This blog is powered by [Pelican](https://getpelican.com/) and based on
-the [MinimalXY](https://github.com/petrnohejl/MinimalXY) them.
+the [MinimalXY](https://github.com/petrnohejl/MinimalXY) theme.
