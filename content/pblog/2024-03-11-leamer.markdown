@@ -1,0 +1,34 @@
+Title: Positivity preserving density matrix minimization at finite temperatures via square root
+Date: 2024-03-10 00:00:00 +0900
+Category: Personal Blog
+Tags: publication
+Summary: I update you on a recent paper for finite temperature calculations and my recent fun in Baltimore.
+
+Today I'd like to tell you about a paper I wrote with Jacob M. Leamer and Denys I. Bondar of Tulane University called [Positivity preserving density matrix minimization at finite temperatures via square root](https://doi.org/10.1063/5.0189864). Writing this paper was a pretty good experience; a while back, I received an email from Jacob asking for help getting NTPoly working. He had some original ideas he wanted to explore related to density matrix minimization algorithms. He ended up hitting some roadblocks along the way, so he sent a follow up email to me asking if I'd like to collaborate. We ended up developing a pretty interesting new method for computing the density matrix at finite electronic temperature. This filled a big gap in my NTPoly library that only had methods for the zero-temperature case.
+
+To give you a flavor for the work, suppose you want to compute the Gibbs state of some system $$K_{\beta} = e^{-\beta H},$$ where $H$ is our Hamiltonian and $\beta$ is the inverse temperature. The Bloch method tells us we can start with the solution when $\beta=0$ (i.e. infinite temperature) $K_0 = e^{0*H} = I$, and then evolve that matrix using the gradient with respect to temperature $\frac{dK}{d\beta} = -HK$. You can verify this yourself with a little bit of Python:
+```
+beta = 1  # Target inverse temperature
+H = rand(10, 10)  # Hamiltonian
+refK = funm(H, lambda x: exp(-beta*x))  # Reference Solution
+
+# Compute by minimization
+K = identity(H.shape[0])
+x = 0
+step = 1e-6
+while x < beta:
+    K -= step * H @ K 
+    x += step
+
+# Check Error
+print(norm(K - refK))
+```
+The rest of the work is about developing an efficient and robust method for performing these kinds of calculations for the density matrix described by the Fermi-Dirac distribution.
+
+On a somewhat related note, I spent the last week in Baltimore, Maryland for the [SIAM conference on Parallel Processing for Scientific Computing](https://www.siam.org/conferences/cm/conference/pp24). This is a pretty nice conference for anyone interested in numerical methods and high performance computing. There was a great session about Quantum Many-Body systems and one on eigenvalue problems (which I presented in).
+
+![USS Constitution]({attach}assets/balt/ship.jpg)
+
+This was my first time back in the United States in more than a year and a half. Aside for the conference, I was luck to be able to see some family members while going through Washington D.C. The highlight of the Baltimore experience for me was visiting Attman's Delicatessen, a Kosher deli that has been in business since 1915. They had an amazing menu of sandwiches - I ended up picking chopped liver and onion on rye bread (with their original mustard). There's always a level of reverse culture shock for me when I see the portion sizes in the US; this sandwich was absolutely packed!
+
+![Chopped Liver Sandwich]({attach}assets/balt/sand.jpg)

@@ -67,6 +67,8 @@ chemical physics 148, no. 12 (2018): 124501.
 
 Matrix Functions.
 
+- [Leamer, Jacob M., William Dawson, and Denys I. Bondar. "Positivity preserving density matrix minimization at finite temperatures via square root." The Journal of Chemical Physics 160, no. 7 (2024).](https://doi.org/10.1063/5.0189864)
+
 - [Yu, Victor Wen-zhe, Carmen Campos, William Dawson, Alberto García, Ville Havu, Ben Hourahine, William P. Huhn et al. "ELSI—An open infrastructure for electronic structure solvers." Computer Physics Communications 256 (2020): 107459.](https://doi.org/10.1016/j.cpc.2020.107459)
 
 - [Dawson, William, and Takahito Nakajima. "Massively parallel sparse matrix

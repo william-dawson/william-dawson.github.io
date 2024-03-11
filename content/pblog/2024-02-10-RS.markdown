@@ -2,7 +2,7 @@ Title: Predicting potential SARS-CoV-2 mutations of concern via full quantum mec
 Date: 2024-02-10 11:00:00 +0900
 Category: Personal Blog
 Tags: publication
-Summary: I share a paper I worked on about predicting virus mutations with Density Functional Theory.
+Summary: I share a paper I worked on about predicting virus mutations with Density Functional Theory and about my recent trip to Chiba.
 
 I have another paper to share, this time called [Predicting potential SARS-CoV-2 mutations of concern via full quantum mechanical modelling](https://doi.org/10.1098/rsif.2023.0614). In this paper, we used our BigDFT code to model the binding of SARS-CoV-2's spike protein to the human ACE2 receptor. Based on this analysis, we proposed a mutation (A484K) that might appear in the Omicron strain in the future. Our experimentalist colleagues then validated this prediction (don't worry, they didn't make any real viruses). In fact, this mutation did end up appearing in BA.2.86 while we were going through the peer review process. These results give us confidence that such predictions can be done with a BigDFT workflow going forward.
 
