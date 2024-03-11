@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Positivity preserving density matrix minimization at finite temperatures via square root &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Personal Blog" />
+    <meta property="article:published_time" content="2024-03-10" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Positivity preserving density matrix minimization at finite temperatures via square root"/>
+    <meta property="og:description" content="I update you on a recent paper for finite temperature calculations and my recent fun in Baltimore."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/positivity-preserving-density-matrix-minimization-at-finite-temperatures-via-square-root.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Positivity preserving density matrix minimization at finite temperatures via square root">
+    <meta name="twitter:description" content="I update you on a recent paper for finite temperature calculations and my recent fun in Baltimore.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/positivity-preserving-density-matrix-minimization-at-finite-temperatures-via-square-root.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Positivity preserving density matrix minimization at finite temperatures via square root</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2024-03-10T00:00:00+09:00">Sun 10 March 2024</time> in <a href="https://william-dawson.github.io/category/personal-blog.html" title="All articles in category Personal Blog">Personal Blog</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>Today I'd like to tell you about a paper I wrote with Jacob M. Leamer and Denys I. Bondar of Tulane University called <a href="https://doi.org/10.1063/5.0189864">Positivity preserving density matrix minimization at finite temperatures via square root</a>. Writing this paper was a pretty good experience; a while back, I received an email from Jacob asking for help getting NTPoly working. He had some original ideas he wanted to explore related to density matrix minimization algorithms. He ended up hitting some roadblocks along the way, so he sent a follow up email to me asking if I'd like to collaborate. We ended up developing a pretty interesting new method for computing the density matrix at finite electronic temperature. This filled a big gap in my NTPoly library that only had methods for the zero-temperature case.</p>
+<p>To give you a flavor for the work, suppose you want to compute the Gibbs state of some system $$K_{\beta} = e^{-\beta H},$$ where $H$ is our Hamiltonian and $\beta$ is the inverse temperature. The Bloch method tells us we can start with the solution when $\beta=0$ (i.e. infinite temperature) $K_0 = e^{0*H} = I$, and then evolve that matrix using the gradient with respect to temperature $\frac{dK}{d\beta} = -HK$. You can verify this yourself with a little bit of Python:</p>
+<div class="highlight"><pre><span></span><code>beta = 1  # Target inverse temperature
+H = rand(10, 10)  # Hamiltonian
+refK = funm(H, lambda x: exp(-beta*x))  # Reference Solution
+
+<span class="gh">#</span> Compute by minimization
+K = identity(H.shape[0])
+x = 0
+step = 1e-6
+while x &lt; beta:
+    K -= step * H @ K 
+    x += step
+
+<span class="gh">#</span> Check Error
+print(norm(K - refK))
+</code></pre></div>
+
+<p>The rest of the work is about developing an efficient and robust method for performing these kinds of calculations for the density matrix described by the Fermi-Dirac distribution.</p>
+<p>On a somewhat related note, I spent the last week in Baltimore, Maryland for the <a href="https://www.siam.org/conferences/cm/conference/pp24">SIAM conference on Parallel Processing for Scientific Computing</a>. This is a pretty nice conference for anyone interested in numerical methods and high performance computing. There was a great session about Quantum Many-Body systems and one on eigenvalue problems (which I presented in).</p>
+<p><img alt="USS Constitution" src="https://william-dawson.github.io/assets/balt/ship.jpg"></p>
+<p>This was my first time back in the United States in more than a year and a half. Aside for the conference, I was luck to be able to see some family members while going through Washington D.C. The highlight of the Baltimore experience for me was visiting Attman's Delicatessen, a Kosher deli that has been in business since 1915. They had an amazing menu of sandwiches - I ended up picking chopped liver and onion on rye bread (with their original mustard). There's always a level of reverse culture shock for me when I see the portion sizes in the US; this sandwich was absolutely packed!</p>
+<p><img alt="Chopped Liver Sandwich" src="https://william-dawson.github.io/assets/balt/sand.jpg"></p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/positivity-preserving-density-matrix-minimization-at-finite-temperatures-via-square-root.html&amp;t=william-dawson.github.io%3A%20Positivity%20preserving%20density%20matrix%20minimization%20at%20finite%20temperatures%20via%20square%20root" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/positivity-preserving-density-matrix-minimization-at-finite-temperatures-via-square-root.html&amp;text=william-dawson.github.io%3A%20Positivity%20preserving%20density%20matrix%20minimization%20at%20finite%20temperatures%20via%20square%20root" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/positivity-preserving-density-matrix-minimization-at-finite-temperatures-via-square-root.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
