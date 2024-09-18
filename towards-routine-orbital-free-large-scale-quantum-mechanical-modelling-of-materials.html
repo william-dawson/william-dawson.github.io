@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Towards Routine Orbital-Free Large-Scale Quantum-Mechanical Modelling of Materials &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Personal Blog" />
+    <meta property="article:published_time" content="2024-09-18" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Towards Routine Orbital-Free Large-Scale Quantum-Mechanical Modelling of Materials"/>
+    <meta property="og:description" content="I share about a recent trip to China and Orbital-Free Density Functional Theory."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/towards-routine-orbital-free-large-scale-quantum-mechanical-modelling-of-materials.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Towards Routine Orbital-Free Large-Scale Quantum-Mechanical Modelling of Materials">
+    <meta name="twitter:description" content="I share about a recent trip to China and Orbital-Free Density Functional Theory.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/towards-routine-orbital-free-large-scale-quantum-mechanical-modelling-of-materials.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Towards Routine Orbital-Free Large-Scale Quantum-Mechanical Modelling of Materials</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2024-09-18T00:00:00+09:00">Wed 18 September 2024</time> in <a href="https://william-dawson.github.io/category/personal-blog.html" title="All articles in category Personal Blog">Personal Blog</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/travel.html" title="All articles with Travel tag">#travel</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>Last week, I got to participate in a workshop <a href="http://www.birs.ca/events/2024/5-day-workshops/24w5171/schedule">Towards Routine Orbital-free Large-Scale Quantum-Mechanical Modelling of Materials</a> held in Hangzhou, China. Orbital-Free Density Functional Theory (OF-DFT) is an attractive alternative to the far more popular Kohn-Sham Density Functional Theory:</p>
+<p>$$\begin{equation}
+E[\rho] = T_s[\rho] + E_H[\rho] + E_{ext}[\rho] + \int v_{ext}\rho(r)dr
+\end{equation}$$</p>
+<p>Here $T_s$ is the kinetic energy density functional - deriving approximations to this term is the hardest part of OF-DFT development. At the workshop, one of the speakers presented their own OF-DFT package: <a href="http://dftpy.rutgers.edu/index.html">DFTpy</a>. Experimenting with this software could be a good way to spend this blog post. </p>
+<p>But first, photos of China.</p>
+<p><img alt="Lake from the Conference" src="https://william-dawson.github.io/assets/hangzhou/IMG_1278.jpg">
+<img alt="Trees around the Venue" src="https://william-dawson.github.io/assets/hangzhou/IMG_1286.jpg">
+<img alt="Museum near the Lake" src="https://william-dawson.github.io/assets/hangzhou/IMG_1307.jpg">
+<img alt="Night View" src="https://william-dawson.github.io/assets/hangzhou/IMG_1323.jpg"></p>
+<h2>Calculation Setup</h2>
+<p>DFTpy already has an <a href="https://wiki.fysik.dtu.dk/ase/">ASE calculator</a>, so we can use that as a base for comparison to our Kohn-Sham <a href="https://l_sim.gitlab.io/bigdft-suite/">BigDFT code</a>. </p>
+<p>The calculations (especially with BigDFT) are non-trivial so let's setup remotemanager to do this on my local cluster.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">remotemanager</span> <span class="kn">import</span> <span class="n">RemoteFunction</span><span class="p">,</span> <span class="n">SanzuFunction</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">spring</span> <span class="kn">import</span> <span class="n">Spring</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">Spring</span><span class="p">()</span>
+<span class="n">url</span><span class="o">.</span><span class="n">mpi</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">url</span><span class="o">.</span><span class="n">omp</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">url</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="s2">&quot;winter2&quot;</span>
+<span class="n">url</span><span class="o">.</span><span class="n">conda</span> <span class="o">=</span> <span class="s2">&quot;bdft&quot;</span>
+<span class="n">url</span><span class="o">.</span><span class="n">path_to_bigdft</span> <span class="o">=</span> <span class="s2">&quot;/home/dawson/binaries/bdft/&quot;</span>
+</code></pre></div>
+
+<p>First, make a system of bulk magnesium.</p>
+<div class="highlight"><pre><span></span><code><span class="n">A</span> <span class="o">=</span> <span class="mf">3.2091</span> <span class="c1"># taken from Wikipedia</span>
+<span class="n">C</span> <span class="o">=</span> <span class="mf">5.2103</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nd">@RemoteFunction</span>
+<span class="k">def</span> <span class="nf">make_ase</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">C</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">ase.build</span> <span class="kn">import</span> <span class="n">bulk</span>
+    <span class="n">asys</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span><span class="s2">&quot;Mg&quot;</span><span class="p">,</span> <span class="n">crystalstructure</span><span class="o">=</span><span class="s2">&quot;hcp&quot;</span><span class="p">,</span> <span class="n">orthorhombic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">asys</span>
+</code></pre></div>
+
+<p>Visualize this using PyBigDFT.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@RemoteFunction</span>
+<span class="k">def</span> <span class="nf">make_system</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">C</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">BigDFT.Systems</span> <span class="kn">import</span> <span class="n">System</span>
+    <span class="kn">from</span> <span class="nn">BigDFT.UnitCells</span> <span class="kn">import</span> <span class="n">UnitCell</span>
+    <span class="kn">from</span> <span class="nn">BigDFT.Interop.ASEInterop</span> <span class="kn">import</span> <span class="n">ase_to_bigdft</span><span class="p">,</span> \
+         <span class="n">ase_cell_to_bigdft</span>
+
+    <span class="c1"># Build with ASE</span>
+    <span class="n">asys</span> <span class="o">=</span> <span class="n">make_ase</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+    <span class="c1"># Convert to BigDFT</span>
+    <span class="n">sys</span> <span class="o">=</span> <span class="n">System</span><span class="p">()</span>
+    <span class="n">sys</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ase_to_bigdft</span><span class="p">(</span><span class="n">asys</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">cell</span> <span class="o">=</span> <span class="n">ase_cell_to_bigdft</span><span class="p">(</span><span class="n">asys</span><span class="o">.</span><span class="n">cell</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sys</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">sys</span> <span class="o">=</span> <span class="n">make_system</span><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</code></pre></div>
+
+<div id="3dmolviewer_1726638309610323"  style="position: relative; width: 400px; height: 300px;">
+        <p id="3dmolwarning_1726638309610323" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.4.0/3Dmol-min.js');
+}
+
+var viewer_1726638309610323 = null;
+var warn = document.getElementById("3dmolwarning_1726638309610323");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_1726638309610323 = null;
+viewergrid_1726638309610323 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_1726638309610323"),{rows: 1, cols: 1, control_all: false},{backgroundColor:"white"});
+viewer_1726638309610323 = viewergrid_1726638309610323[0][0];
+viewergrid_1726638309610323[0][0].zoomTo(); viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+    viewergrid_1726638309610323[0][0].setStyle({"model": -1},{"line": {"color": "black"}});
+    viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+    viewergrid_1726638309610323[0][0].setStyle({"model": -1, "serial": 1},{"sphere": {"scale": 0.2, "color": "#7F00FF"}});
+    viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+    viewergrid_1726638309610323[0][0].setStyle({"model": -1, "serial": 2},{"sphere": {"scale": 0.2, "color": "#7F00FF"}});
+    viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+    viewergrid_1726638309610323[0][0].setStyle({"model": -1, "serial": 3},{"sphere": {"scale": 0.2, "color": "#7F00FF"}});
+    viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+    viewergrid_1726638309610323[0][0].setStyle({"model": -1, "serial": 4},{"sphere": {"scale": 0.2, "color": "#7F00FF"}});
+    viewergrid_1726638309610323[0][0].addUnitCell({"model": -1},{"box": {"color": "black"}, "alabel": "", "blabel": "", "clabel": ""});
+    viewergrid_1726638309610323[0][0].zoomTo();
+viewergrid_1726638309610323[0][0].render();
+});
+</script>
+
+<p>Using BigDFT, we can compute a potential energy curve by varying the lattice vectors. Let's try varying <code>a</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span>
+<span class="n">avals</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nd">@SanzuFunction</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bigdft&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">BigDFT.Inputfiles</span> <span class="kn">import</span> <span class="n">Inputfile</span>
+    <span class="kn">from</span> <span class="nn">BigDFT.Calculators</span> <span class="kn">import</span> <span class="n">SystemCalculator</span>
+
+    <span class="n">calc</span> <span class="o">=</span> <span class="n">SystemCalculator</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sys</span> <span class="o">=</span> <span class="n">make_system</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">Inputfile</span><span class="p">()</span>
+    <span class="n">inp</span><span class="o">.</span><span class="n">set_xc</span><span class="p">(</span><span class="s2">&quot;LDA&quot;</span><span class="p">)</span>
+    <span class="n">inp</span><span class="o">.</span><span class="n">set_hgrid</span><span class="p">(</span><span class="mf">0.35</span><span class="p">)</span>
+    <span class="n">inp</span><span class="o">.</span><span class="n">set_psp_krack</span><span class="p">(</span><span class="n">functional</span><span class="o">=</span><span class="s2">&quot;LDA&quot;</span><span class="p">)</span>
+    <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;kpt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;mpgrid&quot;</span><span class="p">,</span> <span class="s2">&quot;ngkpt&quot;</span><span class="p">:</span> <span class="n">pts</span><span class="p">}</span>
+    <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;import&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mixing&quot;</span> <span class="c1"># because it&#39;s a metal</span>
+
+    <span class="n">log</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">sys</span><span class="o">=</span><span class="n">sys</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="n">inp</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">run_dir</span><span class="o">=</span><span class="s2">&quot;scr&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">log</span><span class="o">.</span><span class="n">energy</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">avals</span><span class="p">):</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;bigdft-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Plot the change in energy per unit cell.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_all</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">minv</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">avals</span><span class="p">,</span> <span class="p">[</span><span class="mf">27.2114</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-</span> <span class="n">minv</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">avals</span><span class="p">],</span> 
+                 <span class="s1">&#39;o--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy Difference (eV / cell)&quot;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Lattice Vector a ($\mathring</span><span class="si">{A}</span><span class="s2">$)&quot;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plot_all</span><span class="p">({</span><span class="s2">&quot;BigDFT&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">})</span>
+</code></pre></div>
+
+<p><img alt="energy curve of BigDFT" src="https://william-dawson.github.io/assets/hangzhou/output_14_0.png"></p>
+<h2>Orbital-Free Comparison</h2>
+<p>Ok now let's try to do the same thing with OF-DFT and DFTpy. To do this, we're going to need a local pseudopotential for use with OF-DFT. We can use the <a href="https://github.com/PrincetonUniversity/BLPSLibrary">BLPS library</a> of pseudopotentials for this test.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+<span class="n">pp</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/PrincetonUniversity/BLPSLibrary/master/LDA/reci/mg.lda.recpot&quot;</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mkdir -p pp; cd pp; wget </span><span class="si">{</span><span class="n">pp</span><span class="si">}</span><span class="s2"> 2&gt;/dev/null&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>And prepare to run DFTpy.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># mpi parallel version is also available</span>
+<span class="n">url</span><span class="o">.</span><span class="n">omp</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">url</span><span class="o">.</span><span class="n">mpi</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nd">@SanzuFunction</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;of-dft&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extra_files_send</span><span class="o">=</span><span class="s2">&quot;pp&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">calculate_of</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">kedf</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">write</span>
+    <span class="kn">from</span> <span class="nn">futile.Utils</span> <span class="kn">import</span> <span class="n">ensure_dir</span>
+    <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copyfile</span>
+    <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+
+    <span class="c1"># no built in toml writer...</span>
+    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">ofile</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">inp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ent</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># create the system</span>
+    <span class="n">asys</span> <span class="o">=</span> <span class="n">make_ase</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">asys</span> <span class="o">=</span> <span class="n">asys</span> <span class="o">*</span> <span class="n">pts</span>  <span class="c1"># build the supercell instead of k-points</span>
+
+    <span class="c1"># write the files to the scratch directory</span>
+    <span class="n">ensure_dir</span><span class="p">(</span><span class="s2">&quot;scr-of&quot;</span><span class="p">)</span>
+    <span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scr-of/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.vasp&quot;</span><span class="p">,</span> <span class="n">asys</span><span class="p">)</span>
+    <span class="n">copyfile</span><span class="p">(</span><span class="s2">&quot;pp/mg.lda.recpot&quot;</span><span class="p">,</span> <span class="s2">&quot;scr-of/mg.lda.recpot&quot;</span><span class="p">)</span>
+
+    <span class="c1"># create the input file</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;PP&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Mg&quot;</span><span class="p">:</span> <span class="s2">&quot;mg.lda.recpot&quot;</span><span class="p">}</span>
+    <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;CELL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cellfile&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.vasp&quot;</span><span class="p">}</span>
+    <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;GRID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;spacing&quot;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">}</span>
+    <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;EXC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;xc&quot;</span><span class="p">:</span> <span class="s2">&quot;LDA&quot;</span><span class="p">}</span>
+    <span class="n">inp</span><span class="p">[</span><span class="s2">&quot;KEDF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;kedf&quot;</span><span class="p">:</span> <span class="n">kedf</span><span class="p">}</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scr-of/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.ini&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ofile</span><span class="p">:</span>
+        <span class="n">dump</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">ofile</span><span class="p">)</span>
+
+    <span class="c1"># run the calculation</span>
+    <span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cd scr-of ; python -m dftpy </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.ini &gt; </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.log&quot;</span><span class="p">)</span>
+
+    <span class="c1"># grab the energy</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scr-of/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.log&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">ifile</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;total energy (a.u.)&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="c1"># divide to get the per unit cell contribution</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">pts</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>
+
+<p>DFTpy can also be used purely from python but this use of it as an executable matches our BigDFT workflow well. Now let's run the calculations and compare.</p>
+<div class="highlight"><pre><span></span><code><span class="n">results_of</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;TFvW&quot;</span><span class="p">:</span> <span class="p">{}}</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">avals</span><span class="p">):</span>
+    <span class="n">results_of</span><span class="p">[</span><span class="s2">&quot;TFvW&quot;</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_of</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;of-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;TFvW&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">plot_all</span><span class="p">({</span><span class="s2">&quot;BigDFT&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">,</span> 
+          <span class="s2">&quot;TFvW&quot;</span><span class="p">:</span> <span class="n">results_of</span><span class="p">[</span><span class="s2">&quot;TFvW&quot;</span><span class="p">]})</span>
+</code></pre></div>
+
+<p><img alt="comparison of bigdft, tfvw" src="https://william-dawson.github.io/assets/hangzhou/output_22_0.png"></p>
+<p>We might wonder if a different kinetic energy functional would match closer to BigDFT. In particular, we can try a non-local functional.</p>
+<div class="highlight"><pre><span></span><code><span class="n">results_of</span><span class="p">[</span><span class="s2">&quot;MGPA&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">avals</span><span class="p">):</span>
+    <span class="n">results_of</span><span class="p">[</span><span class="s2">&quot;MGPA&quot;</span><span class="p">][</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">calculate_of</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;of-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;MGPA&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">plot_all</span><span class="p">({</span><span class="s2">&quot;BigDFT&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">,</span> 
+          <span class="s2">&quot;TFvW&quot;</span><span class="p">:</span> <span class="n">results_of</span><span class="p">[</span><span class="s2">&quot;TFvW&quot;</span><span class="p">],</span>
+          <span class="s2">&quot;MGPA&quot;</span><span class="p">:</span> <span class="n">results_of</span><span class="p">[</span><span class="s2">&quot;MGPA&quot;</span><span class="p">]})</span>
+</code></pre></div>
+
+<p><img alt="comparison of bigdft, tfvw, mgpa" src="https://william-dawson.github.io/assets/hangzhou/output_25_0.png"></p>
+<p>This functional indeed matches closer to our BigDFT results - though who is ultimately correct is a different matter. OF-DFT has the benefit of being much cheaper to calculate (it is linear scaling with a low prefactor). With this in mind, it could be interesting to use it to study size dependent effects of systems, with BigDFT's linear scaling mode as a means of checking the result.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/towards-routine-orbital-free-large-scale-quantum-mechanical-modelling-of-materials.html&amp;t=william-dawson.github.io%3A%20Towards%20Routine%20Orbital-Free%20Large-Scale%20Quantum-Mechanical%20Modelling%20of%20Materials" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/towards-routine-orbital-free-large-scale-quantum-mechanical-modelling-of-materials.html&amp;text=william-dawson.github.io%3A%20Towards%20Routine%20Orbital-Free%20Large-Scale%20Quantum-Mechanical%20Modelling%20of%20Materials" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/towards-routine-orbital-free-large-scale-quantum-mechanical-modelling-of-materials.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
