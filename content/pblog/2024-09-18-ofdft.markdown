@@ -1,0 +1,314 @@
+Title: Towards Routine Orbital-Free Large-Scale Quantum-Mechanical Modelling of Materials
+Date: 2024-09-18 00:00:00 +0900
+Category: Personal Blog
+Tags: travel
+Summary: I share about a recent trip to China and Orbital-Free Density Functional Theory.
+
+Last week, I got to participate in a workshop [Towards Routine Orbital-free Large-Scale Quantum-Mechanical Modelling of Materials](http://www.birs.ca/events/2024/5-day-workshops/24w5171/schedule) held in Hangzhou, China. Orbital-Free Density Functional Theory (OF-DFT) is an attractive alternative to the far more popular Kohn-Sham Density Functional Theory:
+
+$$\begin{equation}
+E[\rho] = T_s[\rho] + E_H[\rho] + E_{ext}[\rho] + \int v_{ext}\rho(r)dr
+\end{equation}$$
+
+Here $T_s$ is the kinetic energy density functional - deriving approximations to this term is the hardest part of OF-DFT development. At the workshop, one of the speakers presented their own OF-DFT package: [DFTpy](http://dftpy.rutgers.edu/index.html). Experimenting with this software could be a good way to spend this blog post. 
+
+But first, photos of China.
+
+![Lake from the Conference]({attach}assets/hangzhou/IMG_1278.jpg)
+![Trees around the Venue]({attach}assets/hangzhou/IMG_1286.jpg)
+![Museum near the Lake]({attach}assets/hangzhou/IMG_1307.jpg)
+![Night View]({attach}assets/hangzhou/IMG_1323.jpg)
+
+
+## Calculation Setup
+DFTpy already has an [ASE calculator](https://wiki.fysik.dtu.dk/ase/), so we can use that as a base for comparison to our Kohn-Sham [BigDFT code](https://l_sim.gitlab.io/bigdft-suite/). 
+
+The calculations (especially with BigDFT) are non-trivial so let's setup remotemanager to do this on my local cluster.
+
+
+```python
+from remotemanager import RemoteFunction, SanzuFunction
+```
+
+
+```python
+from spring import Spring
+url = Spring()
+url.mpi = 4
+url.omp = 9
+url.queue = "winter2"
+url.conda = "bdft"
+url.path_to_bigdft = "/home/dawson/binaries/bdft/"
+```
+
+First, make a system of bulk magnesium.
+
+
+```python
+A = 3.2091 # taken from Wikipedia
+C = 5.2103
+```
+
+
+```python
+@RemoteFunction
+def make_ase(a=A, c=C):
+    from ase.build import bulk
+    asys = bulk("Mg", crystalstructure="hcp", orthorhombic=True, 
+                a=a, c=c)
+    return asys
+```
+
+Visualize this using PyBigDFT.
+
+
+```python
+@RemoteFunction
+def make_system(a=A, c=C):
+    from BigDFT.Systems import System
+    from BigDFT.UnitCells import UnitCell
+    from BigDFT.Interop.ASEInterop import ase_to_bigdft, \
+         ase_cell_to_bigdft
+
+    # Build with ASE
+    asys = make_ase(a, c)
+
+    # Convert to BigDFT
+    sys = System()
+    sys["FRA:0"] = ase_to_bigdft(asys)
+    sys.cell = ase_cell_to_bigdft(asys.cell)
+
+    return sys
+```
+
+
+```python
+sys = make_system()
+_ = sys.display()
+```
+
+
+<div id="3dmolviewer_1726638309610323"  style="position: relative; width: 400px; height: 300px;">
+        <p id="3dmolwarning_1726638309610323" style="background-color:#ffcccc;color:black">3Dmol.js failed to load for some reason.  Please check your browser console for error messages.<br></p>
+        </div>
+<script>
+
+var loadScriptAsync = function(uri){
+  return new Promise((resolve, reject) => {
+    //this is to ignore the existence of requirejs amd
+    var savedexports, savedmodule;
+    if (typeof exports !== 'undefined') savedexports = exports;
+    else exports = {}
+    if (typeof module !== 'undefined') savedmodule = module;
+    else module = {}
+
+    var tag = document.createElement('script');
+    tag.src = uri;
+    tag.async = true;
+    tag.onload = () => {
+        exports = savedexports;
+        module = savedmodule;
+        resolve();
+    };
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+});
+};
+
+if(typeof $3Dmolpromise === 'undefined') {
+$3Dmolpromise = null;
+  $3Dmolpromise = loadScriptAsync('https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.4.0/3Dmol-min.js');
+}
+
+var viewer_1726638309610323 = null;
+var warn = document.getElementById("3dmolwarning_1726638309610323");
+if(warn) {
+    warn.parentNode.removeChild(warn);
+}
+$3Dmolpromise.then(function() {
+var viewergrid_1726638309610323 = null;
+viewergrid_1726638309610323 = $3Dmol.createViewerGrid(document.getElementById("3dmolviewer_1726638309610323"),{rows: 1, cols: 1, control_all: false},{backgroundColor:"white"});
+viewer_1726638309610323 = viewergrid_1726638309610323[0][0];
+viewergrid_1726638309610323[0][0].zoomTo();	viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+	viewergrid_1726638309610323[0][0].setStyle({"model": -1},{"line": {"color": "black"}});
+	viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+	viewergrid_1726638309610323[0][0].setStyle({"model": -1, "serial": 1},{"sphere": {"scale": 0.2, "color": "#7F00FF"}});
+	viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+	viewergrid_1726638309610323[0][0].setStyle({"model": -1, "serial": 2},{"sphere": {"scale": 0.2, "color": "#7F00FF"}});
+	viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+	viewergrid_1726638309610323[0][0].setStyle({"model": -1, "serial": 3},{"sphere": {"scale": 0.2, "color": "#7F00FF"}});
+	viewergrid_1726638309610323[0][0].addModelsAsFrames("MODEL 0\nCRYST1    3.209    5.558    5.210 90.000 90.000 90.000                          \nHETATM    1 Mg   FRA A   0       0.000   0.000   0.000  1.00  0.00       B  Mg  \nHETATM    2 Mg   FRA A   0       1.605   2.779   0.000  1.00  0.00       B  Mg  \nHETATM    3 Mg   FRA A   0       1.605   0.926   2.605  1.00  0.00       B  Mg  \nHETATM    4 Mg   FRA A   0       0.000   3.706   2.605  1.00  0.00       B  Mg  \nENDMDL\n","pdb",{"keepH": "true"});
+	viewergrid_1726638309610323[0][0].setStyle({"model": -1, "serial": 4},{"sphere": {"scale": 0.2, "color": "#7F00FF"}});
+	viewergrid_1726638309610323[0][0].addUnitCell({"model": -1},{"box": {"color": "black"}, "alabel": "", "blabel": "", "clabel": ""});
+	viewergrid_1726638309610323[0][0].zoomTo();
+viewergrid_1726638309610323[0][0].render();
+});
+</script>
+
+
+Using BigDFT, we can compute a potential energy curve by varying the lattice vectors. Let's try varying `a`.
+
+
+```python
+from numpy import linspace
+avals = linspace(3, 3.4, 11)
+```
+
+
+```python
+@SanzuFunction(url=url, name="bigdft", verbose=False)
+def calculate(a, pts, name):
+    from BigDFT.Inputfiles import Inputfile
+    from BigDFT.Calculators import SystemCalculator
+
+    calc = SystemCalculator(skip=True)
+    sys = make_system(a=a)
+
+    inp = Inputfile()
+    inp.set_xc("LDA")
+    inp.set_hgrid(0.35)
+    inp.set_psp_krack(functional="LDA")
+    inp["kpt"] = {"method": "mpgrid", "ngkpt": pts}
+    inp["import"] = "mixing" # because it's a metal
+
+    log = calc.run(sys=sys, input=inp, name=name, run_dir="scr")
+    return log.energy
+```
+
+
+```python
+results = {}
+for i, a in enumerate(avals):
+    results[a] = calculate(a, [6, 4, 4], f"bigdft-{i}")
+```
+
+Plot the change in energy per unit cell.
+
+
+```python
+def plot_all(data):
+    from matplotlib import pyplot as plt
+    fig, axs = plt.subplots(1, 1, dpi=150, figsize=(5, 3))
+    for k, v in data.items():
+        minv = min(v.values())
+        axs.plot(avals, [27.2114 * (v[x] - minv) for x in avals], 
+                 'o--', label=k)
+    axs.set_ylabel("Energy Difference (eV / cell)")
+    axs.set_xlabel("Lattice Vector a ($\mathring{A}$)")
+    axs.legend()
+plot_all({"BigDFT": results})
+```
+
+
+    
+![energy curve of BigDFT]({attach}assets/hangzhou/output_14_0.png)
+    
+
+
+## Orbital-Free Comparison
+Ok now let's try to do the same thing with OF-DFT and DFTpy. To do this, we're going to need a local pseudopotential for use with OF-DFT. We can use the [BLPS library](https://github.com/PrincetonUniversity/BLPSLibrary) of pseudopotentials for this test.
+
+
+```python
+from os import system
+pp = "https://raw.githubusercontent.com/PrincetonUniversity/BLPSLibrary/master/LDA/reci/mg.lda.recpot"
+_ = system(f"mkdir -p pp; cd pp; wget {pp} 2>/dev/null")
+```
+
+And prepare to run DFTpy.
+
+
+```python
+# mpi parallel version is also available
+url.omp = 1
+url.mpi = 1
+```
+
+
+```python
+@SanzuFunction(url=url, name="of-dft", verbose=False, extra_files_send="pp")
+def calculate_of(a, pts, name, kedf):
+    from ase.io import write
+    from futile.Utils import ensure_dir
+    from shutil import copyfile
+    from os import system
+
+    # no built in toml writer...
+    def dump(inp, ofile):
+        for h, ent in inp.items():
+            ofile.write(f"[{h}]\n")
+            for k, v in ent.items():
+                ofile.write(f"{k}={v}\n")
+
+    # create the system
+    asys = make_ase(a=a)
+    asys = asys * pts  # build the supercell instead of k-points
+
+    # write the files to the scratch directory
+    ensure_dir("scr-of")
+    write(f"scr-of/{name}.vasp", asys)
+    copyfile("pp/mg.lda.recpot", "scr-of/mg.lda.recpot")
+
+    # create the input file
+    inp = {}
+    inp["PP"] = {"Mg": "mg.lda.recpot"}
+    inp["CELL"] = {"cellfile": f"{name}.vasp"}
+    inp["GRID"] = {"spacing": 0.3}
+    inp["EXC"] = {"xc": "LDA"}
+    inp["KEDF"] = {"kedf": kedf}
+    with open(f"scr-of/{name}.ini", "w") as ofile:
+        dump(inp, ofile)
+
+    # run the calculation
+    system(f"cd scr-of ; python -m dftpy {name}.ini > {name}.log")
+
+    # grab the energy
+    with open(f"scr-of/{name}.log") as ifile:
+        for line in ifile:
+            if "total energy (a.u.)" in line:
+                # divide to get the per unit cell contribution
+                return float(line.split()[-1]) / (pts[0] * pts[1] * pts[2])
+```
+
+DFTpy can also be used purely from python but this use of it as an executable matches our BigDFT workflow well. Now let's run the calculations and compare.
+
+
+```python
+results_of = {"TFvW": {}}
+for i, a in enumerate(avals):
+    results_of["TFvW"][a] = calculate_of(a, [6, 4, 4], f"of-{i}", "TFvW")
+```
+
+
+```python
+plot_all({"BigDFT": results, 
+          "TFvW": results_of["TFvW"]})
+```
+
+
+    
+![comparison of bigdft, tfvw]({attach}assets/hangzhou/output_22_0.png)
+    
+
+
+We might wonder if a different kinetic energy functional would match closer to BigDFT. In particular, we can try a non-local functional.
+
+
+```python
+results_of["MGPA"] = {}
+for i, a in enumerate(avals):
+    results_of["MGPA"][a] = calculate_of(a, [6, 4, 4], f"of-{i}", "MGPA")
+```
+
+
+```python
+plot_all({"BigDFT": results, 
+          "TFvW": results_of["TFvW"],
+          "MGPA": results_of["MGPA"]})
+```
+
+
+    
+![comparison of bigdft, tfvw, mgpa]({attach}assets/hangzhou/output_25_0.png)
+    
+This functional indeed matches closer to our BigDFT results - though who is ultimately correct is a different matter. OF-DFT has the benefit of being much cheaper to calculate (it is linear scaling with a low prefactor). With this in mind, it could be interesting to use it to study size dependent effects of systems, with BigDFT's linear scaling mode as a means of checking the result.
