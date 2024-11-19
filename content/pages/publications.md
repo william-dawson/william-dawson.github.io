@@ -7,6 +7,8 @@ for a chronological listing of papers.
 
 Review Articles.
 
+- [Blum, Volker, Ryoji Asahi, Jochen Autschbach, Christoph Bannwarth, Gustav Bihlmayer, Stefan Blügel, Lori A. Burns et al. "Roadmap on methods and software for electronic structure based simulations in chemistry and materials." Electronic Structure (2024)](http://doi.org/10.1088/2516-1075/ad48ec).
+
 - [Dawson, William, Augustin Degomme, Martina Stella, Takahito Nakajima, Laura E. Ratcliff, and Luigi Genovese. "Density functional theory calculations of large systems: Interplay between fragments, observables, and computational complexity." Wiley Interdisciplinary Reviews: Computational Molecular Science (2021): e1574.](https://doi.org/10.1002/wcms.1574)
 
 - [Zaccaria, Marco, William Dawson, Viviana Cristiglio, Massimo Reverberi,

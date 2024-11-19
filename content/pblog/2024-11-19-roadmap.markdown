@@ -1,0 +1,30 @@
+Title: Roadmap on methods and software for electronic structure based simulations in chemistry and materials
+Date: 2024-11-19 00:00:00 +0900
+Category: Personal Blog
+Tags: publication
+Summary: I announce a new roadmap article that I helped write is now published in Electronic Structure.
+
+Today I have an article to share with you that I helped write, entitled
+[Roadmap on methods and software for electronic structure based simulations in chemistry and materials](http://doi.org/10.1088/2516-1075/ad48ec). This roadmap brings together various experts to give their view on the cutting edge for developments in electronic structure software and methods. I think this article works very good as a news update - researchers can get a good overview of what's going on in related research areas. I also hope it can serve as a starting point for new researchers looking for the right topic. 
+
+I thought it might be worth highlighting a few interesting points from the work. In section 1, we have a very nice definition of "method" that focuses on making problems tractable:
+
+> By ‘method,’ we refer to the level of formal ... approximation ... to make a particular phenomenon tractable
+
+Section 5 had a number of great points. One paragraph really drove home the challenge of high precision in high accuracy methods:
+
+> The magnitude of the correlation energy is (at least) of the same order as chemical energies ... Since the correlation energy is an extensive quantity ... this is particularly difficult in calculations for large molecules.
+
+Especially in the mindset of fragment methods, I think we need to "isolate" the correlation energy in the key region to avoid an accumulation of error. The authors also stressed the need for uncertainity quantification. Unlike with DFT, the number of tools for computing different correlation methods can be quite limited, which makes it hard to validate your computational setup. Somewhat related, in section 11 there is a great quote, contrasting the desire to be "right for the right reason":
+
+> in practice, researchers must often settle for ‘decent results for good reasons’
+
+One intriguing point came in section 13. After reviewing the field of workflow managers, the authors suggest that we need to move towards workflow manager agnostic workflows! That would be very interesting to see. 
+
+Lastly, I was inspired by part of section 15, where the authors talked about the benefit of keeping electronic structure codes in close proximity to communities that have good software practices. Just by trying to put your code on conda-forge, for example, will make you properly version it; thus, good practices can rub off.
+
+![View of the mountains in Grenoble]({attach}assets/grenoble/cloud.jpg)
+
+I'm in Grenoble now, enjoying the chance to pursue some new topics related to the BigDFT code. I'm enjoying the weather here a lot, the late fall cold combined with the view of the Alps is very refreshing. When I get back to Japan, I known I will trap myself under the kotatsu, so I'm enjoying the outdoors while I can.
+
+
