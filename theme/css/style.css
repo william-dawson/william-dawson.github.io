@@ -341,3 +341,34 @@ ul.social li a:hover {
     display: inline;
   }
 }
+
+table {
+  width: 100%;
+  max-width: 900px;
+  border-collapse: collapse;
+  margin: 2rem auto;
+  font-size: 13pt;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #223B4B;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}

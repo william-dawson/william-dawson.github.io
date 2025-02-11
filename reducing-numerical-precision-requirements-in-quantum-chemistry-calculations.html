@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Reducing numerical precision requirements in quantum chemistry calculations &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Personal Blog" />
+    <meta property="article:published_time" content="2025-02-11" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Reducing numerical precision requirements in quantum chemistry calculations"/>
+    <meta property="og:description" content="I announce an article about using low precision tensor cores for quantum chemistry calculations."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/reducing-numerical-precision-requirements-in-quantum-chemistry-calculations.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Reducing numerical precision requirements in quantum chemistry calculations">
+    <meta name="twitter:description" content="I announce an article about using low precision tensor cores for quantum chemistry calculations.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/reducing-numerical-precision-requirements-in-quantum-chemistry-calculations.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Reducing numerical precision requirements in quantum chemistry calculations</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2025-02-11T16:00:00+09:00">Tue 11 February 2025</time> in <a href="https://william-dawson.github.io/category/personal-blog.html" title="All articles in category Personal Blog">Personal Blog</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>Today I'd like to announce a new paper we published in the Journal of Chemical Theory and Computation: <a href="https://doi.org/10.1021/acs.jctc.4c00938">Reducing numerical precision requirements in quantum chemistry calculations</a>. I'm particularly proud of the graphical abstract of this paper, if you look closely you can see my hand drawn pixel art. I haven't had a chance to do that since my video game programming classes in college!</p>
+<p><img alt="Super Nintendo version of Benzene" src="https://william-dawson.github.io/assets/benzene.jpg"></p>
+<p>We all know that deep learning right now is a hot topic. This is true in academia too: scientists want to train their own models for their scientific problems. Some people are being even more ambitious &mdash; trying to train foundation models on huge swaths of scientific data from all disciplines. But training a neural network requires a lot of compute power. Seeing this market, GPU producers like NVIDIA have been putting specialized Tensor Processing Units inside their hardware. These units are extremely fast at performing matrix multiplication, particularly if it is done in low precision (which works for deep learning). I've placed a chart below showing the kind of performance you can get from these tensor core units, in teraflops:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>FP64</th>
+<th>FP16</th>
+<th>INT8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A100</td>
+<td>19.5</td>
+<td>312</td>
+<td>624</td>
+</tr>
+<tr>
+<td>H100</td>
+<td>67</td>
+<td>990</td>
+<td>1979</td>
+</tr>
+<tr>
+<td>B200</td>
+<td>37</td>
+<td>2250</td>
+<td>4500</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the FP16 tensor core accumulates in FP32 and the INT8 tensor core in INT32.</p>
+<p>I have to say, something really clicked in my brain when I saw the <a href="https://nvdam.widen.net/s/wwnsxrhm2w/blackwell-datasheet-3384703">B200 stats</a>. First, we're talking about a petaflop of performance coming from a single card if you can do your operations in low precision. Second, where is my FP64 performance? This is the kind of hardware we are going to have on the market when building our next generation of supercomputers.</p>
+<p>With this in mind, our paper describes an emulation scheme that allows us to recover the precision we need for quantum chemistry calculations, while running on the low precision units. Emulation of course has a lot of overhead, but this emulation scheme is specifically designed to exploit the fast hardware available today. We are hopeful that schemes like this can sustain us on this new hardware.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/reducing-numerical-precision-requirements-in-quantum-chemistry-calculations.html&amp;t=william-dawson.github.io%3A%20Reducing%20numerical%20precision%20requirements%20in%20quantum%20chemistry%20calculations" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/reducing-numerical-precision-requirements-in-quantum-chemistry-calculations.html&amp;text=william-dawson.github.io%3A%20Reducing%20numerical%20precision%20requirements%20in%20quantum%20chemistry%20calculations" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/reducing-numerical-precision-requirements-in-quantum-chemistry-calculations.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
