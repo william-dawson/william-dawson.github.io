@@ -1,0 +1,23 @@
+Title: Reducing numerical precision requirements in quantum chemistry calculations
+Date: 2025-02-11 16:00:00 +0900
+Category: Personal Blog
+Tags: publication
+Summary: I announce an article about using low precision tensor cores for quantum chemistry calculations.
+
+Today I'd like to announce a new paper we published in the Journal of Chemical Theory and Computation: [Reducing numerical precision requirements in quantum chemistry calculations](https://doi.org/10.1021/acs.jctc.4c00938). I'm particularly proud of the graphical abstract of this paper, if you look closely you can see my hand drawn pixel art. I haven't had a chance to do that since my video game programming classes in college!
+
+![Super Nintendo version of Benzene]({attach}assets/benzene.jpg)
+
+We all know that deep learning right now is a hot topic. This is true in academia too: scientists want to train their own models for their scientific problems. Some people are being even more ambitious &mdash; trying to train foundation models on huge swaths of scientific data from all disciplines. But training a neural network requires a lot of compute power. Seeing this market, GPU producers like NVIDIA have been putting specialized Tensor Processing Units inside their hardware. These units are extremely fast at performing matrix multiplication, particularly if it is done in low precision (which works for deep learning). I've placed a chart below showing the kind of performance you can get from these tensor core units, in teraflops:
+
+| Model | FP64 | FP16 | INT8 |
+|-------|------|------|------|
+| A100  | 19.5 | 312  | 624  | 
+| H100  | 67   | 990  | 1979 |
+| B200  | 37   | 2250 | 4500 |
+
+Note that the FP16 tensor core accumulates in FP32 and the INT8 tensor core in INT32.
+
+I have to say, something really clicked in my brain when I saw the [B200 stats](https://nvdam.widen.net/s/wwnsxrhm2w/blackwell-datasheet-3384703). First, we're talking about a petaflop of performance coming from a single card if you can do your operations in low precision. Second, where is my FP64 performance? This is the kind of hardware we are going to have on the market when building our next generation of supercomputers.
+
+With this in mind, our paper describes an emulation scheme that allows us to recover the precision we need for quantum chemistry calculations, while running on the low precision units. Emulation of course has a lot of overhead, but this emulation scheme is specifically designed to exploit the fast hardware available today. We are hopeful that schemes like this can sustain us on this new hardware.
