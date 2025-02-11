@@ -19,6 +19,8 @@ specialization." Current Opinion in Biotechnology 62 (2020): 98-105.
 
 DFT Packages.
 
+- [Dawson, William, Louis Beal, Laura E. Ratcliff, Martina Stella, Takahito Nakajima, and Luigi Genovese. "Exploratory data science on supercomputers for quantum mechanical calculations." Electronic Structure 6, no. 2 (2024): 027003.](https://doi.org/10.1088/2516-1075/ad4b80)
+
 - [Gavini, Vikram, Stefano Baroni, Volker Blum, David R. Bowler, Alexander Buccheri, James R. Chelikowsky, Sambit Das et al. "Roadmap on electronic structure codes in the exascale era." Modelling and Simulation in Materials Science and Engineering 31, no. 6 (2023): 063301.](https://doi.org/10.1088/1361-651X/acdf06)
 
 - [Ratcliff, Laura E., William Dawson, Giuseppe Fisicaro, Damien Caliste, 
@@ -28,6 +30,8 @@ calculations." The Journal of Chemical Physics 152, no. 19 (2020):
 194110.](https://doi.org/10.1063/5.0004792)
 
 Analysis.
+
+- [Chan, Bun, William Dawson, and Takahito Nakajima. "Data Quality in the Fitting of Approximate Models: A Computational Chemistry Perspective." Journal of Chemical Theory and Computation 20, no. 23 (2024): 10468-10476.](https://doi.org/10.1021/acs.jctc.4c01063)
 
 - [William Dawson, Eisuke Kawashima, Laura E. Ratcliff, Muneaki Kamiya, Luigi Genovese, and Takahito Nakajima. "Complexity reduction in density functional theory: Locality in space and energy." The Journal of chemical physics 158, no. 16 (2023): 164114.](https://doi.org/10.1063/5.0142652)
 
@@ -42,6 +46,8 @@ Embedding." Journal of Chemical Theory and Computation 16, no. 5 (2020):
 Applications.
 
 - [Chan, Bun, William Dawson, and Takahito Nakajima. "Sorting drug conformers in enzyme active sites: the XTB way." Physical Chemistry Chemical Physics (2024).](https://doi.org/10.1039/D4CP00930D)
+
+- [Zaccaria, Marco, Luigi Genovese, Brigitte E. Lawhorn, William Dawson, Andrew S. Joyal, Jingqing Hu, Patrick Autissier et al. "Predicting potential SARS-CoV-2 mutations of concern via full quantum mechanical modelling." Journal of the Royal Society Interface 21, no. 211 (2024): 20230614.](https://doi.org/10.1098/rsif.2023.0614)
 
 - [Genovese, Luigi, William Dawson, Takahito Nakajima, Viviana Cristiglio, Valérie Vallet, and Michel Masella. "Protein–ligand interactions from a quantum fragmentation perspective: The case of the SARS-CoV-2 main protease interacting with α-ketoamide inhibitors." The Journal of Chemical Physics 158, no. 21 (2023).](https://doi.org/10.1063/5.0148064)
 
@@ -70,6 +76,8 @@ chemical physics 148, no. 12 (2018): 124501.
 ](https://doi.org/10.1063/1.5018116)
 
 Matrix Functions.
+
+- [Dawson, William, Katsuhisa Ozaki, Jens Domke, and Takahito Nakajima. "Reducing numerical precision requirements in quantum chemistry calculations." Journal of Chemical Theory and Computation 20, no. 24 (2024): 10826-10837.](https://doi.org/10.1021/acs.jctc.4c00938)
 
 - [Leamer, Jacob M., William Dawson, and Denys I. Bondar. "Positivity preserving density matrix minimization at finite temperatures via square root." The Journal of Chemical Physics 160, no. 7 (2024).](https://doi.org/10.1063/5.0189864)
 
