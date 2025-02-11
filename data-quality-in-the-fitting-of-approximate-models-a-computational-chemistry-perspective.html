@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Data Quality in the Fitting of Approximate Models: A Computational Chemistry Perspective &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2025-02-11" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Data Quality in the Fitting of Approximate Models: A Computational Chemistry Perspective"/>
+    <meta property="og:description" content="I share a paper we wrote about data quality in computational chemistry calculations, and spend some time hacking Libxc."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/data-quality-in-the-fitting-of-approximate-models-a-computational-chemistry-perspective.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Data Quality in the Fitting of Approximate Models: A Computational Chemistry Perspective">
+    <meta name="twitter:description" content="I share a paper we wrote about data quality in computational chemistry calculations, and spend some time hacking Libxc.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/data-quality-in-the-fitting-of-approximate-models-a-computational-chemistry-perspective.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>Data Quality in the Fitting of Approximate Models: A Computational Chemistry Perspective</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2025-02-11T11:00:00+09:00">Tue 11 February 2025</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>I had planned to write two blog post entries over the Christmas holiday, but ended up down for the count with the flu. Today is a holiday and it's snowing outside, so it seems like a chance to stay cozy inside and knock a post off the to do list. This entry is inspired by our recent publications entitled <a href="https://doi.org/10.1021/acs.jctc.4c01063">Data Quality in the Fitting of Approximate Models: A Computational Chemistry Perspective</a>. Our paper asks how important is it to have high quality data when fitting a new computational chemistry method. Surprisingly, the answer is: not as important as you'd think. This comes down to the balance between model limitations and overfitting; I'll leave the details to the paper itself.</p>
+<p>Instead, for the blog entry I want to talk about hacking <a href="https://libxc.gitlab.io/">Libxc</a>. Libxc is one of the best libraries in our field, implementing the many density functional approximations out there in the literature. <a href="https://doi.org/10.1063/5.0167763">It can be tricky to implement these approximations just by reading the papers
+</a>, so having a library to do all the work can save developers a lot of time. </p>
+<p>One of the functionals they implement is called <a href="https://doi.org/10.1063/1.475007">B97</a>, proposed by Axel D. Becke. B97 is a great example of an empirical density functional: thanks to Becke's linearization trick, you can expand the functional as a linear combination of multiple terms. This makes it very easy to fit to any dataset you have. Unsurprisingly, there are now many variants of the original B97. In Libxc, <a href="https://github.com/ElectronicStructureLibrary/libxc/blob/master/src/gga_xc_b97.c">there are currently 23 versions of it</a>. The source code here is very readable, so you can see the parameters for any given definition right away:</p>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="n">b97_values</span><span class="o">[</span><span class="n">B97_N_PAR</span><span class="o">]</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="err">{</span><span class="mf">0.8094</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5073</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7481</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">   </span><span class="mf">0.1737</span><span class="p">,</span><span class="w"> </span><span class="mf">2.3487</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">2.4868</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">   </span><span class="mf">0.9454</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7471</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">4.5961</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">   </span><span class="mf">0.1943</span><span class="err">}</span><span class="p">;</span>
+</code></pre></div>
+
+<p>This values are identical to Table III in Becke's paper, except that we have the possibility for some extra values (there are 15 parameter and 9 parameter versions, with both possibily being hybrid functionals).</p>
+<p>My only complaint about Libxc here is that these are const values! What if I want to modify them myself and create my own functional? This is where we start hacking. First, remove that pesky <code>const</code> keyword. Then add a function to allow us to modify the parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="n">void</span><span class="w"> </span><span class="n">in_set_b97_values</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="o">*</span><span class="w"> </span><span class="k">values</span><span class="p">,</span><span class="w"> </span><span class="n">size_t</span><span class="w"> </span><span class="k">size</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="k">size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">B97_N_PAR</span><span class="p">);</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">Ensure</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="k">match</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">size</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">b97_values</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">values</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+<span class="w">    </span><span class="err">}</span><span class="w"> </span>
+<span class="err">}</span><span class="w"> </span>
+</code></pre></div>
+
+<p>Now let's make this work with <a href="https://pyscf.org/">PySCF</a>. We need to get PySCF to do the proper wrapping of our C function into python, which can be done by modifying <code>pyscf/pyscf/lib/dft/libxc_itrf.c</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nb nb-Type">void</span><span class="w"> </span><span class="n">LIBXC_set_b97_values</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">double</span><span class="o">*</span><span class="w"> </span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="n">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">in_set_b97_values</span><span class="p">(</span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>and then adding a function to <code>pyscf/pyscf/dft/libxc.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">def</span><span class="w"> </span><span class="nx">set_b97_values</span><span class="p">(</span><span class="nx">v</span><span class="p">):</span>
+<span class="w">    </span><span class="nx">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">len</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span><span class="w">    </span>
+<span class="w">    </span><span class="nx">_itrf</span><span class="p">.</span><span class="nx">LIBXC_set_b97_values</span><span class="p">((</span><span class="nx">ctypes</span><span class="p">.</span><span class="nx">c_double</span><span class="o">*</span><span class="nx">n</span><span class="p">)(</span><span class="o">*</span><span class="nx">v</span><span class="p">),</span><span class="w"> </span><span class="nx">ctypes</span><span class="p">.</span><span class="nx">c_int</span><span class="p">(</span><span class="nx">n</span><span class="p">))</span>
+</code></pre></div>
+
+<p>That's all it takes to generate your own functional. This can be tested by verifying that we can reproduce another parameterization by modifying the values to match.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">dft</span><span class="p">,</span><span class="w"> </span><span class="n">gto</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyscf.dft</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">libxc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sys</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">argv</span>
+
+<span class="n">mol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;O 0 0 0 ; &#39;</span>
+<span class="w">                   </span><span class="s1">&#39;H 0.759 0 0.585 ; &#39;</span>
+<span class="w">                   </span><span class="s1">&#39;H -0.759 0 0.585&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">basis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;6-31G*&#39;</span><span class="p">)</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">rks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="w"> </span>
+
+<span class="k">if</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;b97&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="n">rks</span><span class="o">.</span><span class="n">xc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;b97&#39;</span>
+<span class="k">elif</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;b97_1&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="n">rks</span><span class="o">.</span><span class="n">xc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;b97_1&#39;</span>
+<span class="k">elif</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;fake&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="n">rks</span><span class="o">.</span><span class="n">xc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;b97&#39;</span>
+<span class="w">    </span><span class="n">libxc</span><span class="o">.</span><span class="n">set_b97_values</span><span class="p">([</span>
+<span class="w">       </span><span class="mf">0.789518</span><span class="p">,</span><span class="w"> </span><span class="mf">0.573805</span><span class="p">,</span><span class="w"> </span><span class="mf">0.660975</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">       </span><span class="mf">0.0820011</span><span class="p">,</span><span class="w"> </span><span class="mf">2.71681</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">2.87103</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">       </span><span class="mf">0.955689</span><span class="p">,</span><span class="w"> </span><span class="mf">0.788552</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">5.47869</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+<span class="w">       </span><span class="mf">0.21</span>
+<span class="w">    </span><span class="p">])</span>
+<span class="n">rks</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">rks</span><span class="o">.</span><span class="n">e_tot</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>b97 -76.3802820297083
+b97_1 -76.38208191613612
+fake -76.38208191613609
+</code></pre></div>
+
+<p>These days it is probably difficult to simply reparameterize a functional and get a publication, for reasons detailed in our paper. But don't let that stop you from realizing your dream or having your own functional, especially when the code is this accessible. </p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/data-quality-in-the-fitting-of-approximate-models-a-computational-chemistry-perspective.html&amp;t=william-dawson.github.io%3A%20Data%20Quality%20in%20the%20Fitting%20of%20Approximate%20Models%3A%20A%20Computational%20Chemistry%20Perspective" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/data-quality-in-the-fitting-of-approximate-models-a-computational-chemistry-perspective.html&amp;text=william-dawson.github.io%3A%20Data%20Quality%20in%20the%20Fitting%20of%20Approximate%20Models%3A%20A%20Computational%20Chemistry%20Perspective" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/data-quality-in-the-fitting-of-approximate-models-a-computational-chemistry-perspective.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
