@@ -7,7 +7,7 @@ This page contains some useful links from lectures at Kobe University.
 Google Colab Exercises (Google Colabによる計算化学ハンズオン)
 
 - [Part 1](https://colab.research.google.com/drive/1CbiHfTahglaFfFXljlYtrWBu_nvPe4_Y)
-- Part 2 (TBD)
+- [Part 2](https://colab.research.google.com/drive/1zOY2-IXPkKLwO5RU2dLWBCdaKkXOa8tu)
 
 R-CCS Recruitment (募集中)
 
