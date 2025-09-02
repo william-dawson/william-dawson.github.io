@@ -2,7 +2,7 @@ Title: About
 Date: 2017-08-19 17:38:38
 Category: About
 
-My name is William Dawson and I am currently a research scientist
+My name is William Dawson and I am currently a Unit Leader
 at the RIKEN
 [Center for Computational Science](http://www.riken.jp/en/research/labs/r-ccs/).
 My main research interest is on designing algorithms and writing programs for
