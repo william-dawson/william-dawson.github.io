@@ -1,7 +1,7 @@
 Title: ACM Second Asian School on High-Performance Computing and Artificial Intelligence
 Date: 2025-08-21 16:00:00 +0900
 Category: Personal Blog
-Tags: publication
+Tags: recruitment
 Summary: I advertise an upcoming HPC school in Kobe.
 
 I would like to advertise that in January of next year we will hold an HPC

@@ -1,0 +1,16 @@
+Title:  Research Scientist / Postdoctoral Researcher for the Development of Molecular Software and Theory through Foundation Models
+Date: 2025-09-02 16:00:00 +0900
+Category: Personal Blog
+Tags: recruitment
+Summary: Job posting for my unit.
+
+We are recruiting a person to engage in research at the intersection of materials science, artificial intelligence, high performance computing, and software development. The goal will be to develop systems able to exploit the code generation capabilities based on AI foundation models for scientific productivity. Example directions include:
+
+1. Development of LLM based systems for validating, restructuring, and improving simulation software.
+2. Interfacing AI models with supercomputers to develop automated simulation / experimentation platforms.
+3. AI based translation of academic literature into software simulation capability.
+
+For further information on how to apply:
+
+* [English](https://www.riken.jp/en/careers/researchers/20241021_4/index.html)
+* [Japanese](https://www.riken.jp/careers/researchers/20241021_4/index.html)
