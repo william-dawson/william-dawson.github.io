@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>XTB Nano-Reactor for Essential Organic Reactions &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2025-12-05" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="XTB Nano-Reactor for Essential Organic Reactions"/>
+    <meta property="og:description" content="I announce a paper about using XTB for studying reactions, and discuss MCP servers in chemistry."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/xtb-nano-reactor-for-essential-organic-reactions.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="XTB Nano-Reactor for Essential Organic Reactions">
+    <meta name="twitter:description" content="I announce a paper about using XTB for studying reactions, and discuss MCP servers in chemistry.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/xtb-nano-reactor-for-essential-organic-reactions.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>XTB Nano-Reactor for Essential Organic Reactions</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2025-12-05T11:00:00+09:00">Fri 05 December 2025</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>The first cold day came to Kobe yesterday, with the temperature dropping to 0°C at night time. The red leaves of fall always linger into December, leading to a nice long fall, but winter is starting to creep up.</p>
+<p><img alt="Photo of Red Leaves" src="https://william-dawson.github.io/assets/mcp/decred.jpg"></p>
+<p>We have a new paper out now called <a href="https://doi.org/10.1002/jcc.70269">XTB Nano-Reactor for Essential Organic Reactions</a>. This is another collaboration with Nagasaki University. The purpose of this work was to investigate a low-cost protocol for discovering reaction mechanisms. A "Nano-Reactor" speeds up the search for reaction paths by performing high-temperature and pressure metadynamics simulations of the species of interest. By having your molecules bump into each other regularly with a lot of kinetic energy, you can force reactions to happen that would be outside of the timescales we can simulate with ab-initio methods at standard conditions. The nano-reactor has been implemented into the <a href="https://xtb-docs.readthedocs.io/">XTB program</a> for use with low-cost semi-empirical quantum chemistry methods. Our paper finds that combination works great for a wide variety of organic reactions.</p>
+<p>Now maybe that sounds exciting to you, but don't start reading the manual just yet. I'm sure you've heard all about Large Language Models (LLMs), and have been trying out things like ChatGPT yourself. Maybe during your interactions, you've found that the model not only can answer with text, but even do web searches, run scripts, produce images, and more. This is made possible by "tool calling". Essentially, the program running the model watches the output for a special syntax. If that appears, it uses it to run a script for the model, and returns the output to the model as further input.</p>
+<p>The easiest way to make this work for your own custom tools is through the <a href="https://modelcontextprotocol.io/">Model Context Protocol</a>. This protocol makes it very easy to define a tool to be used by the model and connect it to a standard client. On the user side, you can also imagine building a whole library of tools for your model of choice to access. In fact, other scientists at RIKEN are working to make this even easier, with the dream of <a href="https://hatch.readthedocs.io/en/latest/">building a whole scientific ecosystem of tools</a>.</p>
+<p>Excited by this prospect, we decided to release an <a href="https://gitlab.com/wddawson/mcp-reactor">MCP server for the XTB Nano-Reactor</a> alongside our paper. This server exposes two tool calls to an LLM: fetch an xyz file from pubchem and run the nano-reactor. Essentially, you can tell the model what system you want to simulate and under what conditions (or just leave that determination to the model!). The server automatically processes the output to extract reaction intermediates for the LLM to analyze.</p>
+<p><img alt="MCP Reactor via Claude Code" src="https://william-dawson.github.io/assets/mcp/claude.png"></p>
+<p>I've been using claude code as the front end to interact with the server. Some other front ends look nice these days but definitely need refinement. First install the mcp-reactor code and all its dependencies (openbabel, packmol, xtb), and then you can setup the code to work by typing: <code>claude mcp add nanoreactor mcp-reactor</code>. You might also want to modify the timeout, which recently seems to have been shortened. </p>
+<p><img alt="MCP Reactor via Claude Code" src="https://william-dawson.github.io/assets/mcp/end.png"></p>
+<p>Our MCP server is at best a nice user interface - and at worse a toy. It's a very rigid workflow, and surely you'll find some exceptions that don't work. So where is the value added? I think we need to imagine a scenario where the LLM makes this tool call without you planning on it. Once we have a rich enough MCP ecosystem, maybe during a completely different study the LLM will realize running some nano-reactor simulations would help. So try encapsulating some of your tools this way, and let's see what we discover.</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/xtb-nano-reactor-for-essential-organic-reactions.html&amp;t=william-dawson.github.io%3A%20XTB%20Nano-Reactor%20for%20Essential%20Organic%20Reactions" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/xtb-nano-reactor-for-essential-organic-reactions.html&amp;text=william-dawson.github.io%3A%20XTB%20Nano-Reactor%20for%20Essential%20Organic%20Reactions" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/xtb-nano-reactor-for-essential-organic-reactions.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
