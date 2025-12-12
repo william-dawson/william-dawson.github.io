@@ -1,0 +1,9 @@
+Title:  Interns and Supercomputer Naming
+Date: 2025-12-12 16:00:00 +0900
+Category: Personal Blog
+Tags: recruitment
+Summary: I advertise that we have openings for interns as well as a chance to name our new supercomputer!
+
+Today I'd like to share two announcements. First, RIKEN's internship program is accepting applicants for the second period. If you are a PhD or masters student who would like to come to Japan and work on high performance computing, [check out the opening](https://www.r-ccs.riken.jp/en/outreach/schools/20260414-20270318/).
+
+Second, we will install a new supercomputer at our institute dedicated for advancing AI4Science. If you would like to help name the new computer, [you can do so through this form](https://www.riken.jp/en/news_pubs/news/2025/20251120_1/index.html). Please share your creative suggestions!
