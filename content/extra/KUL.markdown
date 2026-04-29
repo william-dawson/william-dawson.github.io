@@ -9,10 +9,7 @@ Google Colab Exercises (Google Colabによる計算化学ハンズオン)
 - [Part 1](https://colab.research.google.com/drive/1CbiHfTahglaFfFXljlYtrWBu_nvPe4_Y)
 - [Part 2](https://colab.research.google.com/drive/1zOY2-IXPkKLwO5RU2dLWBCdaKkXOa8tu)
 
-R-CCS Recruitment (募集中)
-
-- [HPC School](https://www.r-ccs.riken.jp/outreach/schools/20250730-0801/)
-- [Internship](https://www.r-ccs.riken.jp/outreach/schools/20250723-20251225/)
+Code: e3054cfe98644eca8ab2e1d0bb66d006
 
 Suggested Reading List (推奨文献)
 
