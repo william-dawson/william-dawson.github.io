@@ -127,7 +127,7 @@
 </code></pre></div>
 
 <p>I had some strange issues with PySCF's xyz reader (maybe a buggy version), so I read the molecule in manually.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">read_geom</span><span class="p">(</span><span class="n">iname</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_geom</span><span class="p">(</span><span class="n">iname</span><span class="p">):</span>
     <span class="n">atom</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">iname</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
         <span class="nb">next</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
@@ -139,7 +139,7 @@
 </code></pre></div>
 
 <p>And build.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">gto</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">gto</span>
 <span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">Mole</span><span class="p">()</span>
 <span class="n">mol</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="s2">&quot;6-31G*&quot;</span>
 <span class="n">mol</span><span class="o">.</span><span class="n">atom</span> <span class="o">=</span> <span class="n">read_geom</span><span class="p">(</span><span class="s2">&quot;Benzene.xyz&quot;</span><span class="p">)</span>
@@ -155,7 +155,7 @@
 <span class="n">_</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">dft</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">dft</span>
 <span class="n">mf</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
 <span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s2">&quot;PBE0&quot;</span>
 <span class="n">ene</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
@@ -184,7 +184,7 @@
 <p>We can write a function which returns the error of computing the gap with Koopman's theorem using given a fixed amount of exchange.</p>
 <div class="highlight"><pre><span></span><code><span class="n">tested_x</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">tested_y</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">mix</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">mix</span><span class="p">):</span>
     <span class="c1"># Use the LIBXC Codes for PBE_X and PBE_C</span>
     <span class="n">mf</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mix</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; * HF + &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">mix</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; * 101 + 130&quot;</span>
     <span class="n">_</span> <span class="o">=</span> <span class="n">mf</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
@@ -202,11 +202,11 @@
 </code></pre></div>
 
 <p>Scipy has an optimizer which seems specialized for a single variable, so let's give it a spin.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize_scalar</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize_scalar</span>
 <span class="n">opt</span> <span class="o">=</span> <span class="n">minimize_scalar</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">),</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
 
 <span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tested_x</span><span class="p">,</span> <span class="n">tested_y</span><span class="p">,</span> <span class="s1">&#39;kx&#39;</span><span class="p">)</span>
@@ -227,12 +227,12 @@
 <span class="n">_</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OptTarget</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OptTarget</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mol</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energies</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store computed energies</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
         <span class="n">nat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">atom</span><span class="p">)</span>
 
         <span class="c1"># Reshape the position variable to a per atom</span>
@@ -252,7 +252,7 @@
         <span class="k">return</span> <span class="n">e</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
 <span class="n">opt</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;CG&quot;</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
 </code></pre></div>
@@ -266,15 +266,15 @@
 
 <p><img alt="png" src="https://william-dawson.github.io/assets/scipy_opt/output_25_1.png"></p>
 <p>With this basic approach the progress is quite slow. This is because the black box minimizer is trying to numerically approximate the gradient. Since we can get the gradient from the pyscf calculation, let's integrate it into the process. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">grad</span>
-<span class="k">class</span> <span class="nc">OptTarget</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">grad</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OptTarget</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mol</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energies</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store the computed energies</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grad_norm</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store the norm of the computed gradients</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">numpy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
         <span class="n">nat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mol</span><span class="o">.</span><span class="n">atom</span><span class="p">)</span>
 
         <span class="c1"># Reshape the position variable to a per atom</span>
@@ -298,7 +298,7 @@
         <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">OptTarget</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
 <span class="n">opt</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">mol</span><span class="o">.</span><span class="n">atom_coords</span><span class="p">(),</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;CG&quot;</span><span class="p">,</span> <span class="n">jac</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
 </code></pre></div>
@@ -321,12 +321,12 @@
 <p>Using the gradient information, convergence is much quicker.</p>
 <h2>Example 3: Contraction Coefficient Optimization</h2>
 <p>Now let's try something really fancy: optimization of the contraction coefficients of our basis set. </p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">OptTarget</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OptTarget</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mol</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mol</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">energies</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Store the computed energies</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">):</span>
         <span class="c1"># Build the basis</span>
         <span class="n">basis</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="n">gto</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;STO-3G&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">),</span>
                  <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">gto</span><span class="o">.</span><span class="n">basis</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;STO-3G&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">)}</span>

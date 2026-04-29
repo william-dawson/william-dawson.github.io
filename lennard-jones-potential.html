@@ -102,8 +102,8 @@
 $$V(r) = 4\epsilon \bigg[ \big(\frac{\sigma}{r}\big)^{12} - 
                           \big(\frac{\sigma}{r}\big)^{6} \bigg].$$
 In order to use this potential, you need to know what your two parameters $\epsilon$ and $\sigma$ are. In this post, I thought it would be fun try to extract those parameters from quantum chemistry calculations, and see how good of a job it does. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
@@ -127,15 +127,15 @@ In order to use this potential, you need to know what your two parameters $\epsi
 </code></pre></div>
 
 <p>The next step is to define a function which computes the interaction energy between two molecules. We will use <a href="https://pyscf.org/index.html">PySCF</a> to compute energies at the MP2//cc-pVDZ level of theory. Ideally we'd use a higher level of theory, but for the purposes of this blog post we'll just stick with MP2 and a smaller basis.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_energy</span><span class="p">(</span><span class="n">istr</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">M</span><span class="p">,</span> <span class="n">cc</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_energy</span><span class="p">(</span><span class="n">istr</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">M</span><span class="p">,</span> <span class="n">cc</span>
     <span class="n">mol</span> <span class="o">=</span> <span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="n">istr</span><span class="p">,</span> <span class="n">basis</span><span class="o">=</span><span class="s1">&#39;ccpvdz&#39;</span><span class="p">)</span>
     <span class="n">hf</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">HF</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">mp</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">MP2</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">mp</span><span class="o">.</span><span class="n">e_tot</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">quan_ene</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">quan_ene</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
     <span class="n">istr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]:</span>
         <span class="n">istr</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">at</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span>
@@ -152,8 +152,8 @@ In order to use this potential, you need to know what your two parameters $\epsi
 </code></pre></div>
 
 <p>How do we extract the parameters now? One option we have is to use the curve fitting feature to try and match the function. There is a simpler approach though, using a bit of calculus. First, define the Lennard-Jones potential using <code>sympy</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">r</span>
-<span class="kn">from</span> <span class="nn">sympy.physics.units.quantities</span> <span class="kn">import</span> <span class="n">Quantity</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sympy.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">r</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sympy.physics.units.quantities</span><span class="w"> </span><span class="kn">import</span> <span class="n">Quantity</span>
 <span class="n">epsilon</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s2">&quot;ε&quot;</span><span class="p">)</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="s2">&quot;σ&quot;</span><span class="p">)</span>
 <span class="n">lj</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">((</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span> <span class="o">-</span> <span class="p">(</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
@@ -162,8 +162,8 @@ In order to use this potential, you need to know what your two parameters $\epsi
 
 <p>$$\displaystyle 4 \left(\frac{\text{σ}^{12}}{r^{12}} - \frac{\text{σ}^{6}}{r^{6}}\right) \text{ε}$$</p>
 <p>Now we can compute the minimum of this function on the domain of positive reals.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">diff</span>
-<span class="kn">from</span> <span class="nn">sympy.solvers.solveset</span> <span class="kn">import</span> <span class="n">solveset_real</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="kn">import</span> <span class="n">diff</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sympy.solvers.solveset</span><span class="w"> </span><span class="kn">import</span> <span class="n">solveset_real</span>
 <span class="n">dlj</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">lj</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
 <span class="n">extrema</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">solveset_real</span><span class="p">(</span><span class="n">dlj</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">extrema</span>
@@ -176,7 +176,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 
 <p>$$\displaystyle - \text{ε}$$</p>
 <p>We thus can discover that the Lennard-Jones potential has its minimum at distance $r = 2^{\frac{1}{6}}\sigma$ with value $V(r) = -\epsilon$. That means to get these parameters we simply have to find the interatomic distance of the minimum energy value of our system. We could of course perform geometry optimization, but in this case of symmetric atoms in 1D it's simple enough to just use a black box minimizer.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">minimize</span>
 
 <span class="n">opt_result</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
@@ -185,7 +185,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 </code></pre></div>
 
 <p>In order to compare and plot the results, we can also compute the values on a distance grid.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linspace</span>
 <span class="n">energies</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
@@ -210,12 +210,12 @@ In order to use this potential, you need to know what your two parameters $\epsi
 
 <p><img alt="Dimer Energies" height="80%" src="https://william-dawson.github.io/assets/lennard/output_20_0.png" width="80%"></p>
 <p>With the Lennard-Jones parameters computed, we can now turn to computing the actual function.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">lennard_jones</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lennard_jones</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">epsilon</span> <span class="o">*</span> <span class="p">((</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">12</span> <span class="o">-</span> <span class="p">(</span><span class="n">sigma</span><span class="o">/</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span>
 </code></pre></div>
 
 <p>We can plot both the reference values and those values computed with the potential on the same grid to see how this potential does.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elements</span><span class="p">):</span>
@@ -239,9 +239,9 @@ In order to use this potential, you need to know what your two parameters $\epsi
 
 <p><img alt="Dimer Comparison" height="80%" src="https://william-dawson.github.io/assets/lennard/output_24_0.png" width="80%"></p>
 <p>Now let's consider a system with more than two atoms of different types. In this case, we might hope that the interactions we parameterized can be additive. Let's test this out.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">lennard_jones_group</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
-    <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">lennard_jones_group</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">array</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">numpy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
     <span class="n">etot</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">at1</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">at2</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:1&quot;</span><span class="p">]:</span>
@@ -287,7 +287,7 @@ In order to use this potential, you need to know what your two parameters $\epsi
 
 <p><img alt="Cluster Comparison" src="https://william-dawson.github.io/assets/lennard/output_32_1.png"></p>
 <p>What is the source of the error in this case? It can either be from our two body pairwise approximation or from the accumulation of errors from the inexact Lennard-Jones potential. To tease that out, let's also plot the energy that comes from doing MP2 in a pairwise way.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">pairwise_mp2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pairwise_mp2</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
     <span class="n">etot</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">at1</span> <span class="ow">in</span> <span class="n">dim</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">]:</span>
         <span class="n">at1str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">at1</span><span class="p">])</span><span class="o">+</span><span class="s2">&quot;;&quot;</span>

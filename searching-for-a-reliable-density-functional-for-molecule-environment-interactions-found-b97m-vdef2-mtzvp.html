@@ -103,7 +103,7 @@
 <p>Well, chemists like to cheat. A lot. Let's look at some examples.</p>
 <h2>Basis Set Extrapolation</h2>
 <p>The textbook version of cheating might be extrapolating a value to the complete basis set limit.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">gto</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">gto</span>
 <span class="n">mstr</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;O 0 0 0.1173</span>
 <span class="s2">          H 0 0.7572 -0.4692</span>
 <span class="s2">          H 0 -0.7572 -0.4692&quot;&quot;&quot;</span>
@@ -112,8 +112,8 @@
 </code></pre></div>
 
 <p>Compute the energy with progressively bigger basis sets.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">scf</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">scf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 
 <span class="n">energies</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cc-pVDZ&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;cc-pVTZ&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;cc-pVQZ&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;cc-pV5Z&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 <span class="k">try</span><span class="p">:</span>  <span class="c1"># Use Pickle to cache our results.</span>
@@ -130,26 +130,26 @@
 </code></pre></div>
 
 <p>And fit the energy to the cardinality of the basis set (in this case, with brute force).</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">exp</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>
 <span class="n">fit</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span> <span class="o">+</span> <span class="n">a</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
 <span class="n">coef</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">energies</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
 </code></pre></div>
 
 <p>Other extrapolation techniques only require two different calculations since they've precomputed some of the constants. I took one example from <a href="https://www.cup.uni-muenchen.de/oc/zipse/teaching/computational-chemistry-2/topics/cbs/">the website of Dr. Hendrick Zipse</a>. Note that the choice of constants should depend on the method, basis, etc., so I'm really cheating here.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
 <span class="n">cbs2</span> <span class="o">=</span> <span class="n">energies</span><span class="p">[</span><span class="s2">&quot;cc-pVTZ&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">5.4</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="o">-</span> <span class="n">energies</span><span class="p">[</span><span class="s2">&quot;cc-pVQZ&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">5.4</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">cbs2</span> <span class="o">/=</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">5.4</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">5.4</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
 
 <p><a href="https://mrchem.readthedocs.io/en/latest/">MRChem</a> is a code based on multi-wavelets, which allows us to very easily specify a target accuracy for a given calculation. We can benchmark our extrapolation by comparing to the MRChem energy.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_mrchem</span><span class="p">(</span><span class="n">mstr</span><span class="p">,</span> <span class="n">mname</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dump</span><span class="p">,</span> <span class="n">load</span>
-    <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
-    <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">exists</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_mrchem</span><span class="p">(</span><span class="n">mstr</span><span class="p">,</span> <span class="n">mname</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">json</span><span class="w"> </span><span class="kn">import</span> <span class="n">dump</span><span class="p">,</span> <span class="n">load</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">system</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">exists</span>
 
     <span class="c1"># Handle conversion of units and format</span>
-    <span class="k">def</span> <span class="nf">convert_coords</span><span class="p">(</span><span class="n">mstr</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_coords</span><span class="p">(</span><span class="n">mstr</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">mstr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
             <span class="n">split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -181,8 +181,8 @@
 </code></pre></div>
 
 <p>Plot.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linspace</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
 <span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">energies</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">energies</span><span class="p">],</span> <span class="s1">&#39;k+&#39;</span><span class="p">,</span> 
          <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Computed&quot;</span><span class="p">)</span>
@@ -306,8 +306,8 @@
 <h2>The Geometrical Counterpoise Correction</h2>
 <p>A very interesting paper came out about a decade ago which proposed a method called "HF-3C". The basic idea was to enable us to compute systems using the simple Hartree-Fock method in a small basis set, by applying 3 empirical corrections: 1) D3 corrections for dispersion; 2) an empirical short range correction; and 3) a correction for basis set incompleteness called the "Geometrical Counterpoise Correction" (GCP). They also used a special version of Huzinga's mini basis set. The paper we published is very much in the spirit of this, as we examined a number of methods which include empirical corrections, as well as modifications to the basis set.</p>
 <p>The GCP approach is available in its <a href="https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/gcp/gcp">own separate software package</a> which can be installed via conda (<code>gcp-correction</code>). The GCP program is parameterized for a number of basis sets, and involves a quick pairwise calculation on your set of atoms. Let's try it out with our system.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="k">def</span> <span class="nf">get_gcp</span><span class="p">(</span><span class="n">fstr</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">nats</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_gcp</span><span class="p">(</span><span class="n">fstr</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">nats</span><span class="p">):</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span> <span class="o">+</span> <span class="s2">&quot;.xyz&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ofile</span><span class="p">:</span>
         <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">nats</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fstr</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>

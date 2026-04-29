@@ -100,7 +100,7 @@
         <section id="content">
           <p>In this topical notebook, I wanted to explore modelling our ongoing pandemic. Recently, there has been some discussion about whether top down lockdown rules are necessary. One counter argument I see is that once the general public is well informed about the virus, we can expect them to reduce social interaction voluntarily. With this in mind, we would like some way to measure whether this reduction is sufficient.</p>
 <p>Before starting, I will add the caveat that I know almost nothing about epidemiology. As a result, most of what is presented here is probably wrong, but fun nonetheless. To emphasize this point, we'll use the xkcd plot style:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xkcd</span><span class="p">()</span>
 </code></pre></div>
 
@@ -125,7 +125,7 @@
 
 <p><img alt="Number of infections" src="https://william-dawson.github.io/assets/pand/output_5_0.png"></p>
 <p>Imagine that we implement some sort of policy which changes the $R_0$ value to something new. We'll flip the switch at day 60.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
 
 <span class="n">switch</span> <span class="o">=</span> <span class="mi">60</span>
 <span class="n">rnew</span> <span class="o">=</span> <span class="mf">0.9</span>
@@ -147,8 +147,8 @@
 </code></pre></div>
 
 <p>We want to combine this information to predict deaths per day.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_deaths</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">normal</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_deaths</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="kn">import</span> <span class="n">normal</span>
     <span class="n">deaths_per_day</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_days</span><span class="o">*</span><span class="mi">2</span><span class="p">)]</span>
 
     <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>

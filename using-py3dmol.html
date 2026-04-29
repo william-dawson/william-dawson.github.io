@@ -100,7 +100,7 @@
         <section id="content">
           <p>In this blog post, I want to introduce a very useful tool: <a href="https://pypi.org/project/py3Dmol/">py3Dmol</a>. py3Dmol is python wrapper for the 3Dmol javascript library, which can be used to create visualizations of molecular systems. I find this tool incredibly useful because it means we can visualize a system inside a jupyter notebook. This means that when you're setting up a system, or analyzing results about it, you don't have to leave the notebook, which means you get quick feedback, and can easily share results. For this reason, I've added it to the PyBigDFT library as the <code>InlineVisualizor</code> class.</p>
 <p>Unfortunately, the documentation is lacking. I think the developers are mainly concerned with making it easy for you to show a molecule on a website. But when using it from a jupyter notebook, you're inevitably going to do more complex things. In this blog post, I want to show some uses of it. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">py3Dmol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">py3Dmol</span>
 </code></pre></div>
 
 <h2>Basics</h2>
@@ -922,8 +922,8 @@ viewer_1593144289948282.render();
 <h2>Datastructures</h2>
 <p>Up until now, the code I've been presenting can be described as, at best, pretty hacky. This is because we don't have a datastructure for our molecules. So let's build one. But let's not just build any old structure, instead I want to create a constructor that gives us maximum flexibility when dealing with py3Dmol.</p>
 <p>In my opinion, the best approach is to break down a system into two levels: molecules and atoms. We will consider molecules to be lists of atoms. And atoms will be dictionaries which can be flexible about what kind of data they store. For this blog post, we just need to write a molecule and atom that can convert to and from pdb.</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Atom</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Atom</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
@@ -934,7 +934,7 @@ viewer_1593144289948282.render();
         <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">46</span><span class="p">:</span><span class="mi">54</span><span class="p">])</span>
         <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;sym&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">76</span><span class="p">:</span><span class="mi">78</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">line</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
 
         <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
@@ -949,13 +949,13 @@ viewer_1593144289948282.render();
         <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Molecule</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Molecule</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
             <span class="k">if</span> <span class="s2">&quot;ATOM&quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">or</span> <span class="s2">&quot;HETATM&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Atom</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">outstr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">outstr</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">at</span><span class="p">)</span>

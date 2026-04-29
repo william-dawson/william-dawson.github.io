@@ -116,12 +116,12 @@ the squared norm of each entry. The paper hints that a transformation back
 exists, but it is more complicated to compute.</p>
 <p>Now, how about we implement this in python. Let's get our import statements
 out of the way.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">rand</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigh</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">diag</span>
-<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="kn">import</span> <span class="n">rand</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">eigh</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">diag</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
 </code></pre></div>
 
 <p>And now setup the matrix to test on, and compute its eigenvalues and
@@ -135,7 +135,7 @@ eigenvectors:</p>
 
 <p>Let's dive right in and write a function to implement the main result of the
 paper. It is quite simple to do:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_eigenvectors</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_eigenvectors</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">):</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="n">N</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -184,7 +184,7 @@ being the columns or the rows of the matrix $v$ is going to depend on our
 definition of matrix multiplication. This is actually an important point, and
 we can see why by writing a second routine, which only computes a select
 eigenvalue:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_eigenvector</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_eigenvector</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
     <span class="n">N</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -223,7 +223,7 @@ would have no way to keep the eigenvectors orthogonal.</p>
 code, we have to do the inner loop over minors. But we might ask if we could
 exit out of that loop early. Essentially, we're wondering how fast the sum
 in equation (1) converges. Let's rewrite the code to explore this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_converge</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_converge</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
     <span class="n">N</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">bottomvals</span> <span class="o">=</span> <span class="p">[]</span>
@@ -288,7 +288,7 @@ eigenvalue. Next, let's explore the ordering of the sum. If including the
 $n$th eigenvalue seems to drop the error the most, what if we added that
 one first? In fact, let's add minors such that the eigenvalues closest to
 our target are added first.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_converge2</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">compute_converge2</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">lamba</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
     <span class="n">N</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">bottomvals</span> <span class="o">=</span> <span class="p">[]</span>

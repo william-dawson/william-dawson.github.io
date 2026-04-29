@@ -136,10 +136,10 @@ matrix. How do we compute a given diagonal element?</p>
 
 <p>As we can see then, each diagonal element can be computed by just taking the dot product of each row (element-wise multiplication). And for the full trace, we just sum up those dot products. This means not only can we avoid performing the matrix multiplication, but we can even do this perfectly in parallel, and avoid any communication besides the final all-reduce of a single value.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Libraries</span>
-<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">multiply</span><span class="p">,</span> <span class="n">trace</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="nb">sum</span> <span class="k">as</span> <span class="n">np_sum</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">rand</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sys</span><span class="w"> </span><span class="kn">import</span> <span class="n">argv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">multiply</span><span class="p">,</span> <span class="n">trace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="nb">sum</span> <span class="k">as</span> <span class="n">np_sum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy.random</span><span class="w"> </span><span class="kn">import</span> <span class="n">rand</span>
 
 <span class="c1"># Make Matrices</span>
 <span class="n">matrix_dimension</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>

@@ -121,7 +121,7 @@ ATOM      7  CD1 TYR A   1      25.829  22.870  13.275  1.00  0.00           C
 </code></pre></div>
 
 <p>It's also possible to use PDBFixer through its python API. PDBFixer is related to <a href="http://docs.openmm.org/7.0.0/api-python/index.html">openmm</a> so it has a lot of features.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pdbfixer</span> <span class="kn">import</span> <span class="n">PDBFixer</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pdbfixer</span><span class="w"> </span><span class="kn">import</span> <span class="n">PDBFixer</span>
 <span class="n">fixer</span> <span class="o">=</span> <span class="n">PDBFixer</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;5awl.pdb&#39;</span><span class="p">)</span>
 
 <span class="c1"># Build a list of residues while we&#39;re at it</span>
@@ -152,7 +152,7 @@ Chains:
 </code></pre></div>
 
 <p>This is the setup we need if we want to start mutating our system. We create a list of mutations to apply, which are named after the residues and IDs. For example, mutation Gly5 -&gt; Arg</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="n">mutations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GLU-5-ARG&quot;</span><span class="p">]</span>
 <span class="n">mutated</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">fixer</span><span class="p">)</span>
 <span class="n">mutated</span><span class="o">.</span><span class="n">applyMutations</span><span class="p">(</span><span class="n">mutations</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">)</span>
@@ -204,7 +204,7 @@ Chains:
 </code></pre></div>
 
 <p>The only problem is that the letter codes are not compatability with our API. Fortunately BioPython has a utility for this.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">Bio.PDB.Polypeptide</span> <span class="kn">import</span> <span class="n">one_to_three</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">Bio.PDB.Polypeptide</span><span class="w"> </span><span class="kn">import</span> <span class="n">one_to_three</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">one_to_three</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">))</span>
 </code></pre></div>
 
@@ -234,7 +234,7 @@ Chains:
 </code></pre></div>
 
 <p>It is interesting to look at the distribution of off diagonal values.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">k1</span><span class="p">,</span> <span class="n">inn</span> <span class="ow">in</span> <span class="n">freqn</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">k2</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inn</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -255,7 +255,7 @@ TYR PHE
 <p><img alt="Distribution" src="https://william-dawson.github.io/assets/pnas/output_20_1.png"></p>
 <h3>Sampling</h3>
 <p>Time to generate a bunch of mutations. Basically, what I wanted to do was just go into a loop, generate a random mutation, roll the dice to see if we should accept it, and if so add it to the list. But that is a major pain with this distribution since we'd need to sample a huge number of times to find something valid. Primarily the pain comes from mutations Phe-&gt;Tyr and back, which are the two outliers on the far right. For this notebook, we'll clip the probablity, essentially, by maxing our random numbers at $10^4$ to speed things up.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">seed</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">uniform</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">seed</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">uniform</span>
 <span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">mutations</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">mutations</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
@@ -282,15 +282,15 @@ TYR PHE
 </code></pre></div>
 
 <p>The new structures can be generated and saved to disk.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">mkdir</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">mkdir</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;structs&quot;</span><span class="p">)</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="k">pass</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">openmm.app</span> <span class="kn">import</span> <span class="n">PDBFile</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openmm.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">PDBFile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">join</span>
 
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>
     <span class="n">msys</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">fixer</span><span class="p">)</span>
@@ -305,12 +305,12 @@ TYR PHE
 
 <h2>Mutation Evaluation</h2>
 <p>How do we evaluate the structures we generated? Something simple we might investigate is how soluable they are in water. For this, we can perform a geometry optimization and single point energy calculation using <a href="https://xtb-docs.readthedocs.io/">XTB's GFN-FF</a>, and extract the solvation energy.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">BigDFT.Interop.XTBInterop</span> <span class="kn">import</span> <span class="n">XTBCalculator</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Interop.XTBInterop</span><span class="w"> </span><span class="kn">import</span> <span class="n">XTBCalculator</span>
 <span class="n">calc</span> <span class="o">=</span> <span class="n">XTBCalculator</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">BigDFT.IO</span> <span class="kn">import</span> <span class="n">read_pdb</span>
-<span class="kn">from</span> <span class="nn">BigDFT.UnitCells</span> <span class="kn">import</span> <span class="n">UnitCell</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.IO</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_pdb</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.UnitCells</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnitCell</span>
 
 <span class="n">energies</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mutations</span><span class="p">:</span>

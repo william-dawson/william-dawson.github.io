@@ -136,7 +136,7 @@
 </code></pre></div>
 
 <p>We're skipping to the middle of the <a href="https://l_sim.gitlab.io/remotemanager/tutorials/C3_Dynamic_Templates.html">documentation</a> here, but it's a fine place to start for a blog post. In our template, I've written inside the hashes the things we'd like to modify.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">remotemanager</span> <span class="kn">import</span> <span class="n">BaseComputer</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">remotemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseComputer</span>
 <span class="n">url</span> <span class="o">=</span> <span class="n">BaseComputer</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span> 
                    <span class="n">submitter</span><span class="o">=</span><span class="s2">&quot;sbatch&quot;</span><span class="p">,</span> <span class="c1"># since it&#39;s slurm</span>
                    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;hokusai.riken.jp&quot;</span><span class="p">,</span> <span class="c1"># url of hokusai</span>
@@ -192,12 +192,12 @@ conda<span class="w"> </span>activate<span class="w"> </span>bigdft
 </code></pre></div></td></tr></table></div>
 
 <p>Now let's imagine I want to run a BigDFT calculation in my notebook. I could do this on my current machine, but how much better it would be to do it on Hokusai.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">remotemanager</span> <span class="kn">import</span> <span class="n">SanzuFunction</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">remotemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">SanzuFunction</span>
 <span class="nd">@SanzuFunction</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">calc_bigdft</span><span class="p">(</span><span class="n">geom</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Database.Molecules</span> <span class="kn">import</span> <span class="n">get_molecule</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Calculators</span> <span class="kn">import</span> <span class="n">SystemCalculator</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Inputfiles</span> <span class="kn">import</span> <span class="n">Inputfile</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_bigdft</span><span class="p">(</span><span class="n">geom</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Database.Molecules</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_molecule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Calculators</span><span class="w"> </span><span class="kn">import</span> <span class="n">SystemCalculator</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Inputfiles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Inputfile</span>
     <span class="n">calc</span> <span class="o">=</span> <span class="n">SystemCalculator</span><span class="p">()</span>
     <span class="n">inp</span> <span class="o">=</span> <span class="n">Inputfile</span><span class="p">()</span>
     <span class="n">inp</span><span class="o">.</span><span class="n">set_xc</span><span class="p">(</span><span class="s2">&quot;PBE&quot;</span><span class="p">)</span> <span class="p">;</span> <span class="n">inp</span><span class="o">.</span><span class="n">set_hgrid</span><span class="p">(</span><span class="mf">0.37</span><span class="p">)</span>
@@ -257,7 +257,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>bigdft
 
 <div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">sanzu</span> <span class="n">url</span><span class="o">=</span><span class="n">furl</span><span class="p">,</span> <span class="n">asynchronous</span><span class="o">=</span><span class="kc">False</span>
 <span class="o">%%</span><span class="n">sargs</span> <span class="n">geom</span><span class="o">=</span><span class="s2">&quot;H2O&quot;</span>
-<span class="kn">from</span> <span class="nn">BigDFT.Logfiles</span> <span class="kn">import</span> <span class="n">Logfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Logfiles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logfile</span>
 <span class="n">log</span> <span class="o">=</span> <span class="n">Logfile</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;log-</span><span class="si">{</span><span class="n">geom</span><span class="si">}</span><span class="s1">.yaml&#39;</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">forces</span>
 </code></pre></div>
@@ -277,7 +277,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>bigdft
 <p>The asynchronous part here is because Hokusai staff don't like us running background processes on the front end. </p>
 <h2>Dataset Calculations - Training a Forcefield</h2>
 <p>Data parallel calculations are another example of the "scaling up" pattern. For this, remotemanager provides the <code>Dataset</code> class. Let's say I want to compute a potential energy surface (following a different <a href="https://l_sim.gitlab.io/bigdft-suite/lessons/Gaussian.html">BigDFT Tutorial</a>).</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">BigDFT.IO</span> <span class="kn">import</span> <span class="n">read_pdb</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.IO</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_pdb</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;mol.pdb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
     <span class="n">sys</span> <span class="o">=</span> <span class="n">read_pdb</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
 </code></pre></div>
@@ -349,11 +349,11 @@ viewergrid_1717571739653675[0][0].render();
 </script>
 
 <p>We will rotate on the axis between the two fragments.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">remotemanager</span> <span class="kn">import</span> <span class="n">RemoteFunction</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">remotemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">RemoteFunction</span>
 <span class="c1"># Decorator lets us use this function from any remote calculation</span>
 <span class="nd">@RemoteFunction</span>
-<span class="k">def</span> <span class="nf">generate_rotated</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.IO</span> <span class="kn">import</span> <span class="n">read_pdb</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_rotated</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">angle</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.IO</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_pdb</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">geom</span> <span class="o">+</span> <span class="s2">&quot;.pdb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ifile</span><span class="p">:</span>
         <span class="n">sys</span> <span class="o">=</span> <span class="n">read_pdb</span><span class="p">(</span><span class="n">ifile</span><span class="p">)</span>
     <span class="n">vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sys</span><span class="p">[</span><span class="s2">&quot;FRA:0&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_position</span><span class="p">(),</span> 
@@ -362,9 +362,9 @@ viewergrid_1717571739653675[0][0].render();
     <span class="k">return</span> <span class="n">sys</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Calculators</span> <span class="kn">import</span> <span class="n">SystemCalculator</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Inputfiles</span> <span class="kn">import</span> <span class="n">Inputfile</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">calc</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Calculators</span><span class="w"> </span><span class="kn">import</span> <span class="n">SystemCalculator</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Inputfiles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Inputfile</span>
     <span class="n">calc</span> <span class="o">=</span> <span class="n">SystemCalculator</span><span class="p">()</span>
     <span class="n">inp</span> <span class="o">=</span> <span class="n">Inputfile</span><span class="p">()</span>
     <span class="n">inp</span><span class="o">.</span><span class="n">set_xc</span><span class="p">(</span><span class="s2">&quot;PBE&quot;</span><span class="p">)</span> <span class="p">;</span> <span class="n">inp</span><span class="o">.</span><span class="n">set_hgrid</span><span class="p">(</span><span class="mf">0.37</span><span class="p">)</span>
@@ -374,7 +374,7 @@ viewergrid_1717571739653675[0][0].render();
 </code></pre></div>
 
 <p>We associate a dataset with the function we just defined.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">remotemanager</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">remotemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 <span class="n">ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">calc</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
              <span class="n">extra_files_send</span><span class="o">=</span><span class="s2">&quot;mol.pdb&quot;</span><span class="p">)</span>
 </code></pre></div>
@@ -406,7 +406,7 @@ viewergrid_1717571739653675[0][0].render();
 <span class="nv">Transferring</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="nv">Files</span>...<span class="w"> </span><span class="nv">Done</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
 <span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="p">[</span><span class="mf">27.2114</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">results</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">results</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy shift (eV)&quot;</span><span class="p">)</span>
@@ -416,20 +416,20 @@ viewergrid_1717571739653675[0][0].render();
 <p><img alt="Energy vs. Angle" src="https://william-dawson.github.io/assets/explore/output_30_0.png"></p>
 <h2>From Data to Machine Learning</h2>
 <p>One of my motivations for this blog post was to test out a machine learning descriptors inside <a href="https://singroup.github.io/dscribe/latest/">DScribe</a>. First, create the descriptors. </p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">BigDFT.Interop.ASEInterop</span> <span class="kn">import</span> <span class="n">bigdft_to_ase</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Interop.ASEInterop</span><span class="w"> </span><span class="kn">import</span> <span class="n">bigdft_to_ase</span>
 <span class="n">structures</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
     <span class="n">structures</span> <span class="o">+=</span> <span class="p">[</span><span class="n">bigdft_to_ase</span><span class="p">(</span><span class="n">generate_rotated</span><span class="p">(</span><span class="s2">&quot;mol&quot;</span><span class="p">,</span> <span class="n">angles</span><span class="p">[</span><span class="n">i</span><span class="p">]))]</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">dscribe.descriptors</span> <span class="kn">import</span> <span class="n">SOAP</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">dscribe.descriptors</span><span class="w"> </span><span class="kn">import</span> <span class="n">SOAP</span>
 <span class="n">soap</span> <span class="o">=</span> <span class="n">SOAP</span><span class="p">(</span><span class="n">species</span><span class="o">=</span><span class="nb">set</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">sym</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">()]),</span> <span class="n">periodic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
             <span class="n">r_cut</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">n_max</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">l_max</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">soap</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">structures</span><span class="p">]</span>
 </code></pre></div>
 
 <p>We will try linear regression as our model (since this is linear regression, we can stick to the local machine).</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
 </code></pre></div>

@@ -105,13 +105,13 @@
 \end{equation}$$</p>
 <p>First let's process the input. Ignore some of the import statements for now,
 we'll come back to these functions when we use them.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">diag</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">eigsh</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sys</span><span class="w"> </span><span class="kn">import</span> <span class="n">argv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">diag</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">eigsh</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="kn">from</span> <span class="nn">UniversalOperators</span> <span class="kn">import</span> <span class="n">TOperator</span>
-<span class="kn">import</span> <span class="nn">SystemOperators</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">UniversalOperators</span><span class="w"> </span><span class="kn">import</span> <span class="n">TOperator</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">SystemOperators</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="c1"># Process Input</span>
@@ -135,9 +135,9 @@ we'll come back to these functions when we use them.</p>
 </code></pre></div>
 
 <p>The Kinetic Energy operator is a universal operator, as opposed to the potential energy operators which are specific to the system we are trying to model. We will put the kinetic energy operator in a file <code>UniversalOperators.py</code> and the potential energy operators in <code>SystemOperators.py</code>. The kinetic energy operator can be implemented using the five point stencil approximation[1]:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">coo_matrix</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">coo_matrix</span>
 
-<span class="k">def</span> <span class="nf">TOperator</span><span class="p">(</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">TOperator</span><span class="p">(</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Five point stencil kinetic energy operator.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -182,11 +182,11 @@ we'll come back to these functions when we use them.</p>
 <div class="highlight"><pre><span></span><code><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">Generate operators representing various systems.</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">coo_matrix</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">exp</span>
-<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">lambertw</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">coo_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">lambertw</span>
 
-<span class="k">def</span> <span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Hydrogen potential well</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -203,7 +203,7 @@ we'll come back to these functions when we use them.</p>
 
     <span class="k">return</span> <span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">)),</span> <span class="n">data</span>
 
-<span class="k">def</span> <span class="nf">LambertOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">LambertOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Lambert W Function</span>
 <span class="sd">    &#39;&#39;&#39;</span>

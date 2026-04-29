@@ -111,10 +111,10 @@ E[\rho] = T_s[\rho] + E_H[\rho] + E_{ext}[\rho] + \int v_{ext}\rho(r)dr
 <h2>Calculation Setup</h2>
 <p>DFTpy already has an <a href="https://wiki.fysik.dtu.dk/ase/">ASE calculator</a>, so we can use that as a base for comparison to our Kohn-Sham <a href="https://l_sim.gitlab.io/bigdft-suite/">BigDFT code</a>. </p>
 <p>The calculations (especially with BigDFT) are non-trivial so let's setup remotemanager to do this on my local cluster.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">remotemanager</span> <span class="kn">import</span> <span class="n">RemoteFunction</span><span class="p">,</span> <span class="n">SanzuFunction</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">remotemanager</span><span class="w"> </span><span class="kn">import</span> <span class="n">RemoteFunction</span><span class="p">,</span> <span class="n">SanzuFunction</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">spring</span> <span class="kn">import</span> <span class="n">Spring</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">spring</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spring</span>
 <span class="n">url</span> <span class="o">=</span> <span class="n">Spring</span><span class="p">()</span>
 <span class="n">url</span><span class="o">.</span><span class="n">mpi</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">url</span><span class="o">.</span><span class="n">omp</span> <span class="o">=</span> <span class="mi">9</span>
@@ -129,8 +129,8 @@ E[\rho] = T_s[\rho] + E_H[\rho] + E_{ext}[\rho] + \int v_{ext}\rho(r)dr
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="nd">@RemoteFunction</span>
-<span class="k">def</span> <span class="nf">make_ase</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">C</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">ase.build</span> <span class="kn">import</span> <span class="n">bulk</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_ase</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">C</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">ase.build</span><span class="w"> </span><span class="kn">import</span> <span class="n">bulk</span>
     <span class="n">asys</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span><span class="s2">&quot;Mg&quot;</span><span class="p">,</span> <span class="n">crystalstructure</span><span class="o">=</span><span class="s2">&quot;hcp&quot;</span><span class="p">,</span> <span class="n">orthorhombic</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
                 <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">asys</span>
@@ -138,10 +138,10 @@ E[\rho] = T_s[\rho] + E_H[\rho] + E_{ext}[\rho] + \int v_{ext}\rho(r)dr
 
 <p>Visualize this using PyBigDFT.</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@RemoteFunction</span>
-<span class="k">def</span> <span class="nf">make_system</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">C</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Systems</span> <span class="kn">import</span> <span class="n">System</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.UnitCells</span> <span class="kn">import</span> <span class="n">UnitCell</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Interop.ASEInterop</span> <span class="kn">import</span> <span class="n">ase_to_bigdft</span><span class="p">,</span> \
+<span class="k">def</span><span class="w"> </span><span class="nf">make_system</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">C</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Systems</span><span class="w"> </span><span class="kn">import</span> <span class="n">System</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.UnitCells</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnitCell</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Interop.ASEInterop</span><span class="w"> </span><span class="kn">import</span> <span class="n">ase_to_bigdft</span><span class="p">,</span> \
          <span class="n">ase_cell_to_bigdft</span>
 
     <span class="c1"># Build with ASE</span>
@@ -217,14 +217,14 @@ viewergrid_1726638309610323[0][0].render();
 </script>
 
 <p>Using BigDFT, we can compute a potential energy curve by varying the lattice vectors. Let's try varying <code>a</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linspace</span>
 <span class="n">avals</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="nd">@SanzuFunction</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bigdft&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Inputfiles</span> <span class="kn">import</span> <span class="n">Inputfile</span>
-    <span class="kn">from</span> <span class="nn">BigDFT.Calculators</span> <span class="kn">import</span> <span class="n">SystemCalculator</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Inputfiles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Inputfile</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">BigDFT.Calculators</span><span class="w"> </span><span class="kn">import</span> <span class="n">SystemCalculator</span>
 
     <span class="n">calc</span> <span class="o">=</span> <span class="n">SystemCalculator</span><span class="p">(</span><span class="n">skip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">sys</span> <span class="o">=</span> <span class="n">make_system</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
@@ -246,8 +246,8 @@ viewergrid_1726638309610323[0][0].render();
 </code></pre></div>
 
 <p>Plot the change in energy per unit cell.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_all</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_all</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">minv</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
@@ -262,7 +262,7 @@ viewergrid_1726638309610323[0][0].render();
 <p><img alt="energy curve of BigDFT" src="https://william-dawson.github.io/assets/hangzhou/output_14_0.png"></p>
 <h2>Orbital-Free Comparison</h2>
 <p>Ok now let's try to do the same thing with OF-DFT and DFTpy. To do this, we're going to need a local pseudopotential for use with OF-DFT. We can use the <a href="https://github.com/PrincetonUniversity/BLPSLibrary">BLPS library</a> of pseudopotentials for this test.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">system</span>
 <span class="n">pp</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/PrincetonUniversity/BLPSLibrary/master/LDA/reci/mg.lda.recpot&quot;</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mkdir -p pp; cd pp; wget </span><span class="si">{</span><span class="n">pp</span><span class="si">}</span><span class="s2"> 2&gt;/dev/null&quot;</span><span class="p">)</span>
 </code></pre></div>
@@ -274,14 +274,14 @@ viewergrid_1726638309610323[0][0].render();
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="nd">@SanzuFunction</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;of-dft&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extra_files_send</span><span class="o">=</span><span class="s2">&quot;pp&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">calculate_of</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">kedf</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">write</span>
-    <span class="kn">from</span> <span class="nn">futile.Utils</span> <span class="kn">import</span> <span class="n">ensure_dir</span>
-    <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copyfile</span>
-    <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">system</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_of</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">pts</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">kedf</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">ase.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">write</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">futile.Utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_dir</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">shutil</span><span class="w"> </span><span class="kn">import</span> <span class="n">copyfile</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">system</span>
 
     <span class="c1"># no built in toml writer...</span>
-    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">ofile</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dump</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span> <span class="n">ofile</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">inp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">ent</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>

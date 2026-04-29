@@ -109,10 +109,10 @@
 <p>But the program developer can't always anticipate all the data that a user might want from a program. That's why <code>Parsable</code> is important. It should be easily for the user to extract any piece of data about how a calculation was performed and what its results were from the output file.</p>
 <p>The least obvious point is <code>Verifiable</code>. Using just the output of a calculation, we would like to be able automatically verify that a calculation was set up correctly, and that it completed the calculation as expected.</p>
 <p>Now let's consider some possible output formats and see how they match with my criteria. As an example program, we'll consider the Hotelling's method program from a previous blog post.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">eigsh</span><span class="p">,</span> <span class="n">norm</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">identity</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">mmread</span>
-<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">eigsh</span><span class="p">,</span> <span class="n">norm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">identity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">mmread</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sys</span><span class="w"> </span><span class="kn">import</span> <span class="n">argv</span>
 
 <span class="n">file_name</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">matrix</span> <span class="o">=</span> <span class="n">mmread</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>

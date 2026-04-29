@@ -130,9 +130,9 @@ S = UDU^T.
 <p>This is just a simple starting guess that I've introduced, there are better ones out there in the literature, such as the guess in reference [4] which is specific to overlap matrices (homework question: how can we improve our $\alpha$ value for overlap matrices?).</p>
 <p>Let's take a look at a simple implementation:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Libraries</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">eigsh</span><span class="p">,</span> <span class="n">norm</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">identity</span><span class="p">,</span> <span class="n">rand</span>
-<span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">eigsh</span><span class="p">,</span> <span class="n">norm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">identity</span><span class="p">,</span> <span class="n">rand</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sys</span><span class="w"> </span><span class="kn">import</span> <span class="n">argv</span>
 
 <span class="c1"># Input Parameters</span>
 <span class="n">dimension</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>

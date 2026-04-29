@@ -101,7 +101,7 @@
           <p>This blog post is a follow up to my <a href="linear-operators-in-python.html">previous post</a> about creating a simple Schrödinger equation solver in python. Please read that post before continuing.</p>
 <p>In the previous post, we represented our operators (Kinetic Energy and Potential Energy) as sparse matrices. This worked well, but we spent a lot of effort dealing with matrix indexing. What we would prefer would be to write a function that simply takes an input vector (the wavefunction), and computes how it is transformed by a given operator. This can in fact be done, using scipy's feature of linear operators[1].</p>
 <p>Let's begin by considering the potential. What is the simplest way to describe a potential? Well, as a vector, where we write the potential at each point in space. Our goal then is to write the potential like this:  </p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Hydrogen potential well</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -109,7 +109,7 @@
 </code></pre></div>
 
 <p>Beyond that, we would like to write the action of the potential on a given wavefunction like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">wavefunction</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">HydrogenOperator</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">wavefunction</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Hydrogen potential well</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -117,11 +117,11 @@
 </code></pre></div>
 
 <p>And we would like to similarly write the action of the kinetic energy operator as:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">TOperator</span><span class="p">(</span><span class="n">invec</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">TOperator</span><span class="p">(</span><span class="n">invec</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Five point stencil kinetic energy operator.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">zeros</span>
     <span class="n">grid_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">invec</span><span class="p">)</span>
     <span class="n">outvec</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">grid_size</span><span class="p">)</span>
 
@@ -144,13 +144,13 @@
 
 <p>How do we accomplish that? Well if we look at the documentation for the linear operator[1], we see that to construct it, we need two pieces of information. First, the size of the matrix like operator we are creating, and second a function that applies it to a vector. There is one problem though. This function needs to take only one variable as input!</p>
 <p>This problem can be circumvented using a closure[2]. Closures are a powerful paradigm that comes from the world of functional programming. Imagine a simple scenario. We have a function as below: </p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
 </code></pre></div>
 
 <p>Now, we want to be able to pass this function to a different piece of code, and we want that piece of code to not have to worry about knowing the value of <code>b</code>. This could be done with a function factory like approach: </p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">factory</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">factory</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span>
     <span class="k">return</span> <span class="n">f</span>
 
@@ -164,7 +164,7 @@
 </code></pre></div>
 
 <p>So how do we use this with the linear operator? Like this:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">LinearOperator</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearOperator</span>
 <span class="n">KineticOperator</span> <span class="o">=</span> <span class="n">LinearOperator</span><span class="p">((</span><span class="n">grid_size</span><span class="p">,</span> <span class="n">grid_size</span><span class="p">),</span>
                                  <span class="n">matvec</span><span class="o">=</span><span class="k">lambda</span> <span class="n">wf</span><span class="p">:</span> <span class="n">TOperator</span><span class="p">(</span><span class="n">wf</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">))</span>
 </code></pre></div>
@@ -179,7 +179,7 @@ as before:</p>
 <p>Now let's use this paradigm to try something interesting. What if we wanted to tease out how the <code>eigsh</code> function works? One thing we could do is keep track of what vectors it passes to our operator.</p>
 <div class="highlight"><pre><span></span><code><span class="n">passed_values</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">def</span> <span class="nf">track_hamiltonian</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">track_hamiltonian</span><span class="p">(</span><span class="n">wf</span><span class="p">):</span>
     <span class="n">passed_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wf</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">TOperator</span><span class="p">(</span><span class="n">wf</span><span class="p">,</span> <span class="n">grid_spacing</span><span class="p">)</span> <span class="o">+</span> <span class="n">potential</span><span class="p">(</span><span class="n">wf</span><span class="p">,</span> <span class="n">x_values</span><span class="p">)</span>
 

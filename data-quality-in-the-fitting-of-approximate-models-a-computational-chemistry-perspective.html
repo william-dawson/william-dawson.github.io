@@ -132,31 +132,31 @@
 </code></pre></div>
 
 <p>That's all it takes to generate your own functional. This can be tested by verifying that we can reproduce another parameterization by modifying the values to match.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">dft</span><span class="p">,</span><span class="w"> </span><span class="n">gto</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyscf.dft</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">libxc</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sys</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">argv</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">dft</span><span class="p">,</span> <span class="n">gto</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyscf.dft</span><span class="w"> </span><span class="kn">import</span> <span class="n">libxc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sys</span><span class="w"> </span><span class="kn">import</span> <span class="n">argv</span>
 
-<span class="n">mol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;O 0 0 0 ; &#39;</span>
-<span class="w">                   </span><span class="s1">&#39;H 0.759 0 0.585 ; &#39;</span>
-<span class="w">                   </span><span class="s1">&#39;H -0.759 0 0.585&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="n">basis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;6-31G*&#39;</span><span class="p">)</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="n">rks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="w"> </span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;O 0 0 0 ; &#39;</span>
+                   <span class="s1">&#39;H 0.759 0 0.585 ; &#39;</span>
+                   <span class="s1">&#39;H -0.759 0 0.585&#39;</span><span class="p">,</span>
+            <span class="n">basis</span> <span class="o">=</span> <span class="s1">&#39;6-31G*&#39;</span><span class="p">)</span>
+<span class="n">mol</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">rks</span> <span class="o">=</span> <span class="n">dft</span><span class="o">.</span><span class="n">RKS</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span> 
 
-<span class="k">if</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;b97&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="n">rks</span><span class="o">.</span><span class="n">xc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;b97&#39;</span>
-<span class="k">elif</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;b97_1&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="n">rks</span><span class="o">.</span><span class="n">xc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;b97_1&#39;</span>
-<span class="k">elif</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;fake&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="n">rks</span><span class="o">.</span><span class="n">xc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;b97&#39;</span>
-<span class="w">    </span><span class="n">libxc</span><span class="o">.</span><span class="n">set_b97_values</span><span class="p">([</span>
-<span class="w">       </span><span class="mf">0.789518</span><span class="p">,</span><span class="w"> </span><span class="mf">0.573805</span><span class="p">,</span><span class="w"> </span><span class="mf">0.660975</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
-<span class="w">       </span><span class="mf">0.0820011</span><span class="p">,</span><span class="w"> </span><span class="mf">2.71681</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">2.87103</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
-<span class="w">       </span><span class="mf">0.955689</span><span class="p">,</span><span class="w"> </span><span class="mf">0.788552</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">5.47869</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
-<span class="w">       </span><span class="mf">0.21</span>
-<span class="w">    </span><span class="p">])</span>
+<span class="k">if</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;b97&quot;</span><span class="p">:</span>
+    <span class="n">rks</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s1">&#39;b97&#39;</span>
+<span class="k">elif</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;b97_1&quot;</span><span class="p">:</span>
+    <span class="n">rks</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s1">&#39;b97_1&#39;</span>
+<span class="k">elif</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;fake&quot;</span><span class="p">:</span>
+    <span class="n">rks</span><span class="o">.</span><span class="n">xc</span> <span class="o">=</span> <span class="s1">&#39;b97&#39;</span>
+    <span class="n">libxc</span><span class="o">.</span><span class="n">set_b97_values</span><span class="p">([</span>
+       <span class="mf">0.789518</span><span class="p">,</span> <span class="mf">0.573805</span><span class="p">,</span> <span class="mf">0.660975</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+       <span class="mf">0.0820011</span><span class="p">,</span> <span class="mf">2.71681</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.87103</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+       <span class="mf">0.955689</span><span class="p">,</span> <span class="mf">0.788552</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.47869</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+       <span class="mf">0.21</span>
+    <span class="p">])</span>
 <span class="n">rks</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">rks</span><span class="o">.</span><span class="n">e_tot</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">rks</span><span class="o">.</span><span class="n">e_tot</span><span class="p">)</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code>b97 -76.3802820297083

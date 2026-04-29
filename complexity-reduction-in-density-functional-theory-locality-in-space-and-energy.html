@@ -100,8 +100,8 @@
         <section id="content">
           <p>I am happy to announce a new paper in our series on Complexity Reduction. The title is <a href="https://doi.org/10.1063/5.0142652">"Complexity Reduction in Density Functional Theory: Locality in Space and Energy"</a>. In this sequence of papers, we've been trying to look at how to perform DFT calculations on large systems, with a focus on how to analyze large systems. In this paper, I incorporated our framework into a code called <a href="https://www.r-ccs.riken.jp/software_center/software/ntchem/overview/">NTChem</a>, which is based on Gaussian orbitals. NTChem has two major benefits over the previous code we integrated it with (BigDFT): hybrid functionals and an all-electron representation. This gave us some new things to explore. </p>
 <p>For example: eigenvalues. I write in my papers a lot about how challenging it is to compute the eigenvectors/eigenvalues of large matrices right? Well, let's take a look at something really quick in PySCF.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">gto</span>
-<span class="kn">from</span> <span class="nn">pyscf</span> <span class="kn">import</span> <span class="n">scf</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">gto</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">scf</span>
 <span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span> <span class="o">=</span> <span class="s1">&#39;O         -1.17120        0.29970        0.00000; &#39;</span>
                    <span class="s1">&#39;H         -1.12910        0.83640        0.80990; &#39;</span>
                    <span class="s1">&#39;C         -0.04630       -0.56650        0.00000; &#39;</span>
@@ -122,7 +122,7 @@
 </code></pre></div>
 
 <p>We can manually get the eigenvalues of these matrices by calling scipy's eigh.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigh</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">eigh</span>
 <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">S</span><span class="p">)</span>
 </code></pre></div>
 
@@ -155,8 +155,8 @@
 </code></pre></div>
 
 <p>Hopefully you didn't start writing some code, or reach for a pen and paper, because the answer is simple.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">diag</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">diag</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Generalized&quot;</span><span class="p">)</span>
 <span class="n">axs</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">diag</span><span class="p">(</span><span class="n">H</span><span class="p">)),</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Diagonal of H&quot;</span><span class="p">)</span>
