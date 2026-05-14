@@ -8,6 +8,7 @@ Google Colab Exercises (Google Colabによる計算化学ハンズオン)
 
 - [Part 1](https://colab.research.google.com/drive/1CbiHfTahglaFfFXljlYtrWBu_nvPe4_Y)
 - [Part 2](https://colab.research.google.com/drive/1gl9HAgWTZbglFJQLEWCIDqCawrkPziWA)
+- [Part 2(fixed)](https://colab.research.google.com/drive/1gl9HAgWTZbglFJQLEWCIDqCawrkPziWA)
 
 * Code 1: e3054cfe98644eca8ab2e1d0bb66d006
 * Code 2: efd3ae6098324c89b4ad66baf8386470
