@@ -7,10 +7,10 @@ This page contains some useful links from lectures at Kobe University.
 Google Colab Exercises (Google Colabによる計算化学ハンズオン)
 
 - [Part 1](https://colab.research.google.com/drive/1CbiHfTahglaFfFXljlYtrWBu_nvPe4_Y)
-- [Part 2](https://colab.research.google.com/drive/1jkxeRE29hHHJk-Dsu5jdXZNo3wF631Aj)
+- [Part 2](https://colab.research.google.com/drive/1gl9HAgWTZbglFJQLEWCIDqCawrkPziWA)
 
-Code 1: e3054cfe98644eca8ab2e1d0bb66d006
-Code 2: efd3ae6098324c89b4ad66baf8386470
+* Code 1: e3054cfe98644eca8ab2e1d0bb66d006
+* Code 2: efd3ae6098324c89b4ad66baf8386470
 
 Suggested Reading List (推奨文献)
 
