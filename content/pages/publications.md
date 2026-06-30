@@ -105,3 +105,7 @@ hybrid density functional theory electronic structure calculations." In
 Proceedings of the International Conference for High Performance Computing,
 Networking, Storage and Analysis, pp. 685-692. IEEE Press, 2014.
 ](https://doi.org/10.1109/SC.2014.61)
+
+Beyond DFT
+
+- [Xu, Enhua, William Dawson, Himadri Pathak, and Takahito Nakajima. "A scalable diagonalization framework for tensor-product bitstring selected configuration interaction." The Journal of Chemical Physics 164, no. 19 (2026).](https://doi.org/10.1063/5.0332736)
