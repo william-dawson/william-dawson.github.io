@@ -2,7 +2,7 @@ Title:  Fellowship Opportunities
 Date: 2026-03-02 16:00:00 +0900
 Category: Personal Blog
 Tags: recruitment
-Summary: I ashare some information about available fellowships for doing research in Japan.
+Summary: I share some information about available fellowships for doing research in Japan.
 
 There are a number of fellowships available for researchers who would be interested in working as a postdoc in Japan. I would like to share the details here. For these fellowships, you have freedom to define your own research agenda. However, you will need a hosting lab: so don't hesitate to reach out if you are interested.
 
