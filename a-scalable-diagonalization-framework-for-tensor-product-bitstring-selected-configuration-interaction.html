@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>A scalable diagonalization framework for tensor-product bitstring selected configuration interaction &ndash; william-dawson.github.io</title>
+
+    <!-- Meta -->
+    <meta name="description" content="william-dawson.github.io &ndash; ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Social -->
+    <meta property="article:author" content="William Dawson" />
+    <meta property="article:section" content="Lessons" />
+    <meta property="article:published_time" content="2026-06-30" />
+
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="A scalable diagonalization framework for tensor-product bitstring selected configuration interaction"/>
+    <meta property="og:description" content="I announce a new publication about selected configuration interaction."/>
+    <meta property="og:site_name" content="william-dawson.github.io" />
+    <meta property="og:url" content="https://william-dawson.github.io/a-scalable-diagonalization-framework-for-tensor-product-bitstring-selected-configuration-interaction.html"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="A scalable diagonalization framework for tensor-product bitstring selected configuration interaction">
+    <meta name="twitter:description" content="I announce a new publication about selected configuration interaction.">
+    <meta name="twitter:url" content="https://william-dawson.github.io/a-scalable-diagonalization-framework-for-tensor-product-bitstring-selected-configuration-interaction.html">
+
+    <!-- Feed -->
+    <link rel="alternate" type="application/atom+xml" href="https://william-dawson.github.io/feeds/all.atom.xml" title="william-dawson.github.io Atom Feed" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/w3.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/jqcloud.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://william-dawson.github.io/theme/css/pygments-highlight-github.css">
+
+    <!-- Icon -->
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://william-dawson.github.io/theme/js/jqcloud.min.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+  </head>
+
+  <body>
+    <div class="w3-row w3-card w3-white">
+      <header id="header">
+        <a href="https://william-dawson.github.io" id="header-logo" title="Home">WD</a>
+        <nav id="header-menu">
+          <ul>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/about.html">About</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/projects.html">Projects</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/pages/publications.html">Publications</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/lessons.html">Lessons</a></li>
+            <li class="w3-bottombar w3-border-white w3-hover-border-green"><a href="https://william-dawson.github.io/category/personal-blog.html">Personal Blog</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
+
+    <br><br><br>
+
+    <article>
+      <header class="w3-container col-main">
+        <h1>A scalable diagonalization framework for tensor-product bitstring selected configuration interaction</h1>
+        <div class="post-info">
+          <div class="w3-opacity w3-margin-right w3-margin-bottom" style="flex-grow: 1;">
+            <span><time datetime="2026-06-30T16:00:00+09:00">Tue 30 June 2026</time> in <a href="https://william-dawson.github.io/category/lessons.html" title="All articles in category Lessons">Lessons</a></span>
+          </div>
+          <div>
+            <span class="w3-tag w3-light-grey w3-text-green w3-hover-green">
+              <a href="https://william-dawson.github.io/tag/publication.html" title="All articles with Publication tag">#publication</a>
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <br>
+
+
+      <div class="col-main w3-container">
+        <section id="content">
+          <p>I have a new paper to share that has been published in the Journal of Chemical Physics entitled <a href="https://doi.org/10.1063/5.0332736">a scalable diagonalization framework for tensor-product bitstring selected configuration interaction</a>. This is the first paper I have ever been part of that is about the Selected Configuration Interaction (SCI) technique. It was very interesting to learn about it, and work with first author Dr. Enhua Xu on pushing the method on supercomputer Fugaku.</p>
+<p>In quantum chemistry simulations, we often talk about two kinds of correlation: static and dynamic (or <em>strong</em> and <em>weak</em> correlation). SCI is a powerful method for static correlation, as it describes the multiconfigurational nature of the wavefunction. Meanwhile, dynamic correlation is typically treated well by many-body perturbation theory (such as coupled-cluster).</p>
+<p>A classic example of static correlation is the breaking of N2's triple bond.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pyscf</span><span class="w"> </span><span class="kn">import</span> <span class="n">cc</span><span class="p">,</span> <span class="n">gto</span><span class="p">,</span> <span class="n">mcscf</span><span class="p">,</span> <span class="n">mrpt</span><span class="p">,</span> <span class="n">scf</span>
+<span class="n">distances</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.80</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.10</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">,</span> 
+    <span class="mf">1.20</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span> <span class="mf">1.40</span><span class="p">,</span> <span class="mf">1.50</span><span class="p">,</span> <span class="mf">1.60</span><span class="p">,</span> <span class="mf">1.70</span><span class="p">,</span> <span class="mf">1.80</span><span class="p">,</span> <span class="mf">1.90</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> 
+    <span class="mf">2.15</span><span class="p">,</span> <span class="mf">2.30</span><span class="p">,</span> <span class="mf">2.45</span><span class="p">,</span> <span class="mf">2.60</span><span class="p">,</span> <span class="mf">2.80</span><span class="p">,</span> <span class="mf">3.00</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">,</span> <span class="mf">3.50</span><span class="p">,</span> <span class="mf">3.75</span><span class="p">,</span> <span class="mf">4.00</span><span class="p">]</span>
+</code></pre></div>
+
+<p>When we want to compute something accurately, our first instinct is to reach for coupled-cluster theory (the "gold standard" in quantum chemistry).</p>
+<div class="highlight"><pre><span></span><code><span class="n">mf_list</span><span class="p">,</span> <span class="n">rhf_e</span><span class="p">,</span> <span class="n">ccsd_e</span><span class="p">,</span> <span class="n">ccsdt_e</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">t2</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">distances</span><span class="p">:</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">gto</span><span class="o">.</span><span class="n">M</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;N 0 0 0; N 0 0 </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">basis</span><span class="o">=</span><span class="s2">&quot;cc-pVDZ&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Angstrom&quot;</span><span class="p">,</span>
+                <span class="n">symmetry</span><span class="o">=</span><span class="s2">&quot;D2h&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">mf</span> <span class="o">=</span> <span class="n">scf</span><span class="o">.</span><span class="n">RHF</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">mycc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">CCSD</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">mycc</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">t1</span><span class="o">=</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="o">=</span><span class="n">t2</span><span class="p">)</span>
+    <span class="n">et</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">ccsd_t</span><span class="p">()</span>
+    <span class="n">mf_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
+    <span class="n">rhf_e</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mf</span><span class="o">.</span><span class="n">e_tot</span><span class="p">)</span>
+    <span class="n">ccsd_e</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mycc</span><span class="o">.</span><span class="n">e_tot</span><span class="p">)</span>
+    <span class="n">ccsdt_e</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mycc</span><span class="o">.</span><span class="n">e_tot</span> <span class="o">+</span> <span class="n">et</span><span class="p">)</span>
+    <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="o">=</span> <span class="n">mycc</span><span class="o">.</span><span class="n">t1</span><span class="p">,</span> <span class="n">mycc</span><span class="o">.</span><span class="n">t2</span>
+</code></pre></div>
+
+<p>Here we reuse our t1/t2 amplitudes as an initial guess because some of the stretched geometries are difficult to converge. Plotting the result:
+<img alt="Graph of data including RHF, CCSD, CCSD(T)" src="https://william-dawson.github.io/assets/xu/n2_rhf_ccsd_ccsdt.png"></p>
+<p>What we see here is coupled-cluster theory failing dramatically. Not only is CCSD showing weird behavior as we stretch the bond, but CCSD(T) - which should be better right? - gets even worse. This is because we have a system with a lot of static correlation, but are using a theory that is mainly capturing dynamic correlation.</p>
+<p>The solution is to describe this system as multi-reference. One tool we can use is CASSCF, here using a small active space for practical purposes:</p>
+<div class="highlight"><pre><span></span><code><span class="n">mc_list</span><span class="p">,</span> <span class="n">casscf_e</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">mf</span> <span class="ow">in</span> <span class="n">mf_list</span><span class="p">:</span>
+    <span class="n">mc</span> <span class="o">=</span> <span class="n">mcscf</span><span class="o">.</span><span class="n">CASSCF</span><span class="p">(</span><span class="n">mf</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">mc</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span>
+    <span class="n">mc_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span>
+    <span class="n">casscf_e</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">e_tot</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="Graph of data including CASSCF" src="https://william-dawson.github.io/assets/xu/n2_with_casscf.png">
+Adding CASSCF to the mix, we find that much more reasonable behavior at the disassociation limit. Yet the depth of its well at equilibrium is not as deep as CCSD. While coupled cluster is not variational, we can't help but be suspicious. Indeed, is because with CASSCF we can describe the static correlation well, but is missing the dynamic correlation.</p>
+<p>To improve on the result, we could of course increase the active space size towards Full Configuration Interaction. But another way is to combine perturbation theory with configuration interaction using NEVPT2.</p>
+<div class="highlight"><pre><span></span><code><span class="n">nevpt2_e</span> <span class="o">=</span> <span class="p">[</span><span class="n">mc</span><span class="o">.</span><span class="n">e_tot</span> <span class="o">+</span> <span class="n">mrpt</span><span class="o">.</span><span class="n">NEVPT</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span><span class="o">.</span><span class="n">kernel</span><span class="p">()</span> <span class="k">for</span> <span class="n">mc</span> <span class="ow">in</span> <span class="n">mc_list</span><span class="p">]</span>
+</code></pre></div>
+
+<p><img alt="Graph of data including CASSCF" src="https://william-dawson.github.io/assets/xu/n2_with_nevpt2.png"></p>
+<p>If these kinds of challenging problems interest you, and you want to go far beyond the scale your laptop allows, I hope you check out our paper!</p>
+        </section>
+
+        <br><br><br>
+
+ <!--        <footer>
+          <div class="adjust-width">
+            <div id="author-block" class="w3-light-grey w3-border">
+              <div id="author-info">
+                <a href=""><img style="width: 60px; height: 60px;" src="" onerror="this.src='images/avatar.png'" alt="Avatar"></a>
+                <div style="margin-left: 20px; margin-top: 15px;">
+                  <a href=""><span id="author-name" class="w3-hover-text-dark-grey">William Dawson</span></a>
+                  <p id="author-story"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br><br>
+
+          <p style="font-size:10pt; font-style: italic;">Did you like this article? Share it with your friends!</p>
+          <div id="share" class="share">
+            <a href="http://www.facebook.com/sharer.php?u=https%3A//william-dawson.github.io/a-scalable-diagonalization-framework-for-tensor-product-bitstring-selected-configuration-interaction.html&amp;t=william-dawson.github.io%3A%20A%20scalable%20diagonalization%20framework%20for%20tensor-product%20bitstring%20selected%20configuration%20interaction" target="_blank" class="w3-btn w3-indigo">
+              <i class="fa fa-facebook"></i> <span>Facebook</span>
+            </a>
+            <a href="http://twitter.com/share?url=https%3A//william-dawson.github.io/a-scalable-diagonalization-framework-for-tensor-product-bitstring-selected-configuration-interaction.html&amp;text=william-dawson.github.io%3A%20A%20scalable%20diagonalization%20framework%20for%20tensor-product%20bitstring%20selected%20configuration%20interaction" target="_blank" class="w3-btn w3-blue">
+              <i class="fa fa-twitter"></i> <span>Twitter</span>
+            </a>
+            <a href="https://plus.google.com/share?url=https%3A//william-dawson.github.io/a-scalable-diagonalization-framework-for-tensor-product-bitstring-selected-configuration-interaction.html" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="w3-btn w3-red">
+              <i class="fa fa-google-plus"></i> <span>Google</span>
+            </a>
+          </div>
+
+          <br><br><br>
+
+
+
+        </footer> -->
+      </div>
+    </article>
+
+
+    <footer id="footer">
+      <div id="footer-copyright" class="w3-center w3-small w3-text-grey w3-padding-48">
+        <span>&copy;  William Dawson  | <a href="https://william-dawson.github.io/feeds/all.atom.xml">Atom feed <i class="fa fa-rss" aria-hidden="true"></i></a></span>
+      </div>
+    </footer>
+
+
+
+  </body>
+</html>
